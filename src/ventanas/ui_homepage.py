@@ -2,9 +2,9 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-class Ui_MainWindow(object):
 
-    def setup_ui(self, MainWindow):
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(455, 267)
@@ -16,6 +16,7 @@ class Ui_MainWindow(object):
         self.backround.setObjectName(u"backround")
         self.backround.setFrameShape(QFrame.StyledPanel)
         self.backround.setFrameShadow(QFrame.Raised)
+
         self.Boton2 = QFrame(self.backround)
         self.Boton2.setObjectName(u"Boton2")
         self.Boton2.setGeometry(QRect(280, 20, 48, 44))
@@ -28,7 +29,6 @@ class Ui_MainWindow(object):
         icon = QIcon()
         icon.addFile("icons/mensajes.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_2.setIcon(icon)
-
         self.horizontalLayout_4.addWidget(self.pushButton_2)
 
         self.Boton2_2 = QFrame(self.backround)
@@ -43,7 +43,6 @@ class Ui_MainWindow(object):
         icon1 = QIcon()
         icon1.addFile("imagenes/usuario.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_3.setIcon(icon1)
-
         self.horizontalLayout_3.addWidget(self.pushButton_3)
 
         self.pushButton = QPushButton(self.backround)
@@ -53,6 +52,7 @@ class Ui_MainWindow(object):
         icon2 = QIcon()
         icon2.addFile("imagenes/menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton.setIcon(icon2)
+
         self.frame = QFrame(self.backround)
         self.frame.setObjectName(u"frame")
         self.frame.setGeometry(QRect(380, 20, 48, 44))
@@ -65,7 +65,6 @@ class Ui_MainWindow(object):
         icon3 = QIcon()
         icon3.addFile("imagenes/ajustes.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_4.setIcon(icon3)
-
         self.horizontalLayout_2.addWidget(self.pushButton_4)
 
         self.frame_2 = QFrame(self.backround)
@@ -75,16 +74,19 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShadow(QFrame.Raised)
 
         self.horizontalLayout.addWidget(self.backround)
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
+        # Set object names for the widgets
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_4.setObjectName("pushButton_4")
 
+        self.retranslateUi(MainWindow)
         QMetaObject.connectSlotsByName(MainWindow)
-        # Add any additional initialization code here if needed
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle("MainWindow")
@@ -92,5 +94,3 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText("")
         self.pushButton.setText("")
         self.pushButton_4.setText("")
-    # retranslateUi
-    # retranslateUi
