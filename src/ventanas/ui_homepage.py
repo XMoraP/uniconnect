@@ -1,20 +1,10 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'HomepagevOYqUn.ui'
-##
-## Created by: Qt User Interface Compiler version 5.15.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+
+    def setup_ui(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(455, 267)
@@ -24,11 +14,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.backround = QFrame(self.centralwidget)
         self.backround.setObjectName(u"backround")
-        self.backround.setStyleSheet(u"\n"
-"\n"
-"background-color: rgb(255, 255, 255);\n"
-"\n"
-"")
         self.backround.setFrameShape(QFrame.StyledPanel)
         self.backround.setFrameShadow(QFrame.Raised)
         self.Boton2 = QFrame(self.backround)
@@ -41,7 +26,7 @@ class Ui_MainWindow(object):
         self.pushButton_2 = QPushButton(self.Boton2)
         self.pushButton_2.setObjectName(u"pushButton_2")
         icon = QIcon()
-        icon.addFile(u"../imagenes/mensajes.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile("icons/mensajes.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_2.setIcon(icon)
 
         self.horizontalLayout_4.addWidget(self.pushButton_2)
@@ -56,7 +41,7 @@ class Ui_MainWindow(object):
         self.pushButton_3 = QPushButton(self.Boton2_2)
         self.pushButton_3.setObjectName(u"pushButton_3")
         icon1 = QIcon()
-        icon1.addFile(u"../imagenes/usuario.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile("imagenes/usuario.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_3.setIcon(icon1)
 
         self.horizontalLayout_3.addWidget(self.pushButton_3)
@@ -64,10 +49,9 @@ class Ui_MainWindow(object):
         self.pushButton = QPushButton(self.backround)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(20, 30, 41, 21))
-        self.pushButton.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"")
+        self.pushButton.setStyleSheet(u"background-color: rgb(255, 255, 255);\n")
         icon2 = QIcon()
-        icon2.addFile(u"../imagenes/menu.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile("imagenes/menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton.setIcon(icon2)
         self.frame = QFrame(self.backround)
         self.frame.setObjectName(u"frame")
@@ -79,7 +63,7 @@ class Ui_MainWindow(object):
         self.pushButton_4 = QPushButton(self.frame)
         self.pushButton_4.setObjectName(u"pushButton_4")
         icon3 = QIcon()
-        icon3.addFile(u"../imagenes/ajustes.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile("imagenes/ajustes.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_4.setIcon(icon3)
 
         self.horizontalLayout_2.addWidget(self.pushButton_4)
@@ -100,13 +84,13 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
+        # Add any additional initialization code here if needed
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle("MainWindow")
         self.pushButton_2.setText("")
         self.pushButton_3.setText("")
         self.pushButton.setText("")
         self.pushButton_4.setText("")
     # retranslateUi
-
+    # retranslateUi
