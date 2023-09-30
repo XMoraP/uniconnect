@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>500</height>
+    <width>501</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
          <x>0</x>
          <y>0</y>
          <width>61</width>
-         <height>281</height>
+         <height>361</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -40,8 +40,8 @@
          <rect>
           <x>20</x>
           <y>110</y>
-          <width>21</width>
-          <height>21</height>
+          <width>24</width>
+          <height>24</height>
          </rect>
         </property>
         <property name="maximumSize">
@@ -52,7 +52,7 @@
         </property>
         <property name="styleSheet">
          <string notr="true">
-border-image: url(imagenes/usuario (4).png);</string>
+border-image: url(:/images/home.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -69,13 +69,12 @@ border-image: url(imagenes/usuario (4).png);</string>
          <rect>
           <x>20</x>
           <y>150</y>
-          <width>21</width>
-          <height>21</height>
+          <width>24</width>
+          <height>24</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">
-border-image: url(imagenes/open-book.png);</string>
+         <string notr="true">border-image: url(:/images/open-book.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -86,12 +85,12 @@ border-image: url(imagenes/open-book.png);</string>
          <rect>
           <x>20</x>
           <y>70</y>
-          <width>21</width>
-          <height>21</height>
+          <width>24</width>
+          <height>24</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(imagenes/home.png);</string>
+         <string notr="true">border-image: url(:/images/usuario (4).png);</string>
         </property>
         <property name="text">
          <string/>
@@ -107,8 +106,8 @@ border-image: url(imagenes/open-book.png);</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">
-border-image: url(imagenes/logoUniConnect.png);</string>
+         <string notr="true">border-image: url(:/images/logoUniConnect.png);
+</string>
         </property>
         <property name="text">
          <string/>
@@ -118,13 +117,13 @@ border-image: url(imagenes/logoUniConnect.png);</string>
         <property name="geometry">
          <rect>
           <x>15</x>
-          <y>240</y>
+          <y>290</y>
           <width>31</width>
           <height>31</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(imagenes/cross.png);</string>
+         <string notr="true">border-image: url(:/images/cross.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -148,7 +147,7 @@ border-image: url(imagenes/logoUniConnect.png);</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../imagenes/res.qrc"/>
+  <include location="imagenes/res.qrc"/>
  </resources>
  <connections/>
 </ui>
