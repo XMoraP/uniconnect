@@ -1,14 +1,14 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from login import Ui_ContainerLogin
+from homePage import Ui_MainWindow
 
-class ContainerLogin(QMainWindow, Ui_ContainerLogin):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = ContainerLogin()
+    window = MainWindow()
     window.show()
     sys.exit(app.exec_())

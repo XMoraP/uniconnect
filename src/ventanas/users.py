@@ -1,7 +1,6 @@
 from email.mime import image
 import tkinter as tk
 from tkinter import ttk
-from tkcalendar import Calendar
 from PIL import Image, ImageTk
 from tkinter import filedialog
 
