@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>ContainerLogin</class>
+ <widget class="QWidget" name="ContainerLogin">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QFrame" name="frame">
+  <widget class="QFrame" name="LoginPrincipal">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -35,7 +35,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="logoSuperior">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -51,7 +51,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="fondoDegradado">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -68,7 +68,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="subContainerLogin">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -94,7 +94,7 @@ background-color: rgb(252, 252, 252);
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="cajaUsuarioLogin">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -114,7 +114,7 @@ padding-bottom:7px;</string>
      <string>Usuario o email</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="personasLogin">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -132,7 +132,7 @@ background-color: transparent;
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="cajaContrasennaLogin">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -155,7 +155,7 @@ padding-bottom:7px;</string>
      <string>Contraseña</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="textoLogin">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -167,7 +167,6 @@ padding-bottom:7px;</string>
     <property name="font">
      <font>
       <pointsize>15</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -178,7 +177,7 @@ padding-bottom:7px;</string>
      <string>Iniciar sesión</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="iconoPersonaLogin">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -194,7 +193,7 @@ padding-bottom:7px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="botonAceptarLogin">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -204,7 +203,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="mouseTracking">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -239,7 +238,7 @@ QPushButton:pressed{
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="esloganLogin">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -257,7 +256,7 @@ color: rgb(255, 255, 255);</string>
      <string>&quot; Ordena tu mundo, desata tu potencial &quot;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QLabel" name="separadorLogin">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -274,7 +273,7 @@ color: rgb(44, 102, 164);</string>
      <string>-------- O -------</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="iconoFBLogin">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -291,7 +290,7 @@ background-color: transparent;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="iconoGoogleLogin">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -308,7 +307,7 @@ background-color: transparent;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="iconoTwitterLogin">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -325,7 +324,7 @@ background-color: transparent;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="iconoVolverAtrasLogin">
     <property name="geometry">
      <rect>
       <x>650</x>
@@ -350,7 +349,7 @@ QPushButton:pressed{
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="textoEnlaceRegistro">
     <property name="geometry">
      <rect>
       <x>405</x>
@@ -367,7 +366,7 @@ color: rgb(112, 112, 112);</string>
      <string>¿No tienes una cuenta?</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="enlaceRegistrate">
     <property name="geometry">
      <rect>
       <x>525</x>
@@ -392,23 +391,23 @@ color: rgb(85, 0, 255);
      <string>Registrate</string>
     </property>
    </widget>
-   <zorder>label_2</zorder>
-   <zorder>label</zorder>
-   <zorder>label_3</zorder>
-   <zorder>lineEdit</zorder>
-   <zorder>label_4</zorder>
-   <zorder>lineEdit_2</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_6</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>label_7</zorder>
-   <zorder>label_8</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>pushButton_3</zorder>
-   <zorder>pushButton_4</zorder>
-   <zorder>pushButton_5</zorder>
-   <zorder>label_9</zorder>
-   <zorder>pushButton_6</zorder>
+   <zorder>fondoDegradado</zorder>
+   <zorder>logoSuperior</zorder>
+   <zorder>subContainerLogin</zorder>
+   <zorder>cajaUsuarioLogin</zorder>
+   <zorder>personasLogin</zorder>
+   <zorder>cajaContrasennaLogin</zorder>
+   <zorder>textoLogin</zorder>
+   <zorder>iconoPersonaLogin</zorder>
+   <zorder>botonAceptarLogin</zorder>
+   <zorder>esloganLogin</zorder>
+   <zorder>separadorLogin</zorder>
+   <zorder>iconoFBLogin</zorder>
+   <zorder>iconoGoogleLogin</zorder>
+   <zorder>iconoTwitterLogin</zorder>
+   <zorder>iconoVolverAtrasLogin</zorder>
+   <zorder>textoEnlaceRegistro</zorder>
+   <zorder>enlaceRegistrate</zorder>
   </widget>
  </widget>
  <resources>
