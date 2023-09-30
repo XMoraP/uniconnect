@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="images">
+    <file>cross.png</file>
+    <file>home.png</file>
+    <file>open-book.png</file>
+    <file>casa.jpg</file>
     <file>edit-5-24.png</file>
     <file>home-4-24.png</file>
     <file>inbox-5-24.png</file>
