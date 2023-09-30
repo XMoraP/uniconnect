@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Yolal\ing_soft\Practica-Ing.software\src\ventanas\principal.ui'
+# Form implementation generated from reading ui file 'c:\Users\Yolal\ing_soft\Practica-Ing.software\src\py\principal.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -44,7 +44,7 @@ class Ui_Form(object):
         self.iniciarsesion = QtWidgets.QPushButton(self.backround)
         self.iniciarsesion.setGeometry(QtCore.QRect(550, 30, 101, 31))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Yolal\\ing_soft\\Practica-Ing.software\\src\\ventanas\\imagenes/usuario (4).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Yolal\\ing_soft\\Practica-Ing.software\\src\\py\\imagenes/usuario (4).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.iniciarsesion.setIcon(icon)
         self.iniciarsesion.setObjectName("iniciarsesion")
         self.titulo1 = QtWidgets.QLabel(self.backround)
