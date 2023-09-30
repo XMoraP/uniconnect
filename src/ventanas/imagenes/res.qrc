@@ -2,6 +2,7 @@
   <qresource prefix="images">
     <file>cross.png</file>
     <file>home.png</file>
+    <file>estudiante (2).png</file>
     <file>open-book.png</file>
     <file>casa.jpg</file>
     <file>agregar-usuario.png</file>
