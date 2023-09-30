@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>containerRegister</class>
+ <widget class="QWidget" name="containerRegister">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QFrame" name="frame">
+  <widget class="QFrame" name="principalRegister">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -35,7 +35,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="logo">
+   <widget class="QLabel" name="logoRegister">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -51,7 +51,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="fondoAzul">
+   <widget class="QLabel" name="fondoAzulRegister">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -68,7 +68,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="cuadroPequennoRegistro">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -94,7 +94,7 @@ background-color: rgb(252, 252, 252);
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="cajaEmailRegister">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -114,7 +114,7 @@ padding-bottom:7px;</string>
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="dibujoPersonasRegister">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -132,7 +132,7 @@ background-color: transparent;
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="cajaContrasennaRegister">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -155,7 +155,7 @@ padding-bottom:7px;</string>
      <string>Contraseña</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="textoRegister">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -167,7 +167,6 @@ padding-bottom:7px;</string>
     <property name="font">
      <font>
       <pointsize>15</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -178,7 +177,7 @@ padding-bottom:7px;</string>
      <string>Registrarse</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="iconoRegister">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -194,7 +193,7 @@ padding-bottom:7px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="botonAceptarRegister">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -204,7 +203,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="mouseTracking">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -239,7 +238,7 @@ QPushButton:pressed{
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="esloganRegister">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -257,7 +256,7 @@ color: rgb(255, 255, 255);</string>
      <string>&quot; Ordena tu mundo, desata tu potencial &quot;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="iconoVolverAtrasRegister">
     <property name="geometry">
      <rect>
       <x>650</x>
@@ -282,7 +281,7 @@ QPushButton:pressed{
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="cajaUsuarioRegister">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -302,7 +301,7 @@ padding-bottom:7px;</string>
      <string>Nombre de usuario</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="cajaContrasenna2Register">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -325,7 +324,7 @@ padding-bottom:7px;</string>
      <string>Confirmar contraseña</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="termsCondicRegister">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -342,7 +341,7 @@ color: rgb(126, 126, 126);</string>
      <string>Acepto los términos y condiciones</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="enlaceInicioSesionRegister">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -359,7 +358,7 @@ color: rgb(141, 141, 141);</string>
      <string>¿Ya tienes una cuenta?</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="linkInicioSesionRegister">
     <property name="geometry">
      <rect>
       <x>540</x>
@@ -384,26 +383,26 @@ QPushButton:pressed{
      <string>Iniciar sesión</string>
     </property>
    </widget>
-   <zorder>fondoAzul</zorder>
-   <zorder>logo</zorder>
-   <zorder>label_3</zorder>
-   <zorder>lineEdit</zorder>
-   <zorder>label_4</zorder>
-   <zorder>lineEdit_2</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_6</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>label_7</zorder>
-   <zorder>pushButton_5</zorder>
-   <zorder>lineEdit_3</zorder>
-   <zorder>lineEdit_4</zorder>
-   <zorder>checkBox</zorder>
-   <zorder>label</zorder>
-   <zorder>pushButton_2</zorder>
+   <zorder>fondoAzulRegister</zorder>
+   <zorder>logoRegister</zorder>
+   <zorder>cuadroPequennoRegistro</zorder>
+   <zorder>cajaEmailRegister</zorder>
+   <zorder>dibujoPersonasRegister</zorder>
+   <zorder>cajaContrasennaRegister</zorder>
+   <zorder>textoRegister</zorder>
+   <zorder>iconoRegister</zorder>
+   <zorder>botonAceptarRegister</zorder>
+   <zorder>esloganRegister</zorder>
+   <zorder>iconoVolverAtrasRegister</zorder>
+   <zorder>cajaUsuarioRegister</zorder>
+   <zorder>cajaContrasenna2Register</zorder>
+   <zorder>termsCondicRegister</zorder>
+   <zorder>enlaceInicioSesionRegister</zorder>
+   <zorder>linkInicioSesionRegister</zorder>
   </widget>
  </widget>
  <resources>
-  <include location="../imagenes/res.qrc"/>
+  <include location="imagenes/res.qrc"/>
  </resources>
  <connections/>
 </ui>
