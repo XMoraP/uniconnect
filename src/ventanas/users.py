@@ -1,3 +1,4 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
 from email.mime import image
 import tkinter as tk
 from tkinter import ttk
