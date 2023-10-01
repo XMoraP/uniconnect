@@ -59,6 +59,8 @@ class Ui_ContainerLogin(object):
 "color:rgba(0,0,0,240);\n"
 "padding-bottom:7px;")
         self.cajaContrasennaLogin.setObjectName("cajaContrasennaLogin")
+        # Set echo mode to Password
+        self.cajaContrasennaLogin.setEchoMode(QtWidgets.QLineEdit.Password)
         self.textoLogin = QtWidgets.QLabel(self.LoginPrincipal)
         self.textoLogin.setGeometry(QtCore.QRect(430, 210, 151, 31))
         font = QtGui.QFont()
