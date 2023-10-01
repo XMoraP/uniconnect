@@ -1,8 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from homePage import Ui_MainWindow
+from ui.principal import Ui_Form
+import ui.imagenes.resources_rc
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

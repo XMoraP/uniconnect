@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/logoUniConnect.png);</string>
+     <string notr="true">border-image: url(:/imagenes/logoUniConnect.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -61,7 +61,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/FondoDegradado.png);
+     <string notr="true">border-image: url(:/imagenes/FondoDegradado.png);
 </string>
     </property>
     <property name="text">
@@ -154,7 +154,7 @@ background-color: rgb(243, 242, 247);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/funcionalidades.png);</string>
+     <string notr="true">border-image: url(:/imagenes/funcionalidades.png);</string>
     </property>
     <property name="text">
      <string/>
