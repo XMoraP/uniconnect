@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>737</width>
-    <height>445</height>
+    <width>700</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>711</width>
+     <width>701</width>
      <height>501</height>
     </rect>
    </property>
@@ -55,9 +55,9 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>80</y>
+      <y>90</y>
       <width>621</width>
-      <height>391</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -110,8 +110,8 @@ font: 11pt &quot;MS Shell Dlg 2&quot;;
    <widget class="QLabel" name="titulo1">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>110</y>
+      <x>170</x>
+      <y>100</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -119,9 +119,9 @@ font: 11pt &quot;MS Shell Dlg 2&quot;;
     <property name="styleSheet">
      <string notr="true">font: 87 8pt &quot;Neue Haas Grotesk Text Pro Blac&quot;;
 background-color: rgb(243, 242, 247);
-font: 8pt &quot;Microsoft YaHei UI&quot;;
-
-font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
+color: rgb(255, 255, 255);
+background-color: transparent;
+font: 75 20pt &quot;Arial&quot;;</string>
     </property>
     <property name="text">
      <string>¡Bienvenid@ a UniConnect!</string>
@@ -130,18 +130,19 @@ font: 20pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QLabel" name="titulo2">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>160</y>
-      <width>221</width>
+      <x>190</x>
+      <y>150</y>
+      <width>291</width>
       <height>16</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
-background-color: rgb(243, 242, 247);</string>
+     <string notr="true">color: rgb(255, 255, 255);
+font: 75 11pt &quot;Arial&quot;;
+background-color: transparent;</string>
     </property>
     <property name="text">
-     <string>Comparte tus dudas, resuelve las de otros​</string>
+     <string>&quot;Comparte tus dudas, resuelve las de otros​&quot;</string>
     </property>
    </widget>
    <widget class="QLabel" name="funcionalidades">
@@ -149,8 +150,8 @@ background-color: rgb(243, 242, 247);</string>
      <rect>
       <x>100</x>
       <y>190</y>
-      <width>531</width>
-      <height>231</height>
+      <width>511</width>
+      <height>241</height>
      </rect>
     </property>
     <property name="styleSheet">
