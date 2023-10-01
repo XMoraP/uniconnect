@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/logoUniConnect.png);</string>
+     <string notr="true">border-image: url(:/imagenes/logoUniConnect.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -61,7 +61,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/FondoDegradado.png);
+     <string notr="true">border-image: url(:/imagenes/FondoDegradado.png);
 </string>
     </property>
     <property name="text">
@@ -124,7 +124,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/logoSinFondo.png);
+     <string notr="true">border-image: url(:/imageneqrcs/logoSinFondo.png);
 background-color: transparent;
 </string>
     </property>
@@ -187,7 +187,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/usuario (4).png);</string>
+     <string notr="true">border-image: url(:/imagenes/usuario (4).png);</string>
     </property>
     <property name="text">
      <string/>
@@ -283,7 +283,7 @@ color: rgb(44, 102, 164);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/facebook.png);
+     <string notr="true">border-image: url(:/imagenes/facebook.png);
 background-color: transparent;</string>
     </property>
     <property name="text">
@@ -300,7 +300,7 @@ background-color: transparent;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/google.png);
+     <string notr="true">border-image: url(:/imagenes/google.png);
 background-color: transparent;</string>
     </property>
     <property name="text">
@@ -317,7 +317,7 @@ background-color: transparent;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/twitter.png);
+     <string notr="true">border-image: url(:/imagenes/twitter.png);
 background-color: transparent;</string>
     </property>
     <property name="text">
@@ -335,7 +335,7 @@ background-color: transparent;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-border-image: url(:/images/flecha-hacia-atras (1).png);
+border-image: url(:/imagenes/flecha-hacia-atras (1).png);
 background-color: rgb(255, 255, 255);
 }
 
@@ -411,7 +411,7 @@ color: rgb(85, 0, 255);
   </widget>
  </widget>
  <resources>
-  <include location="../imagenes/res.qrc"/>
+  <include location="imagenes/res.qrc"/>
  </resources>
  <connections/>
 </ui>
