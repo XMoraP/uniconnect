@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Yolal\ing_soft\Practica-Ing.software\src\ventanas\register.ui'
+# Form implementation generated from reading ui file 'c:\Users\Yolal\ing_soft\Practica-Ing.software\src\py\register.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
