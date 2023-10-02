@@ -1,4 +1,5 @@
 # Importa la clase DatabaseConnection desde el archivo correcto
+# Importa la clase DatabaseConnection desde el archivo correcto
 from DataBaseConnection import DatabaseConnection
 
 # Crea una instancia de DatabaseConnection con la configuración adecuada
