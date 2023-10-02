@@ -5,26 +5,10 @@ from ui.login import Ui_ContainerLogin
 from ui.register import Ui_containerRegister
 import ui.imagenes.resources_rc
 
-class RegisterWindow(QMainWindow, Ui_containerRegister):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-
 class LoginWindow(QMainWindow, Ui_ContainerLogin):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
-        # Connect the "Registrate" button to open the registration window
-        self.enlaceRegistrate.clicked.connect(self.open_registration_window)
-
-    def open_registration_window(self):
-        # Create and show the registration window
-        self.registration_window = RegisterWindow()
-        self.registration_window.show()
-
-        # Close the login window
-        self.close()
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):

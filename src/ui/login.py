@@ -184,23 +184,6 @@ class Ui_ContainerLogin(object):
         self.retranslateUi(ContainerLogin)
         QtCore.QMetaObject.connectSlotsByName(ContainerLogin)
 
-        # Create an instance variable to hold the registration window
-        self.registration_window = None
-
-        # Add a signal for the registration link/button
-        self.enlaceRegistrate.clicked.connect(self.openRegistrationWindow)
-
-    # Define the function to open the registration window
-    def openRegistrationWindow(self):
-        # Check if the registration window is already open
-        if self.registration_window is None:
-                self.registration_window = QtWidgets.QMainWindow()
-                self.ui = Ui_containerRegister()
-                self.ui.setupUi(self.registration_window)
-                self.registration_window.show()
-
-                 # Close the login window if it is open
-                self.close()
 
     def retranslateUi(self, ContainerLogin):
         _translate = QtCore.QCoreApplication.translate
