@@ -23,7 +23,7 @@ class RegisterWindow(QMainWindow, Ui_containerRegister):
             email = self.cajaEmailRegister.text()
             password = self.cajaContrasennaRegister.text()
             username = self.cajaUsuarioRegister.text()
-            nombre, apellido = username.split(" ")
+            nombre, apellido = username.split(" ") #Crea el nombre y apellido a partir del username
 
 
 
@@ -61,10 +61,29 @@ class LoginWindow(QMainWindow, Ui_ContainerLogin):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.db_connection = db_connection  # Store the database connection
         # Connect the "Registrate" button's click event to open the registration window and close the login window
         self.enlaceRegistrate.clicked.connect(self.open_register_window)
+        self.botonAceptarLogin.clicked.connect(self.iniciar_sesion)
 
+    def iniciar_sesion(self):
+        try:
+            nombre_apellido = self.cajaUsuarioLogin.text().split(" ")
+            contrasenna = self.cajaContrasennaLogin.text()
+            cursor = self.db_connection.cursor()
+            query = "SELECT count(*) FROM user WHERE nombre = %s AND apellido = %s AND contrasenna = %s"
+            cursor.execute(query, (nombre_apellido[0], nombre_apellido[1], contrasenna))
+            result = cursor.fetchall()
+            if result[0][0] == 1:
+                print("Has iniciado sesion")
+            elif result[0][0] > 1:
+                print("WTF")
+            elif result[0][0] == 0:
+                print("No tienes un usuario creado ve a iniciar sesion")
+                self.open_register_window()
+
+        except Exception as e:
+            print(e)
     def open_register_window(self):
         self.close()  # Close the login window
         self.register_window = RegisterWindow()
