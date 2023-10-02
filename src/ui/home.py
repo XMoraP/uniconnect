@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QListWidgetItem
+import ui.imagenes.resorces_rc
+
 
 tasks = ["Escribir email", "Finalizar trabajo", "Mirar tutorial"]
 
@@ -181,5 +183,11 @@ class Ui_ContainerHome(object):
         self.botonAceptarLogin_2.setText(_translate("ContainerHome", "Agregar tarea"))
         self.label.setText(_translate("ContainerHome", "Calendario de tareas"))
 
-
-
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    ContainerHome = QtWidgets.QWidget()
+    ui = Ui_ContainerHome()
+    ui.setupUi(ContainerHome)
+    ContainerHome.show()
+    sys.exit(app.exec_())
