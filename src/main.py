@@ -18,36 +18,44 @@ class RegisterWindow(QMainWindow, Ui_containerRegister):
         self.botonAceptarRegister.clicked.connect(self.register_user)
 
     def register_user(self):
-        # Retrieve user input from the registration form
-        email = self.cajaEmailRegister.text()
-        password = self.cajaContrasennaRegister.text()
+        try:
+            # Retrieve user input from the registration form
+            email = self.cajaEmailRegister.text()
+            password = self.cajaContrasennaRegister.text()
+            username = self.cajaUsuarioRegister.text()
+            nombre, apellido = username.split(" ")
 
-        # Check if email and password are not empty
-        if email and password:
-            try:
-                # Create a cursor to execute SQL queries
-                cursor = self.db_connection.cursor()
 
-                # Define the INSERT query to add the user to the 'user' table
-                insert_query = f"INSERT INTO user (eMail, contrasenna) VALUES ('{email}', '{password}')"
 
-                # Execute the query
-                cursor.execute(insert_query)
+            # Check if email and password are not empty
+            if email and password and username:
+                try:
+                    # Create a cursor to execute SQL queries
+                    cursor = self.db_connection.cursor()
 
-                # Commit the changes to the database
-                self.db_connection.commit()
+                    # Define the INSERT query to add the user to the 'user' table
+                    insert_query = f"INSERT INTO user (eMail, contrasenna, nombre, apellido) VALUES ('{email}', '{password}', '{nombre}', '{apellido}')"
 
-                # Display a success message
-                print("User registered successfully.")
+                    # Execute the query
+                    cursor.execute(insert_query)
 
-                # Close the cursor
-                cursor.close()
+                    # Commit the changes to the database
+                    self.db_connection.commit()
 
-            except mysql.connector.Error as err:
-                print(f"Error: {err}")
-                self.db_connection.rollback()
-        else:
-            print("Email and password fields cannot be empty.")
+                    # Display a success message
+                    print("User registered successfully.")
+
+                    # Close the cursor
+                    cursor.close()
+
+                except mysql.connector.Error as err:
+                    print(f"Error: {err}")
+                    self.db_connection.rollback()
+            else:
+                print("Email and password fields cannot be empty.")
+
+        except Exception as e :
+            print(e)
 
 class LoginWindow(QMainWindow, Ui_ContainerLogin):
     def __init__(self):
