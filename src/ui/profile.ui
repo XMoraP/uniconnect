@@ -111,7 +111,7 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">
-border-image: url(:/images/home.png);</string>
+border-image: url(:/imagenes/home.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -133,7 +133,7 @@ border-image: url(:/images/home.png);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/images/open-book.png);</string>
+      <string notr="true">border-image: url(:/imagenes/open-book.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -149,7 +149,7 @@ border-image: url(:/images/home.png);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/images/usuario (4).png);</string>
+      <string notr="true">border-image: url(:/imagenes/usuario (4).png);</string>
      </property>
      <property name="text">
       <string/>
@@ -165,7 +165,7 @@ border-image: url(:/images/home.png);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/images/logoUniConnect.png);
+      <string notr="true">border-image: url(:/imagenes/logoUniConnect.png);
 </string>
      </property>
      <property name="text">
@@ -182,7 +182,7 @@ border-image: url(:/images/home.png);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/images/cross.png);</string>
+      <string notr="true">border-image: url(:/imagenes/cross.png);</string>
      </property>
      <property name="text">
       <string/>
