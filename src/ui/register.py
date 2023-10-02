@@ -190,7 +190,7 @@ class Ui_containerRegister(object):
         self.esloganRegister.raise_()
         self.iconoVolverAtrasRegister.raise_()
         self.cajaUsuarioRegister.raise_()
-        self.cajaContrasenna2Register.sraise_()
+        self.cajaContrasenna2Register.raise_()
         self.termsCondicRegister.raise_()
         self.enlaceInicioSesionRegister.raise_()
         self.linkInicioSesionRegister.raise_()

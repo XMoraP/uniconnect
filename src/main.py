@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from ui.principal import Ui_Form
 from ui.login import Ui_ContainerLogin
 from ui.register import Ui_containerRegister
@@ -22,7 +22,6 @@ class LoginWindow(QMainWindow, Ui_ContainerLogin):
         self.close()  # Close the login window
         self.register_window = RegisterWindow()
         self.register_window.show()  # Show the registration window
-
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):
