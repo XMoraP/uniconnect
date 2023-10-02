@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/logoUniConnect.png);</string>
+     <string notr="true">border-image: url(:/imagenes/logoUniConnect.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -61,7 +61,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/FondoDegradado.png);
+     <string notr="true">border-image: url(:/imagenes/FondoDegradado.png);
 </string>
     </property>
     <property name="text">
@@ -124,7 +124,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/logoSinFondo.png);
+     <string notr="true">border-image: url(:/imagenes/logoSinFondo.png);
 background-color: transparent;
 </string>
     </property>
@@ -167,6 +167,7 @@ padding-bottom:7px;</string>
     <property name="font">
      <font>
       <pointsize>15</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -187,7 +188,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/images/agregar-usuario.png);</string>
+     <string notr="true">border-image: url(:/imagenes/agregar-usuario.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -267,13 +268,17 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-border-image: url(:/images/flecha-hacia-atras (1).png);
+	border-image: url(:/imagenes/flecha-hacia-atras (1).png);
 background-color: rgb(255, 255, 255);
 }
 
 QPushButton:pressed{
 	background-color: rgb(230, 237, 253);
 	color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
 }
 	</string>
     </property>

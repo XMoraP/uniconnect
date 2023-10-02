@@ -124,7 +124,7 @@ padding-bottom:7px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/imageneqrcs/logoSinFondo.png);
+     <string notr="true">border-image: url(:/imagenes/logoSinFondo.png);
 background-color: transparent;
 </string>
     </property>
@@ -167,6 +167,7 @@ padding-bottom:7px;</string>
     <property name="font">
      <font>
       <pointsize>15</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -276,9 +277,9 @@ color: rgb(44, 102, 164);</string>
    <widget class="QPushButton" name="iconoFBLogin">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>440</x>
       <y>400</y>
-      <width>31</width>
+      <width>21</width>
       <height>21</height>
      </rect>
     </property>
@@ -293,9 +294,9 @@ background-color: transparent;</string>
    <widget class="QPushButton" name="iconoGoogleLogin">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>490</x>
       <y>400</y>
-      <width>31</width>
+      <width>21</width>
       <height>21</height>
      </rect>
     </property>
@@ -310,9 +311,9 @@ background-color: transparent;</string>
    <widget class="QPushButton" name="iconoTwitterLogin">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>540</x>
       <y>400</y>
-      <width>31</width>
+      <width>21</width>
       <height>21</height>
      </rect>
     </property>
@@ -342,6 +343,11 @@ background-color: rgb(255, 255, 255);
 QPushButton:pressed{
 	background-color: rgb(230, 237, 253);
 	color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+	
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
 }
 	</string>
     </property>
