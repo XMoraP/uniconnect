@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ContainerLogin</class>
- <widget class="QWidget" name="ContainerLogin">
+ <class>ContainerHome</class>
+ <widget class="QWidget" name="ContainerHome">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,13 +10,10 @@
     <height>500</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">""</string>
   </property>
-  <widget class="QFrame" name="LoginPrincipal">
+  <widget class="QFrame" name="frameHome">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -26,8 +23,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-</string>
+    <string notr="true">"background-color: rgb(255, 255, 255);"</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -35,25 +31,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="esloganLogin">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>350</y>
-      <width>311</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 13pt &quot;Arial&quot;;
-background-color: transparent;
-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>&quot; Ordena tu mundo, desata tu potencial &quot;</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="barra" native="true">
+   <widget class="QWidget" name="barra">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -63,10 +41,7 @@ color: rgb(255, 255, 255);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(249, 235, 211);
-
-
-</string>
+     <string notr="true">"background-color: rgb(249, 235, 211);"</string>
     </property>
     <widget class="QPushButton" name="boton_usuario">
      <property name="geometry">
@@ -84,21 +59,12 @@ color: rgb(255, 255, 255);</string>
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">"QPushButton{
 border-image: url(:/imagenes/home.png);
 }
 QPushButton:hover{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>10</width>
-       <height>5</height>
-      </size>
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+}"</string>
      </property>
     </widget>
     <widget class="QPushButton" name="botonasignaturas">
@@ -111,15 +77,12 @@ QPushButton:hover{
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">"QPushButton{
 border-image: url(:/imagenes/open-book.png);
 }
 QPushButton:hover{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
-     </property>
-     <property name="text">
-      <string/>
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+}"</string>
      </property>
     </widget>
     <widget class="QPushButton" name="botonhome">
@@ -132,15 +95,12 @@ QPushButton:hover{
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">"QPushButton{
 border-image: url(:/imagenes/usuario (4).png);
 }
 QPushButton:hover{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
-     </property>
-     <property name="text">
-      <string/>
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+}"</string>
      </property>
     </widget>
     <widget class="QLabel" name="logo">
@@ -153,11 +113,7 @@ QPushButton:hover{
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/imagenes/logoUniConnect.png);
-</string>
-     </property>
-     <property name="text">
-      <string/>
+      <string notr="true">"border-image: url(:/imagenes/logoUniConnect.png);"</string>
      </property>
     </widget>
     <widget class="QPushButton" name="Botonsalir">
@@ -170,44 +126,45 @@ QPushButton:hover{
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton{
+      <string notr="true">"QPushButton{
 border-image: url(:/imagenes/cross.png);
 }
 QPushButton:hover{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
-     </property>
-     <property name="text">
-      <string/>
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+}"</string>
      </property>
     </widget>
    </widget>
-   <widget class="QCalendarWidget" name="calendarioHome">
+   <widget class="QCalendarWidget" name="calendarWidget">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>180</y>
-      <width>256</width>
-      <height>190</height>
+      <x>100</x>
+      <y>170</y>
+      <width>281</width>
+      <height>221</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">"font: 10pt;
+color: rgb(44, 188, 230);"</string>
+    </property>
    </widget>
-   <widget class="QListWidget" name="listaTareasHome">
+   <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>410</x>
       <y>190</y>
       <width>256</width>
       <height>192</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="botonGuardar">
+   <widget class="QPushButton" name="botonAceptarLogin">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>400</y>
-      <width>141</width>
+      <x>470</x>
+      <y>390</y>
+      <width>151</width>
       <height>21</height>
      </rect>
     </property>
@@ -215,44 +172,29 @@ QPushButton:hover{
      <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton{
+     <string notr="true">"QPushButton{
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.0681818 rgba(132, 205, 255, 255), stop:1 rgba(85, 74, 208, 255));
 font: 75 9pt &quot;Arial&quot;;
 border-radius:25px;
 }
 
-QPushButton:hover{	
-	background-color: qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(110, 110, 110, 255), stop:1 rgba(255, 255, 255, 255));
-	color: rgb(255, 255, 255);
+QPushButton:hover{    
+    background-color: qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(110, 110, 110, 255), stop:1 rgba(255, 255, 255, 255));
+    color: rgb(255, 255, 255);
     }
+
 QPushButton:pressed{
-	background-color: rgb(60, 193, 231);
-	color: rgb(255, 255, 255);
-}
-	
-
-
-
-
-
-</string>
-    </property>
-    <property name="text">
-     <string>Guardar</string>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
+    background-color: rgb(60, 193, 231);
+    color: rgb(255, 255, 255);
+}"</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="botonAgregar">
+   <widget class="QPushButton" name="botonAceptarLogin_2">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>150</y>
-      <width>101</width>
+      <x>550</x>
+      <y>160</y>
+      <width>111</width>
       <height>21</height>
      </rect>
     </property>
@@ -260,56 +202,36 @@ QPushButton:pressed{
      <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton{
+     <string notr="true">"QPushButton{
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.0681818 rgba(132, 205, 255, 255), stop:1 rgba(85, 74, 208, 255));
 font: 75 9pt &quot;Arial&quot;;
 border-radius:25px;
 }
 
-QPushButton:hover{	
-	background-color: qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(110, 110, 110, 255), stop:1 rgba(255, 255, 255, 255));
-	color: rgb(255, 255, 255);
+QPushButton:hover{    
+    background-color: qlineargradient(spread:repeat, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(110, 110, 110, 255), stop:1 rgba(255, 255, 255, 255));
+    color: rgb(255, 255, 255);
     }
+
 QPushButton:pressed{
-	background-color: rgb(60, 193, 231);
-	color: rgb(255, 255, 255);
-}
-	
-
-
-
-
-
-</string>
-    </property>
-    <property name="text">
-     <string>Agregar tarea</string>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
+    background-color: rgb(60, 193, 231);
+    color: rgb(255, 255, 255);
+}"</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>90</y>
+      <y>60</y>
       <width>651</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 75 18pt &quot;Arial&quot;;
-border-image: url(:/imagenes/FondoDegradado.png);
-color: rgb(255, 255, 255);
-background-color: rgb(44, 188, 230);
-border-radius: 8xp;</string>
-    </property>
-    <property name="text">
-     <string>Lista de Tareas</string>
+     <string notr="true">"border-image: url(:/imagenes/FondoDegradado.png);
+font: 75 18pt &quot;Arial&quot;;
+color: rgb(255, 255, 255);"</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -317,8 +239,8 @@ border-radius: 8xp;</string>
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="imagenes/res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
+
+

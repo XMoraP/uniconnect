@@ -194,3 +194,4 @@ class Ui_ContainerLogin(object):
         self.separadorLogin.setText(_translate("ContainerLogin", "-------- O -------"))
         self.textoEnlaceRegistro.setText(_translate("ContainerLogin", "¿No tienes una cuenta?"))
         self.enlaceRegistrate.setText(_translate("ContainerLogin", "Registrate"))
+
