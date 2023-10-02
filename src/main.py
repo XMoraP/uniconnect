@@ -1,9 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from ui.principal import Ui_Form
-import ui.imagenes.resources_rc
-
 from ui.login import Ui_ContainerLogin
+from ui.register import Ui_containerRegister
+import ui.imagenes.resources_rc
 
 class LoginWindow(QMainWindow, Ui_ContainerLogin):
     def __init__(self):
@@ -17,6 +17,7 @@ class MainWindow(QMainWindow, Ui_Form):
         self.iniciarsesion.clicked.connect(self.open_login_window)
 
     def open_login_window(self):
+        self.close()
         self.login_window = LoginWindow()
         self.login_window.show()
 
