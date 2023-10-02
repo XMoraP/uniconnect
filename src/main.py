@@ -33,6 +33,7 @@ class MainWindow(QMainWindow, Ui_Form):
         self.iniciarsesion.clicked.connect(self.open_login_window)
 
     def open_login_window(self):
+        self.close()
         self.login_window = LoginWindow()
         self.login_window.show()
 
