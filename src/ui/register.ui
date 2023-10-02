@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>500</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,13 +16,13 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QFrame" name="principalRegister">
+  <widget class="QFrame" name="registerFrame">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>711</width>
-     <height>501</height>
+     <width>911</width>
+     <height>601</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -35,7 +35,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="logoRegister">
+   <widget class="QLabel" name="logoButton">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -51,13 +51,13 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="fondoAzulRegister">
+   <widget class="QLabel" name="backgroundLabel">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>60</x>
       <y>90</y>
-      <width>621</width>
-      <height>391</height>
+      <width>781</width>
+      <height>461</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -68,13 +68,13 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="cuadroPequennoRegistro">
+   <widget class="QLabel" name="whiteBox">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>120</y>
-      <width>221</width>
-      <height>341</height>
+      <x>550</x>
+      <y>150</y>
+      <width>231</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="font">
@@ -94,11 +94,11 @@ background-color: rgb(252, 252, 252);
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cajaEmailRegister">
+   <widget class="QLineEdit" name="emailBox">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>220</y>
+      <x>590</x>
+      <y>260</y>
       <width>141</width>
       <height>21</height>
      </rect>
@@ -114,13 +114,13 @@ padding-bottom:7px;</string>
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QLabel" name="dibujoPersonasRegister">
+   <widget class="QLabel" name="imageLabel">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>140</y>
-      <width>261</width>
-      <height>221</height>
+      <x>130</x>
+      <y>130</y>
+      <width>371</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -132,11 +132,11 @@ background-color: transparent;
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cajaContrasennaRegister">
+   <widget class="QLineEdit" name="passwordBox">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>300</y>
+      <x>590</x>
+      <y>320</y>
       <width>141</width>
       <height>21</height>
      </rect>
@@ -155,11 +155,11 @@ padding-bottom:7px;</string>
      <string>Contraseña</string>
     </property>
    </widget>
-   <widget class="QLabel" name="textoRegister">
+   <widget class="QLabel" name="textRegister">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>180</y>
+      <x>600</x>
+      <y>220</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -178,11 +178,11 @@ padding-bottom:7px;</string>
      <string>Registrarse</string>
     </property>
    </widget>
-   <widget class="QLabel" name="iconoRegister">
+   <widget class="QLabel" name="registerIconLabel">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>120</y>
+      <x>630</x>
+      <y>160</y>
       <width>61</width>
       <height>61</height>
      </rect>
@@ -194,11 +194,11 @@ padding-bottom:7px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="botonAceptarRegister">
+   <widget class="QPushButton" name="acceptButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>390</y>
+      <x>600</x>
+      <y>410</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -239,11 +239,11 @@ QPushButton:pressed{
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="esloganRegister">
+   <widget class="QLabel" name="slangLabel">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>350</y>
+      <x>150</x>
+      <y>440</y>
       <width>311</width>
       <height>16</height>
      </rect>
@@ -257,10 +257,10 @@ color: rgb(255, 255, 255);</string>
      <string>&quot; Ordena tu mundo, desata tu potencial &quot;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="iconoVolverAtrasRegister">
+   <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>850</x>
       <y>10</y>
       <width>31</width>
       <height>31</height>
@@ -286,11 +286,11 @@ QPushButton:hover{
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cajaUsuarioRegister">
+   <widget class="QLineEdit" name="userBox">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>260</y>
+      <x>590</x>
+      <y>290</y>
       <width>141</width>
       <height>21</height>
      </rect>
@@ -306,11 +306,11 @@ padding-bottom:7px;</string>
      <string>Nombre de usuario</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cajaContrasenna2Register">
+   <widget class="QLineEdit" name="confirmPasswordBox">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>340</y>
+      <x>590</x>
+      <y>360</y>
       <width>141</width>
       <height>21</height>
      </rect>
@@ -332,8 +332,8 @@ padding-bottom:7px;</string>
    <widget class="QCheckBox" name="termsCondicRegister">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>370</y>
+      <x>560</x>
+      <y>390</y>
       <width>191</width>
       <height>18</height>
      </rect>
@@ -346,11 +346,11 @@ color: rgb(126, 126, 126);</string>
      <string>Acepto los términos y condiciones</string>
     </property>
    </widget>
-   <widget class="QLabel" name="enlaceInicioSesionRegister">
+   <widget class="QLabel" name="registerLinkLabel">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>440</y>
+      <x>570</x>
+      <y>460</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -366,8 +366,8 @@ color: rgb(141, 141, 141);</string>
    <widget class="QPushButton" name="linkInicioSesionRegister">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>437</y>
+      <x>690</x>
+      <y>460</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -388,21 +388,21 @@ QPushButton:pressed{
      <string>Iniciar sesión</string>
     </property>
    </widget>
-   <zorder>fondoAzulRegister</zorder>
-   <zorder>logoRegister</zorder>
-   <zorder>cuadroPequennoRegistro</zorder>
-   <zorder>cajaEmailRegister</zorder>
-   <zorder>dibujoPersonasRegister</zorder>
-   <zorder>cajaContrasennaRegister</zorder>
-   <zorder>textoRegister</zorder>
-   <zorder>iconoRegister</zorder>
-   <zorder>botonAceptarRegister</zorder>
-   <zorder>esloganRegister</zorder>
-   <zorder>iconoVolverAtrasRegister</zorder>
-   <zorder>cajaUsuarioRegister</zorder>
-   <zorder>cajaContrasenna2Register</zorder>
+   <zorder>backgroundLabel</zorder>
+   <zorder>logoButton</zorder>
+   <zorder>whiteBox</zorder>
+   <zorder>emailBox</zorder>
+   <zorder>imageLabel</zorder>
+   <zorder>passwordBox</zorder>
+   <zorder>textRegister</zorder>
+   <zorder>registerIconLabel</zorder>
+   <zorder>acceptButton</zorder>
+   <zorder>slangLabel</zorder>
+   <zorder>backButton</zorder>
+   <zorder>userBox</zorder>
+   <zorder>confirmPasswordBox</zorder>
    <zorder>termsCondicRegister</zorder>
-   <zorder>enlaceInicioSesionRegister</zorder>
+   <zorder>registerLinkLabel</zorder>
    <zorder>linkInicioSesionRegister</zorder>
   </widget>
  </widget>
