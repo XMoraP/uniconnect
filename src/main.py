@@ -16,6 +16,17 @@ class EditProfileTutorWindow(QMainWindow, Ui_containerEditProfileTutor):
         self.setupUi(self)
 
         self.exitButton.clicked.connect(self.close)
+        self.homeButton.clicked.connect(self.open_home_window)
+        self.userButton.clicked.connect(self.open_profile_window)
+    def open_home_window(self):
+        self.close()
+        self.home_window = HomeWindow()
+        self.home_window.show()
+
+    def open_profile_window(self):
+        self.close()
+        self.profile_window = EditProfileWindow()
+        self.profile_window.show()
 
 class EditProfileWindow(QMainWindow, Ui_containerEditProfile):
     def __init__(self):
@@ -24,11 +35,17 @@ class EditProfileWindow(QMainWindow, Ui_containerEditProfile):
 
         self.tutorButton.clicked.connect(self.open_tutor_profile_window)
         self.exitButton.clicked.connect(self.close)
+        self.homeButton.clicked.connect(self.open_home_window)
 
     def open_tutor_profile_window(self):
         self.close()
         self.tutor_window = EditProfileTutorWindow()
         self.tutor_window.show()
+
+    def open_home_window(self):
+        self.close()
+        self.home_window = HomeWindow()
+        self.home_window.show()
 
 class HomeWindow(QMainWindow, Ui_ContainerHome):
     def __init__(self):
@@ -39,6 +56,7 @@ class HomeWindow(QMainWindow, Ui_ContainerHome):
         self.exitButton.clicked.connect(self.close)
 
     def open_profile_window(self):
+        self.close()
         self.profile_window = EditProfileWindow()
         self.profile_window.show()
 
@@ -129,6 +147,7 @@ class LoginWindow(QMainWindow, Ui_ContainerLogin):
         self.botonAceptarLogin.clicked.connect(self.iniciar_sesion)
         self.iconoVolverAtrasLogin.clicked.connect(self.open_welcome_window)
 
+
     def iniciar_sesion(self):
         try:
             nombre_apellido = self.cajaUsuarioLogin.text().split(" ")
@@ -141,6 +160,7 @@ class LoginWindow(QMainWindow, Ui_ContainerLogin):
             print(result)
             if result:
                 if result[0] == 1:
+                    self.open_home_window()
                     print("Has iniciado sesión")
                 elif result[0] > 1:
                     print("WTF")
@@ -162,7 +182,10 @@ class LoginWindow(QMainWindow, Ui_ContainerLogin):
         self.welcome_window = MainWindow()
         self.welcome_window.show()
 
-
+    def open_home_window(self):
+            self.close()
+            self.home_window = HomeWindow()
+            self.home_window.show()
 
 class MainWindow(QMainWindow, Ui_main):
     def __init__(self):
