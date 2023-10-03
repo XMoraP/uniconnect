@@ -94,13 +94,12 @@ class RegisterWindow(QMainWindow, Ui_containerRegister):
                     query_email = "SELECT count(*) FROM user WHERE eMail = %s"
                     cursor.execute(query_email, (email,))
                     result_email = cursor.fetchone()
-                    if result_username[0] == 0 and result_email == 0:
+                    if (result_username[0] == 0) and (result_email[0] == 0):
                         # Define the INSERT query to add the user to the 'user' table
                         insert_query = f"INSERT INTO user (eMail, contrasenna, nombre, apellido) VALUES ('{email}', '{contrasenna}', '{nombre}', '{apellido}')"
 
                         # Execute the query
                         cursor.execute(insert_query)
-
                         # Commit the changes to the database
                         self.db_connection.commit()
 
@@ -109,6 +108,7 @@ class RegisterWindow(QMainWindow, Ui_containerRegister):
 
                         # Close the cursor
                         cursor.close()
+                        self.open_login_window()
                     else:
                         if(result_email[0] != 0):
                             QMessageBox.critical(self, "Error", "Ese email ya esta asociado a una cuenta")
@@ -124,11 +124,6 @@ class RegisterWindow(QMainWindow, Ui_containerRegister):
 
         except Exception as e :
             print(e)
-    def open_login_window(self):
-        self.close()  # Close the login window
-        self.login_window = LoginWindow()
-        self.login_window.show()  # Show the registration window
-        self.open_home_window()
 
     def open_home_window(self):
         self.close()
