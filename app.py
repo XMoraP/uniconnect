@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
+import bcrypt
+import os
 
 app = Flask(__name__)
 
@@ -8,8 +10,10 @@ app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com'  # Cambia esto
 app.config['MYSQL_USER'] = 'XMoraP'
 app.config['MYSQL_PASSWORD'] = '12345678u$'
 app.config['MYSQL_DB'] = 'uniconnect'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
+app.secret_key = os.urandom(24)
 
 # Ruta para mostrar datos de la base de datos
 @app.route('/')
@@ -24,19 +28,50 @@ def index():
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
     if request.method == 'POST':
-        nombre = request.form['nombre']
+        nombre = request.form['name']
+        apellido = request.form['last_name']
         email = request.form['email']
-        contrasena = request.form['contrasena']
-        enviar_actualizaciones = request.form.get('enviar_actualizaciones', 'No')  # Verifica si el checkbox está marcado
+        contrasenna = request.form['password']
 
         # Realiza la inserción en la base de datos aquí
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO user (nombre, email, contrasena, enviar_actualizaciones) VALUES (%s, %s, %s, %s)",
-                    (nombre, email, contrasena, enviar_actualizaciones))
+        cur.execute("INSERT INTO user (nombre, apellido, email, contrasenna) VALUES (%s, %s, %s, %s)",
+                    (nombre, apellido, email, contrasenna))
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('index'))
     return render_template('index.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Obtén los datos del formulario de inicio de sesión
+        email = request.form['email']
+        contrasenna = request.form['password']
+
+        # Crea un cursor para interactuar con la base de datos
+        cur = mysql.connection.cursor()
+
+        # Obtiene la contraseña almacenada para el usuario
+        cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email])
+        result = cur.fetchone()
+
+    if result:
+    # Comprueba si la contraseña ingresada coincide con la almacenada
+        if contrasenna == result['contrasenna']:
+        # Inicio de sesión exitoso, establece una sesión
+            session['logged_in'] = True
+            session['email'] = email
+
+            return redirect(url_for('index'))
+        else:
+        # Contraseña incorrecta
+            error = 'Contraseña incorrecta'
+    else:
+        # Usuario no encontrado
+        error = 'Usuario no encontrado'
+
+    return render_template('index.html', error=error)
+    
 if __name__ == '__main__':
     app.run(debug=True)
