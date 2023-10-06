@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
@@ -50,6 +50,9 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
+    error = None
+
     if request.method == 'POST':
         # Obtén los datos del formulario de inicio de sesión
         email = request.form['email']
@@ -72,14 +75,12 @@ def login():
             return redirect(url_for('home'))
         else:
         # Contraseña incorrecta
-            error = 'Contraseña incorrecta'
+            flash('Contraseña incorrecta', 'error')
     else:
         # Usuario no encontrado
-        error = 'Usuario no encontrado'
+        flash('Usuario no encontrado', 'error')
 
-    cur.close()
-
-    return render_template('home.html', error=error)
+    return render_template('index.html', error=error)
     
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
