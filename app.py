@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.9
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
@@ -62,7 +63,7 @@ def login():
         cur = mysql.connection.cursor()
 
         # Obtiene la contraseña almacenada para el usuario
-        cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email])
+        cur.execute("SELECT contrasenna, nombre, apellido FROM user WHERE eMail = %s", [email])
         result = cur.fetchone()
 
     if result:
@@ -71,6 +72,8 @@ def login():
         # Inicio de sesión exitoso, establece una sesión
             session['logged_in'] = True
             session['email'] = email
+            session['name'] = result['nombre']
+            session['last_name'] = result['apellido']
 
             return redirect(url_for('home'))
         else:
@@ -81,7 +84,7 @@ def login():
         flash('Usuario no encontrado', 'error')
 
     return render_template('index.html', error=error)
-    
+
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)

@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>UniConnect</title>
 
     <!-- font cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- css file link -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-
-
 </head>
+
+
 <body>
    <!-- header section starts--> 
- 
  <header class="header">
     <section class="flex">
         <a href="home.html" class="logo">
@@ -34,18 +33,16 @@
         </div>
         <div class="profile">
             <img src="static/images/userPhoto.png" alt="">
-            <h3>Dulibeth Medina</h3>
+            <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
+            <!--h3>Dulibeth Medina</h3-->
             <span>Estudiante</span>
             <a href="profile.html" class="btn">Ver perfil</a>
         </div>
     </section>
 </header>
-
- 
  <!-- header section ends-->  
 
  <!-- side bar section starts -->
-
     <div class="side-bar">
         <div class="close-side-bar">
             <i class="fas fa-times">
@@ -53,8 +50,9 @@
             </i>
         </div>
         <div class="profile">
-            <img src="images/userPhoto.png" alt="">
-            <h3>Dulibeth Medina</h3>
+            <img src="static/images/userPhoto.png" alt="">
+            <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
+            <!--h3>Dulibeth Medina</h3-->
             <span>Estudiante</span>
             <a href="profile.html" class="btn">Ver perfil</a>
         </div>
