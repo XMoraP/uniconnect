@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- css file link -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 
 
 </head>
@@ -19,7 +19,7 @@
  <header class="header">
     <section class="flex">
         <a href="home.html" class="logo">
-            <img src="images/logoUniConnect.png" alt="Logo UniConnect">
+            <img src="static/images/logoUniConnect.png" alt="Logo UniConnect">
             UniConnect
         </a>
         <form action="" method="post" class="search-form">
@@ -33,7 +33,7 @@
             <div id="toggle-btn" class="fas fa-sun"></div>
         </div>
         <div class="profile">
-            <img src="images/userPhoto.png" alt="">
+            <img src="static/images/userPhoto.png" alt="">
             <h3>Dulibeth Medina</h3>
             <span>Estudiante</span>
             <a href="profile.html" class="btn">Ver perfil</a>
@@ -69,7 +69,7 @@
 
   
  <!-- js file link -->
- <script src="js/script.js"></script>
+ <script src="static/js/script.js"></script>
 
 </body>
 </html>

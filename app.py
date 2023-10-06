@@ -11,6 +11,7 @@ app.config['MYSQL_USER'] = 'XMoraP'
 app.config['MYSQL_PASSWORD'] = '12345678u$'
 app.config['MYSQL_DB'] = 'uniconnect'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['MYSQL_SSL_CA'] = './DigiCertGlobalRootCA.crt.pem'
 
 mysql = MySQL(app)
 
