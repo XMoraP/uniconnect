@@ -13,7 +13,6 @@ app.config['MYSQL_DB'] = 'uniconnect'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
-app.secret_key = os.urandom(24)
 
 # Ruta para mostrar datos de la base de datos
 @app.route('/')
@@ -71,7 +70,10 @@ def login():
         # Usuario no encontrado
         error = 'Usuario no encontrado'
 
-    return render_template('index.html', error=error)
+    cur.close()
+
+    return render_template('home.html', error=error)
     
 if __name__ == '__main__':
+    app.secret_key = os.urandom(24)
     app.run(debug=True)
