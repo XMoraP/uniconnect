@@ -43,6 +43,18 @@ def agregar():
         return redirect(url_for('index'))
     return render_template('index.html')
 
+@app.route('/profile')
+def profile():
+    # Fetch user's profile information from your data source (e.g., session, database)
+    user_profile = {
+        'name': session.get('name'),
+        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
+        'role': 'Estudiante',  # Replace with the actual user's role
+    }
+
+    return render_template('profile.html', user_profile=user_profile)
+
+
 @app.route('/home')
 def home():
     # Lógica de la vista de la página principal (home)
