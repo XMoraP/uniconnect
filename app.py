@@ -41,6 +41,12 @@ def agregar():
         return redirect(url_for('index'))
     return render_template('index.html')
 
+@app.route('/home')
+def home():
+    # Lógica de la vista de la página principal (home)
+    return render_template('home.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -62,7 +68,7 @@ def login():
             session['logged_in'] = True
             session['email'] = email
 
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
         else:
         # Contraseña incorrecta
             error = 'Contraseña incorrecta'
