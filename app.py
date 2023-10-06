@@ -57,8 +57,14 @@ def profile():
 
 @app.route('/home')
 def home():
+    # Fetch user's profile information from your data source (e.g., session, database)
+    user_profile = {
+        'name': session.get('name'),
+        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
+        'role': 'Estudiante',  # Replace with the actual user's role
+    }
     # Lógica de la vista de la página principal (home)
-    return render_template('home.html')
+    return render_template('home.html', user_profile=user_profile)
 
 
 @app.route('/login', methods=['GET', 'POST'])

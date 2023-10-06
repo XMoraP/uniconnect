@@ -11,16 +11,15 @@
     <!-- css file link -->
     <link rel="stylesheet" href="static/css/style.css">
 
-
 </head>
 <body>
    <!-- header section starts--> 
  
  <header class="header">
     <section class="flex">
-        <a href="home.html" class="logo">
+        <a href="/home" class="logo">
             <img src="static/images/logoUniConnect.png" alt="Logo UniConnect">
-            UniConnect
+            <h1>UniConnect</h1>
         </a>
         <form action="" method="post" class="search-form">
             <input type="text" name="search_box" placeholder="Buscar..." required maxlength="100">
@@ -35,7 +34,7 @@
         <div class="profile">
             <img src="{{ user_profile['photo_url'] }}" alt="{{ user_profile['name'] }}">
             <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
-            <span>{{ user_profile['role'] }}</span>
+            <h2>{{ user_profile['role'] }}</h2>
             <a href="profile.html" class="btn">Ver perfil</a>
         </div>
     </section>
@@ -55,12 +54,12 @@
         <div class="profile">
             <img src="{{ user_profile['photo_url'] }}" alt="{{ user_profile['name'] }}">
             <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
-            <span>{{ user_profile['role'] }}</span>
+            <h2>{{ user_profile['role'] }}</h2>
             <a href="profile.html" class="btn">Ver perfil</a>
         </div>
 
         <nav class="navbar">
-            <a href="home.html"><i class="fas fa-home"></i><span>Inicio</span></a>
+            <a href="/home"><i class="fas fa-home"></i><span>Inicio</span></a>
             <a href="subjects.html"><i class="fas fa-graduation-cap"></i><span>Asignaturas</span></a>
             <a href="tutors.html"><i class="fas fa-chalkboard-user"></i><span>Tutores</span></a>        
         </nav>
@@ -68,8 +67,11 @@
 <!-- side bar section ends-->
 
 
+
  <!-- js file link -->
  <script src="static/js/script.js"></script>
+
+
 
 </body>
 </html>

@@ -146,7 +146,7 @@ section{
 
 .header .flex .logo img {
     height: 5rem; /* Ajusta el tamaño de la imagen según sea necesario */
-    margin-right: 0rem; /* Espacio entre la imagen y el texto */
+    margin-right: 2rem; /* Espacio entre la imagen y el texto */
 }
 
 
@@ -223,6 +223,11 @@ section{
     font-size: 2rem;
     color: var(--black);
 }
+
+.header .flex .profile h2{
+    font-size: 1.5rem;
+    color: rgba(117, 128, 138, .5);
+}
 .header .flex .profile span{
     color: var(--light-color);
     font-size: 1.6rem;
@@ -278,6 +283,11 @@ section{
 .side-bar .profile h3{
 font-size: 2rem;
     color: var(--black);
+}
+
+.side-bar .profile h2{
+    font-size: 2rem;
+    color: rgba(6, 80, 92, 0.5);
 }
 
 .side-bar .profile span{
@@ -738,10 +748,6 @@ body{
     -webkit-box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
     box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
 }
-
-
-
-
 
 
 /*media queries*/
