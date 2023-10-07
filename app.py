@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 
 # Configuración de la base de datos
 app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com'  # Cambia esto si tu servidor MySQL no está en localhost
@@ -25,6 +25,8 @@ def index():
     cur.close()
     return render_template('index2.html', data=data)
 
+
+
 # Ruta para agregar un nuevo registro a la base de datos
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
@@ -43,17 +45,6 @@ def agregar():
         return redirect(url_for('index'))
     return render_template('index2.html')
 
-@app.route('/profile')
-def profile():
-    # Fetch user's profile information from your data source (e.g., session, database)
-    user_profile = {
-        'name': session.get('name'),
-        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
-        'role': 'Estudiante',  # Replace with the actual user's role
-    }
-
-    return render_template('profile.html', user_profile=user_profile)
-
 
 @app.route('/home')
 def home():
@@ -66,10 +57,6 @@ def home():
     # Lógica de la vista de la página principal (home)
     return render_template('home.html', user_profile=user_profile)
 
-@app.route('/dashboard')
-def dashboard():
-
-    return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -106,6 +93,91 @@ def login():
         flash('Usuario no encontrado', 'error')
 
     return render_template('index2.html', error=error)
+
+#DashBoard
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+#Widgets
+@app.route('/widgets')
+def widgets():
+    return render_template('widgets.html')
+
+#Elements
+@app.route('/general_elements')
+def general_elements():
+    return render_template('general_elements.html')
+
+@app.route('/media_gallery')
+def media_gallery():
+    return render_template('media_gallery.html')
+
+@app.route('/invoice')
+def invoice():
+    return render_template('invoice.html')
+
+@app.route('/icons')
+def icons():
+    return render_template('icons.html')
+
+#Tables
+@app.route('/tables')
+def tables():
+    return render_template('tables.html')
+
+#Apps
+@app.route('/email')
+def email():
+    return render_template('email.html')
+
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
+
+#Pricing_Tables
+@app.route('/price')
+def price():
+    return render_template('price.html')
+
+#Contact
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+#Additional_Pages
+@app.route('/profile')
+def profile():
+    # Fetch user's profile information from your data source (e.g., session, database)
+    user_profile = {
+        'name': session.get('name'),
+        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
+        'role': 'Estudiante',  # Replace with the actual user's role
+    }
+
+    return render_template('profile.html', user_profile=user_profile)
+
+
+@app.route('/project')
+def project():
+    return render_template('project.html')
+
+#Maps
+@app.route('/map')
+def map():
+    return render_template('map.html')
+
+#Charts
+@app.route('/charts')
+def charts():
+    return render_template('charts.html')
+
+#Settings
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
+
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
