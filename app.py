@@ -23,7 +23,7 @@ def index():
     cur.execute("SELECT * FROM user")
     data = cur.fetchall()
     cur.close()
-    return render_template('index.html', data=data)
+    return render_template('index2.html', data=data)
 
 # Ruta para agregar un nuevo registro a la base de datos
 @app.route('/agregar', methods=['GET', 'POST'])
@@ -41,7 +41,7 @@ def agregar():
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('index'))
-    return render_template('index.html')
+    return render_template('index2.html')
 
 @app.route('/profile')
 def profile():
@@ -66,6 +66,10 @@ def home():
     # Lógica de la vista de la página principal (home)
     return render_template('home.html', user_profile=user_profile)
 
+@app.route('/dashboard')
+def dashboard():
+
+    return render_template('dashboard.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -93,7 +97,7 @@ def login():
             session['name'] = result['nombre']
             session['last_name'] = result['apellido']
 
-            return redirect(url_for('home'))
+            return redirect(url_for('dashboard'))
         else:
         # Contraseña incorrecta
             flash('Contraseña incorrecta', 'error')
@@ -101,7 +105,7 @@ def login():
         # Usuario no encontrado
         flash('Usuario no encontrado', 'error')
 
-    return render_template('index.html', error=error)
+    return render_template('index2.html', error=error)
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)

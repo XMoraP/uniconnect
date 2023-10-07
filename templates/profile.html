@@ -1,357 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil {{ session['name'] }} {{ session['last_name'] }}</title>
-
-    <!-- font cdn link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
-    <!-- css file link -->
-    <link rel="stylesheet" href="static/css/style.css">
-
-</head>
-<body>
-   <!-- header section starts--> 
- 
- <header class="header">
-    <section class="flex">
-        <a href="/home" class="logo">
-            <img src="static/images/logoUniConnect.png" alt="Logo UniConnect">
-            <h1>UniConnect</h1>
-        </a>
-        <form action="" method="post" class="search-form">
-            <input type="text" name="search_box" placeholder="Buscar..." required maxlength="100">
-            <button type="submit" class="fas fa-search" name="search_box"></button>
-        </form>
-        <div class="icons">
-            <div id="menu-btn" class="fas fa-bars"></div>
-            <div id="search-btn" class="fas fa-search"></div>
-            <div id="user-btn" class="fas fa-user"></div>  
-            <div id="toggle-btn" class="fas fa-sun"></div>
-        </div>
-        <div class="profile">
-            <img src="{{ user_profile['photo_url'] }}" alt="{{ user_profile['name'] }}">
-            <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
-            <h2>{{ user_profile['role'] }}</h2>
-            <a href="profile.html" class="btn">Ver perfil</a>
-        </div>
-    </section>
-</header>
- <!-- header section ends-->  
-
- <!-- side bar section starts -->
-
-    <div class="side-bar">
-        <div class="close-side-bar">
-            <i class="fas fa-times">
-
-            </i>
-        </div>
-        <div class="profile">
-            <img src="{{ user_profile['photo_url'] }}" alt="{{ user_profile['name'] }}">
-            <h3>{{ session['name'] }} {{ session['last_name'] }}</h3>
-            <h2>{{ user_profile['role'] }}</h2>
-            <a href="profile.html" class="btn">Ver perfil</a>
-        </div>
-
-        <nav class="navbar">
-            <a href="/home"><i class="fas fa-home"></i><span>Inicio</span></a>
-            <a href="subjects.html"><i class="fas fa-graduation-cap"></i><span>Asignaturas</span></a>
-            <a href="tutors.html"><i class="fas fa-chalkboard-user"></i><span>Tutores</span></a>        
-        </nav>
-    </div>
-<!-- side bar section ends-->
-
-<!--profile section starts-->
-<form id="profileForm">
-    <label for="firstName">Nombre:</label>
-    <input type="text" id="firstName" name="firstName"><br>
-
-    <label for="lastName">Apellido:</label>
-    <input type="text" id="lastName" name="lastName"><br>
-
-    <label for="email">Correo Electrónico:</label>
-    <input type="email" id="email" name="email"><br>
-
-    <button type="button" onclick="guardarPerfil()">Guardar Cambios</button>
-</form>
-<div class="container">
-    <div class="row">
-            <div class="col-lg-4">
-               <div class="profile-card-4 z-depth-3">
-                <div class="card">
-                  <div class="card-body text-center bg-primary rounded-top">
-                   <div class="user-box">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="../static/css/style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="../static/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="../static/css/colors.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="../static/css/custom.css" />
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="inner_page profile_page">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                        <a href="index.html"><img class="logo_icon img-responsive" src="../static/images/logo_icon.png" alt="#" /></a>
+                     </div>
                   </div>
-                  <h5 class="mb-1 text-white">Jhon Doe</h5>
-                  <h6 class="text-light">UI/UX Engineer</h6>
-                 </div>
-                  <div class="card-body">
-                    <ul class="list-group shadow-none">
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-phone-square"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>9910XXXXXX</span>
-                        <small>Mobile Number</small>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-envelope"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>info@example.com</span>
-                        <small>Email Address</small>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-globe"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>www.example.com</span>
-                        <small>Website Address</small>
-                      </div>
-                    </li>
-                    </ul>
-                    <div class="row text-center mt-4">
-                      <div class="col p-2">
-                       <h4 class="mb-1 line-height-5">154</h4>
-                        <small class="mb-0 font-weight-bold">Projects</small>
-                       </div>
-                        <div class="col p-2">
-                          <h4 class="mb-1 line-height-5">2.2k</h4>
-                         <small class="mb-0 font-weight-bold">Followers</small>
-                        </div>
-                        <div class="col p-2">
-                         <h4 class="mb-1 line-height-5">9.1k</h4>
-                         <small class="mb-0 font-weight-bold">Views</small>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div class="user_img"><img class="img-responsive" src="../static/images/user_img.jpg" alt="#" /></div>
+                        <div class="user_info">
+                           <h6>John David</h6>
+                           <p><span class="online_animation"></span> Online</p>
                         </div>
                      </div>
-                   </div>
-                   <div class="card-footer text-center">
-                     <a href="javascript:void()" class="btn-social btn-facebook waves-effect waves-light m-1"><i class="fa fa-facebook"></i></a>
-                     <a href="javascript:void()" class="btn-social btn-google-plus waves-effect waves-light m-1"><i class="fa fa-google-plus"></i></a>
-                     <a href="javascript:void()" class="list-inline-item btn-social btn-behance waves-effect waves-light"><i class="fa fa-behance"></i></a>
-                     <a href="javascript:void()" class="list-inline-item btn-social btn-dribbble waves-effect waves-light"><i class="fa fa-dribbble"></i></a>
-                   </div>
-                 </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <li class="active">
+                        <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
+                        <ul class="collapse list-unstyled" id="dashboard">
+                           <li>
+                              <a href="dashboard.html">> <span>Default Dashboard</span></a>
+                           </li>
+                           <li>
+                              <a href="dashboard_2.html">> <span>Dashboard style 2</span></a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li><a href="widgets.html"><i class="fa fa-clock-o orange_color"></i> <span>Widgets</span></a></li>
+                     <li>
+                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                           <li><a href="general_elements.html">> <span>General Elements</span></a></li>
+                           <li><a href="media_gallery.html">> <span>Media Gallery</span></a></li>
+                           <li><a href="icons.html">> <span>Icons</span></a></li>
+                           <li><a href="invoice.html">> <span>Invoice</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="tables.html"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                     <li>
+                        <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
+                        <ul class="collapse list-unstyled" id="apps">
+                           <li><a href="email.html">> <span>Email</span></a></li>
+                           <li><a href="calendar.html">> <span>Calendar</span></a></li>
+                           <li><a href="media_gallery.html">> <span>Media Gallery</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="price.html"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
+                     <li>
+                        <a href="contact.html">
+                        <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
+                     </li>
+                     <li class="active">
+                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
+                        <ul class="collapse list-unstyled" id="additional_page">
+                           <li>
+                              <a href="profile.html">> <span>Profile</span></a>
+                           </li>
+                           <li>
+                              <a href="project.html">> <span>Projects</span></a>
+                           </li>
+                           <li>
+                              <a href="login.html">> <span>Login</span></a>
+                           </li>
+                           <li>
+                              <a href="404_error.html">> <span>404 Error</span></a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li><a href="map.html"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li><a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
+                     <li><a href="settings.html"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                  </ul>
+               </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                           <a href="index.html"><img class="img-responsive" src="../static/images/logo.png" alt="#" /></a>
+                        </div>
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              <ul>
+                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                              </ul>
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">John David</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" href="profile.html">My Profile</a>
+                                       <a class="dropdown-item" href="settings.html">Settings</a>
+                                       <a class="dropdown-item" href="help.html">Help</a>
+                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Profile</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row -->
+                     <div class="row column1">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>User profile</h2>
+                                 </div>
+                              </div>
+                              <div class="full price_table padding_infor_info">
+                                 <div class="row">
+                                    <!-- user profile section --> 
+                                    <!-- profile image -->
+                                    <div class="col-lg-12">
+                                       <div class="full dis_flex center_text">
+                                          <div class="profile_img"><img width="180" class="rounded-circle" src="../static/images/user_img.jpg" alt="#" /></div>
+                                          <div class="profile_contant">
+                                             <div class="contact_inner">
+                                                <h3>John Smith</h3>
+                                                <p><strong>About: </strong>Frontend Developer</p>
+                                                <ul class="list-unstyled">
+                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
+                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
+                                                </ul>
+                                             </div>
+                                             <div class="user_progress_bar">
+                                                <div class="progress_bar">
+                                                   <!-- Skill Bars -->
+                                                   <span class="skill" style="width:85%;">Web Applications <span class="info_valume">85%</span></span>                   
+                                                   <div class="progress skill-bar ">
+                                                      <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+                                                      </div>
+                                                   </div>
+                                                   <span class="skill" style="width:78%;">Website Design <span class="info_valume">78%</span></span>   
+                                                   <div class="progress skill-bar">
+                                                      <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;">
+                                                      </div>
+                                                   </div>
+                                                   <span class="skill" style="width:47%;">Automation & Testing <span class="info_valume">47%</span></span>
+                                                   <div class="progress skill-bar">
+                                                      <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;">
+                                                      </div>
+                                                   </div>
+                                                   <span class="skill" style="width:65%;">UI / UX <span class="info_valume">65%</span></span>
+                                                   <div class="progress skill-bar">
+                                                      <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <!-- profile contant section -->
+                                       <div class="full inner_elements margin_top_30">
+                                          <div class="tab_style2">
+                                             <div class="tabbar">
+                                                <nav>
+                                                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#recent_activity" role="tab" aria-selected="true">Recent Activity</a>
+                                                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#project_worked" role="tab" aria-selected="false">Projects Worked on</a>
+                                                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#profile_section" role="tab" aria-selected="false">Profile</a>
+                                                   </div>
+                                                </nav>
+                                                <div class="tab-content" id="nav-tabContent">
+                                                   <div class="tab-pane fade show active" id="recent_activity" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                      <div class="msg_list_main">
+                                                         <ul class="msg_list">
+                                                            <li>
+                                                               <span><img src="../static/images/msg2.png" class="img-responsive" alt="#"></span>
+                                                               <span>
+                                                               <span class="name_user">Taison Jack</span>
+                                                               <span class="msg_user">Sed ut perspiciatis unde omnis.</span>
+                                                               <span class="time_ago">12 min ago</span>
+                                                               </span>
+                                                            </li>
+                                                            <li>
+                                                               <span><img src="../static/images/msg3.png" class="img-responsive" alt="#"></span>
+                                                               <span>
+                                                               <span class="name_user">Mike John</span>
+                                                               <span class="msg_user">On the other hand, we denounce.</span>
+                                                               <span class="time_ago">12 min ago</span>
+                                                               </span>
+                                                            </li>
+                                                         </ul>
+                                                      </div>
+                                                   </div>
+                                                   <div class="tab-pane fade" id="project_worked" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et 
+                                                         quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos 
+                                                         qui ratione voluptatem sequi nesciunt.
+                                                      </p>
+                                                   </div>
+                                                   <div class="tab-pane fade" id="profile_section" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et 
+                                                         quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos 
+                                                         qui ratione voluptatem sequi nesciunt.
+                                                      </p>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <!-- end user profile section -->
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-2"></div>
+                        </div>
+                        <!-- end row -->
+                     </div>
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="footer">
+                           <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                              Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- end dashboard inner -->
                </div>
             </div>
-            <div class="col-lg-8">
-               <div class="card z-depth-3">
-                <div class="card-body">
-                <ul class="nav nav-pills nav-pills-primary nav-justified">
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
-                    </li>
-                </ul>
-                <div class="tab-content p-3">
-                    <div class="tab-pane active show" id="profile">
-                        <h5 class="mb-3">User Profile</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>About</h6>
-                                <p>
-                                    Web Designer, UI/UX Engineer
-                                </p>
-                                <h6>Hobbies</h6>
-                                <p>
-                                    Indie music, skiing and hiking. I love the great outdoors.
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <h6>Recent badges</h6>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">html5</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">react</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">codeply</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">angularjs</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">css3</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">jquery</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">bootstrap</a>
-                                <a href="javascript:void();" class="badge badge-dark badge-pill">responsive-design</a>
-                                <hr>
-                                <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                                <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                                <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
-                                <table class="table table-hover table-striped">
-                                    <tbody>                                    
-                                        <tr>
-                                            <td>
-                                                <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--/row-->
-                    </div>
-                    <div class="tab-pane" id="messages">
-                        <div class="alert alert-info alert-dismissible" role="alert">
-                       <button type="button" class="close" data-dismiss="alert">×</button>
-                        <div class="alert-icon">
-                         <i class="icon-info"></i>
-                        </div>
-                        <div class="alert-message">
-                          <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
-                        </div>
-                      </div>
-                        <table class="table table-hover table-striped">
-                            <tbody>                                    
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was..
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus. 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus. 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros. 
-                                    </td>
-                                </tr>
-                            </tbody> 
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="edit">
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="Mark">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="Jhonsan">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="email" value="mark@example.com">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="file">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="url" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="" placeholder="Street">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-6">
-                                    <input class="form-control" type="text" value="" placeholder="City">
-                                </div>
-                                <div class="col-lg-3">
-                                    <input class="form-control" type="text" value="" placeholder="State">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="jhonsanmark">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="reset" class="btn btn-secondary" value="Cancel">
-                                    <input type="button" class="btn btn-primary" value="Save Changes">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-          </div>
-          </div>
-
-        </div>
-    </div>
-
-<!--profile section ends-->
-
-
-
- <!-- js file link -->
- <script src="static/js/script.js"></script>
-
-
-
-</body>
+         </div>
+      </div>
+      <!-- jQuery -->
+      <script src="../static/js/jquery.min.js"></script>
+      <script src="../static/js/popper.min.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+      <!-- wow animation -->
+      <script src="../static/js/animate.js"></script>
+      <!-- select country -->
+      <script src="../static/js/bootstrap-select.js"></script>
+      <!-- owl carousel -->
+      <script src="../static/js/owl.carousel.js"></script> 
+      <!-- chart js -->
+      <script src="../static/js/Chart.min.js"></script>
+      <script src="../static/js/Chart.bundle.min.js"></script>
+      <script src="../static/js/utils.js"></script>
+      <script src="../static/js/analyser.js"></script>
+      <!-- nice scrollbar -->
+      <script src="../static/js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="../static/js/custom.js"></script>
+      <!-- calendar file css -->    
+      <script src="../static/js/semantic.min.js"></script>
+   </body>
 </html>

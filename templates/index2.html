@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <title>UniConnect</title>
+
+    <!-- Bootstrap core CSS -->
+    <link  rel="stylesheet" type = "text/css" href="{{url_for('static', filename='css/bootstrap2.min.css')}}">
+
+<!--
+
+TemplateMo 570 Chain App Dev
+
+https://templatemo.com/tm-570-chain-app-dev
+
+-->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename='css/templatemo-chain-app-dev.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename='css/animated.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename='css/owl2.css')}}">
+
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo" style="display: flex; align-items: center;">
+              <img src="static/images/logo.png" alt="Chain App Dev" style="max-height: 70px;">
+              <span style="margin-left: 20px; font-size: 23px;"><strong>UniConnect</strong></sp>
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              
+              <li><div class="gradient-button"><a id="modal_trigger" href="#modal"><i class="fa fa-sign-in-alt"></i> Iniciar Sesión</a></div></li> 
+            </ul>        
+            <a class='menu-trigger'>
+                <span>Menú</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+  
+  <div id="modal" class="popupContainer" style="display:none;">
+    <div class="popupHeader">
+        <span class="header_title">Iniciar Sesión</span>
+        <span class="modal_close"><i class="fa fa-times"></i></span>
+    </div>
+
+    <section class="popupBody">
+        <!-- Social Login -->
+        <div class="social_login">
+            <div class="">
+                <a href="#" class="social_box fb">
+                    <span class="icon"><i class="fab fa-facebook"></i></span>
+                    <span class="icon_title">Conecta con Facebook</span>
+
+                </a>
+
+                <a href="#" class="social_box google">
+                    <span class="icon"><i class="fab fa-google-plus"></i></span>
+                    <span class="icon_title">Conecta con Google</span>
+                </a>
+            </div>
+
+            <div class="centeredText">
+                <span>O accede con tu email</span>
+            </div>
+
+            <div class="action_btns">
+                <div class="one_half"><a href="#" id="login_form" class="btn">Iniciar sesión</a></div>
+                <div class="one_half last"><a href="#" id="register_form" class="btn">Registrarse</a></div>
+            </div>
+        </div>
+
+        <!-- Username & Password Login form -->
+  
+ 
+        
+        <div class="user_login">
+            <form method="POST" action="/login">
+                <label for="email">Email</label>
+                <input type="text" class="user_login" id="email" name="email" required/>
+                <br />
+
+                <label for="password">Contraseña</label>
+                <input type="password" class="user_login" id="password" name="password" required/>
+                <br />
+
+                <!---<div class="checkbox">
+                    <input id="remember" type="checkbox" />
+                    <label for="remember">Remember me on this computer</label>
+                </div>--->
+
+
+                <button class="button is-success mt-2">Entrar</button>
+                {# Mostrar mensajes / errores si es que existen #}
+                {% with mensajes_flash = get_flashed_messages() %}
+                    {% if mensajes_flash %}
+                        <div class="notification is-danger mt-2">
+                            {% for mensaje in mensajes_flash %}
+                                <li>{{ mensaje }}</li>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <div class="action_btns">
+                  <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Volver atrás</a></div>
+                  <!--<div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>-->
+                </div>
+
+            </form>
+
+            <a href="#" class="forgot_password">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <!-- Register Form -->
+        <div class="user_register">
+            <form method="POST" action="/agregar">
+                <label for="name">Nombre</label>
+                <input type="text" class="user_register" id="name" name="name" required/>
+                <br />
+
+                <label for="last_name">Apellido</label>
+                <input type="text" class="user_register" id="last_name" name="last_name" required/>
+                <br />
+
+                <label for="email">Email</label>
+                <input type="email" class="user_register" id="email" name="email" required/>
+                <br />
+
+                <label for="password">Contraseña</label>
+                <input type="password" class="user_register" id="password" name="password" required/>
+                <br />
+
+               <button type="sumit">Registrarse</button>
+                <div class="action_btns">
+                    <div class="one_half">
+                      <a href="#" class="btn backs_btn">
+                        <i class="fa fa-angle-double-left">
+                        </i> Volver atrás</a>
+                      </div>
+                    <!--- <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>--->
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2>Comparte tus dudas, resuelve las de otros</h2>
+                    <p style="font-size: 18px; text-align: center;"> ¡Unete a UniConnect!</p>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="white-button first-button scroll-to-section">
+                      
+                    </div>
+                    <div class="white-button scroll-to-section">
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="static/images/slider-dec.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="services" class="services section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+            <h4>Conéctate con tus compañeros de clase y descubre que el éxito se alcanza mejor en equipo</h4>
+            <img src="static/images/heading-line-dec.png" alt="">
+            <p> Uniconnect consiste en una aplicación por y para los estudiantes, la cual facilite el seguimiento 
+              de sus cursos y asignaturas, así como conectar con otros estudiantes, compartir documentos y notas sobre ellos 
+              o descargarlos y conectarse con otros. Además, incluirá un panel personalizado con un calendario, cursos actuales,
+               listas de tareas pendientes.Permitirá organizar tutorías o reuniones de grupo con otros estudiantes, 
+              de manera de” profesor-particular” o adoptando el rol de tutor, para formar grupos de trabajo, 
+              reunirse y compartir los archivos y presentaciones. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="service-item first-service">
+            <div class="icon"></div>
+            <h4>Acceso a tutorías</h4>
+            <p>Descubre la riqueza del aprendizaje a través de tutorías con alumnos mayores. Aprender de quienes ya han recorrido el camino te inspirará y te impulsará hacia el éxito. ¡Inscríbete hoy y da un paso más hacia tus metas!</p>
+          
+              
+           
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item second-service">
+            <div class="icon"></div>
+            <h4> Hazte tutor </h4>
+            <p>Ser un tutor es ser un faro de conocimiento y apoyo para aquellos que están comenzando su viaje de aprendizaje  ¡Sé un tutor y marca la diferencia en la vida de los demás </p>
+      
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item third-service">
+            <div class="icon"></div>
+            <h4>Horario</h4>
+            <p>Tu horario es tu herramienta para convertir metas en logros. Organiza tu día, da espacio a nuevas oportunidades y escribe todo para una buena organización. ¡Empieza hoy y mira cómo tu vida se transforma! </p>
+          
+            
+           
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item fourth-service">
+            <div class="icon"></div>
+            <h4> Conexión con otros estudiantes</h4>
+            <p>Conéctate con tus compañeros de clase y descubre que el éxito se alcanza mejor en equipo. Logra objetivo académico que nos propongamos.</p>
+          
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <footer id="newsletter">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="section-heading">
+            <h4>CONTACTANOS</h4>
+          </div>
+        </div>
+        <div class="col-lg-6 offset-lg-3">
+    
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="footer-widget">
+              
+             
+                <p style="font-size: 18px; text-align: center;">Madrid, Domenico Scarlatti </p>
+                <p style="font-size: 18px; text-align: center;"><a href="#">692939871</a></p>
+                <p style="font-size: 18px; text-align: center;"><a href="#">Uniconnect@company.com</a></p>
+              </div>
+            </div>
+              </div>
+              <div class="col-lg-3 logo-right">
+               
+                  <div class="footer-widget">
+                  
+                    <div class="logo">
+                      <img src="static/images/logo.png" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+       
+        <div class="col-lg-3">
+          
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="static/js/jquery2.min.js"></script>
+  <script src="static/js/bootstrap2.bundle.min.js"></script>
+  <script src="static/js/owl-carousel2.js"></script>
+  <script src="static/js/animation.js"></script>
+  <script src="static/js/imagesloaded.js"></script>
+  <script src="static/js/popup.js"></script>
+  <script src="static/js/custom2.js"></script>
+
+</body>
+</html>
