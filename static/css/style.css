@@ -3407,6 +3407,13 @@ table.projects tr td:first-child {
     background-color: #fff;
 }
 
+.contact_blog {
+    height: 200px;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+
 
 /*------------------------------------------------------------------
     27. Map
