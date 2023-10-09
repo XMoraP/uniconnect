@@ -44,6 +44,8 @@
     25. Login Section
     26. Error
     27. Map
+    28. Events (Dashboard)
+    29. Courses (Asignaturas)
    
 -------------------------------------------------------------------*/
 
@@ -63,9 +65,9 @@
     2. import files
 -------------------------------------------------------------------*/
 
-@import url(css/animate.css);
-@import url(css/flaticon.css);
-@import url(css/font-awesome.min.css);
+@import url(../static/css/animate.css);
+@import url(../static/css/flaticon.css);
+@import url(../static/css/font-awesome.min.css);
 
 /*------------------------------------------------------------------
     3. basic
@@ -245,11 +247,11 @@ a.btn {
 --*/
 
 .red_bg {
-    background: #ff4748;
+    background: #c45b1f;
 }
 
 .blue_bg {
-    background: #36a9e2;
+    background: #246d91;
 }
 
 .yellow_bg {
@@ -484,11 +486,11 @@ a:focus {
 }
 
 .orange_color {
-    color: #ff5722 !important;
+    color: #22daff !important;
 }
 
 .orange_bg {
-    background: #ff5722 !important;
+    background: rgba(42, 96, 128) !important;
 }
 
 .purple_color {
@@ -540,11 +542,11 @@ a:focus {
 }
 
 .orange_color2 {
-    color: #f44336 !important;
+    color: rgb(54, 190, 244) !important;
 }
 
 .orange_bg2 {
-    background: #f44336 !important;
+    background: #36d1f4 !important;
 }
 
 .green_color {
@@ -676,7 +678,7 @@ a:focus {
 }
 
 .icon_info ul li a {
-    color: #fff;
+    color: whitesmoke;
     font-size: 18px;
     font-weight: normal;
 }
@@ -721,7 +723,7 @@ a:focus {
 .icon_info ul.user_profile_dd>li {
     width: auto;
     border-radius: 0;
-    background: #ff5722;
+    background:#15283c;
     margin: 0;
     padding: 12px 0 12px 20px;
     height: auto;
@@ -731,7 +733,7 @@ a:focus {
     border: none;
     padding: 14px 26px 14px;
     font-size: 21px;
-    background: #ff5722;
+    background: #15283c;
     margin-right: 0;
     cursor: pointer;
     float: left;
@@ -744,7 +746,7 @@ a:focus {
     position: absolute;
     right: -2px;
     top: -7px;
-    background: #ff5722;
+    background: #396d77;
     border-radius: 100%;
     color: #fff;
     font-weight: 600;
@@ -955,7 +957,7 @@ a[data-toggle="collapse"] {
 
 .sidebar_user_info {
     padding: 15px 25px;
-    background: #214162;
+    background: #15283c;
 }
 
 .user_img img {
@@ -1055,7 +1057,7 @@ a[data-toggle="collapse"] {
     font-weight: 500;
     font-size: 18px;
     color: #fff;
-    border-bottom: solid #ff5722 1px;
+    border-bottom: solid #22daff 1px;
 }
 
 
@@ -1235,7 +1237,7 @@ a[data-toggle="collapse"] {
     background: #fff;
     padding: 15px 25px;
     margin: 20px 0 0 0;
-    border-bottom: solid #ff5722 2px;
+    border-bottom: solid #22daff 2px;
 }
 
 .heading2 h3 {
@@ -1382,7 +1384,7 @@ a[data-toggle="collapse"] {
 }
 
 .top_countries_section {
-    background-color: #ff4748;
+    background-color: #22daff;
     border-radius: 8px;
     padding: 25px 40px;
     background-image: -webkit-linear-gradient(90deg, #396afc 0%, #2948ff 100%);
@@ -1475,7 +1477,7 @@ a[data-toggle="collapse"] {
 }
 
 .google_p .social_icon {
-    background: #d34836;
+    background: #22daff;
 }
 
 .socile_icons .social_cont {
@@ -1570,7 +1572,7 @@ a[data-toggle="collapse"] {
 }
 
 #testimonial_slider.carousel .item a {
-    color: #eb7245;
+    color: #22daff;
 }
 
 #testimonial_slider.carousel .img-box {
@@ -1767,7 +1769,7 @@ button.main_bt {
 
 .main_bt:hover,
 .main_bt:focus {
-    background: #ff5722;
+    background: #22daff;
     color: #fff;
 }
 
@@ -1985,6 +1987,7 @@ button.main_bt {
     display: flex;
 }
 
+
 .info_people .p_info_img {
     width: 30%;
 }
@@ -2013,7 +2016,7 @@ button.main_bt {
 
 .info_people .user_info_cont p.p_status {
     font-weight: 600;
-    color: #ff5722;
+    color: #22daff;
     margin-top: 10px;
 }
 
@@ -2063,17 +2066,17 @@ button.main_bt {
     font-weight: 500;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
     border: none;
-    color: #fff;
+    color: whitesome;
     text-align: center;
-    background: #1ed085;
-    font-size: 21px;
-    padding: 15px 0;
+    background: rgb(217, 217, 217);
+    font-size: 22px;
+    padding: 20px 5px;
 }
 
 .calendar table.unstackable thead tr:nth-child(2) {
-    background: #666;
+    background: whitesmoke;
     border: none;
-    color: #fff;
+    color: rgb(5, 8, 22);
 }
 
 .calendar table.unstackable thead tr:nth-child(2) th {
@@ -2110,7 +2113,7 @@ button.main_bt {
 }
 
 .calendar tr {
-    position: relative;
+    position: flex;
 }
 
 i.icon.chevron.left::before {
@@ -2139,7 +2142,7 @@ i.icon {
 -------------------------------------------------------------------*/
 
 .link.today {
-    background: #ff5722;
+    background: #22daff;
     color: #fff;
     font-weight: 600;
 }
@@ -2178,9 +2181,9 @@ i.icon {
 /** tabbar style 2 **/
 
 .tab_style2 .tabbar nav div.nav-tabs .nav-link.active {
-    background: #ff5722;
+    background: #22daff;
     color: #fff;
-    border-color: #ff5722;
+    border-color: #22daff;
 }
 
 
@@ -2203,9 +2206,9 @@ i.icon {
 }
 
 .tab_style3 div.tabbar div.nav-pills .nav-link.active {
-    background: #ff5722;
+    background: #22daff;
     color: #fff;
-    border-color: #ff5722;
+    border-color: #22daff;
 }
 
 
@@ -2240,6 +2243,12 @@ i.icon {
     height: 40px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.centrar_boton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .pagination.button_section {
@@ -2565,7 +2574,7 @@ a.mail-dropdown {
 }
 
 .btn-compose:hover {
-    background: #ff5722;
+    background: #22daff;
     color: #fff;
 }
 
@@ -2718,7 +2727,7 @@ ul.labels-info li a i {
 }
 
 .inbox-head .sr-btn {
-    background: #ff5722;
+    background: #22daff;
     border: medium none;
     border-radius: 0;
     color: #fff;
@@ -2870,7 +2879,7 @@ ul.inbox-pagination li {
 }
 
 .view-mail a {
-    color: #ff6c60;
+    color: #22daff;
 }
 
 .attachment-mail {
@@ -3368,7 +3377,7 @@ table.projects tr td:first-child {
     margin: 11px 0;
     position: relative;
     left: 0;
-    color: #ff5722;
+    color: #22daff;
 }
 
 
@@ -3407,12 +3416,6 @@ table.projects tr td:first-child {
     background-color: #fff;
 }
 
-.contact_blog {
-    height: 200px;
-    margin-bottom: 20px;
-    width: 300px;
-}
-
 
 
 /*------------------------------------------------------------------
@@ -3423,3 +3426,218 @@ table.projects tr td:first-child {
     height: 100%;
     min-height: 720px;
 }
+
+/*------------------------------------------------------------------
+    CONTACTS
+-------------------------------------------------------------------*/
+
+.contact_blog {
+    height: 200px;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+
+/*------------------------------------------------------------------
+    28. Events (dashboard)
+------------------------------------------------------------------*/
+
+/* Customize the Add Event Button */
+#openAddEventModalButton {
+    background-color: #32c4c6; /* Background color */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 200px;
+    transition: background-color 0.3s;
+}
+
+#openAddEventModalButton:hover {
+    background-color: #f8e80b; /* Hover background color */
+}
+
+/* Customize the Event Container */
+.event-item {
+    background-color: rgba(247, 249, 249, 0.577); /* Background color */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    position: relative; /* For positioning the delete icon */
+}
+
+.event-item:hover {
+    background-color: #acfc84a5; /* Hover background color */
+}
+
+/* Customize the Event Content */
+.event-item .name_user {
+    font-weight: bold;
+}
+
+.event-item .msg_user {
+    color: #333;
+}
+
+/* Style the Delete Button */
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #d9534f; /* Delete button color */
+}
+
+.delete-button:hover {
+    color: #c9302c; /* Hover color for delete button */
+}
+
+
+
+/*------------------------------------------------------------------
+    29. Couses (asignaturas)
+------------------------------------------------------------------*/
+
+
+/* Style for the section containing course containers and the "Añadir nueva asignatura" button */
+.anadirmisasignaturas {
+    text-align: center; /* Center button */
+    margin: 30px;
+}
+
+/* Style for the "Añadir nueva asignatura" button */
+#button_nueva_asignatura {
+    background-color: #15b4cd; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#button_nueva_asignatura:hover {
+    background-color: #6aece7; /* Button background color on hover */
+}
+
+/* Style for course containers */
+.course-card {
+    width: 100%; /* Set width to 100% for a full-width container */
+    display: flex; /* Use flexbox for layout */
+    margin-bottom: 20px; /* Add margin for spacing between containers */
+    background-color: rgb(224, 255, 251); /* Background color for course container */
+    border: 1px solid beige;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Hover effect for course containers */
+.course-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.course-content {
+    flex: 1; /* Allow the content to expand and take remaining space */
+    padding: 20px;
+}
+
+/* Style for course image */
+.course-image {
+    max-width: 100%; /* Set maximum width to 100% */
+    max-height: 100px; /* Set maximum height as needed */
+    margin-right: 20px;
+    border-radius: 5px;
+    object-fit: contain; /* Maintain aspect ratio and fit within the specified dimensions */
+}
+
+/* Style for course info */
+.course-info {
+    flex: 1;
+}
+
+/* Style for course title */
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    /* Add more styling for course title if needed */
+}
+
+/* Style for course description */
+.course-description {
+    font-size: 16px;
+    color: #777;
+    /* Add more styling for course description if needed */
+}
+
+
+/* Style the modal content */
+.modal-content {
+    display: flex;
+    background-color: #fff; /* White background */
+    border: none;
+    border-radius: 10px;
+}
+
+/* Style the modal title */
+.modal-title {
+    font-size: 24px;
+}
+
+/* Style the close button in the modal */
+.close {
+    font-size: 24px;
+    color: #000; /* Black color */
+    opacity: 0.7;
+}
+
+/* Style the form input fields */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Style the file input field */
+.form-control-file {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Style the "Guardar" button in the modal */
+#saveCourse {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Center the "Guardar" button in the modal footer */
+.modal-footer {
+    justify-content: center;
+}
+
+/* Add spacing to the modal footer buttons */
+.modal-footer button {
+    margin: 0 10px;
+}
+
+
+
+

@@ -45,19 +45,6 @@ def agregar():
         return redirect(url_for('index'))
     return render_template('index2.html')
 
-
-@app.route('/home')
-def home():
-    # Fetch user's profile information from your data source (e.g., session, database)
-    user_profile = {
-        'name': session.get('name'),
-        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
-        'role': 'Estudiante',  # Replace with the actual user's role
-    }
-    # Lógica de la vista de la página principal (home)
-    return render_template('home.html', user_profile=user_profile)
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -97,12 +84,28 @@ def login():
 #DashBoard
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name']
+        }
+    else:
+        user_profile = None
 
-#Widgets
-@app.route('/widgets')
-def widgets():
-    return render_template('widgets.html')
+    return render_template('dashboard.html', user_profile=user_profile)
+    
+#Asignaturas
+@app.route('/asignaturas')
+def asignaturas():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name']
+        }
+    else:
+        user_profile = None
+
+    return render_template('asignaturas.html', user_profile=user_profile)
 
 #Elements
 @app.route('/general_elements')
@@ -143,11 +146,13 @@ def price():
 #Contact
 @app.route('/contact')
 def contact():
+    return render_template('contact.html')
     cur = mysql.connection.cursor()
     cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor;")
     contacts = cur.fetchall()
     cur.close()
     return render_template('contact.html', contacts=contacts)
+
 
 #Additional_Pages
 @app.route('/profile')
