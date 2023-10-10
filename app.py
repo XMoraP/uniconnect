@@ -186,6 +186,10 @@ def charts():
 def settings():
     return render_template('settings.html')
 
+@app.route('/salir')
+def salir():
+    return render_template('index2.html')
+
 
 
 if __name__ == '__main__':
