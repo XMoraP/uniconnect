@@ -1,11 +1,15 @@
 #!/usr/bin/env python3.9
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
+import io
+import base64
 
 app = Flask(__name__, template_folder="templates")
 
+app.config['UPLOAD_FOLDER'] = './files'
+ALLOWED_EXTENSIONS= {'pdf', 'txt'}
 # Configuración de la base de datos
 app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com'  # Cambia esto si tu servidor MySQL no está en localhost
 app.config['MYSQL_USER'] = 'XMoraP'
@@ -78,6 +82,7 @@ def login():
     if result:
     # Comprueba si la contraseña ingresada coincide con la almacenada
         if contrasenna == result['contrasenna']:
+
         # Inicio de sesión exitoso, establece una sesión
             session['logged_in'] = True
             session['email'] = email
@@ -146,6 +151,7 @@ def contact():
     return render_template('contact.html')
 
 #Additional_Pages
+
 @app.route('/profile')
 def profile():
     # Fetch user's profile information from your data source (e.g., session, database)
@@ -177,8 +183,58 @@ def charts():
 def settings():
     return render_template('settings.html')
 
+#tables 
 
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # print("inicio")
+    # for key, file in request.files.items():
+    #     print("Campo: {key}")
+    #     print("Nombre del archivo: {file.filename}")
+    #     print("Tipo MIME: {file.mimetype}")
+    #     print("Tamaño del archivo: {file.content_length} bytes")
+    # print("fin")
+    # return
+    if 'file' not in request.files:
+        return 'No se seleccionó ningún archivo.'
 
+    subject = request.form['subject']
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No se seleccionó ningún archivo.'
+
+    if file:
+        # codificamos el archivo obtenido en formato binario para poder guardarlo posteriormente en la base de datos
+        binario=base64.b64encode(file.read())
+        
+        # Subimos los datos biniarios a la base de datos de azure
+        #cur = mysql.connection.cursor()
+        #cur.execute("INSERT INTO files (filename, file, subject, user) VALUES (%s, %s, %s, %s)",
+         #(file.filename, binario, subject, session["email"]))
+        #mysql.connection.commit()
+        #cur.close()
+
+         # Así es como estaba antes, esto lo guarda en local en la carpeta files:
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filename)
+        return 'El archivo se ha subido correctamente.'
+    
+        return redirect(url_for('tables'))
+##################
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
+
+
+
+
+
+
+# decodificado=base64.b64decode(binario)
+#         return send_file(
+#             io.BytesIO(decodificado),
+#             mimetype='application/octet-stream',
+#             as_attachment=True,
+#             download_name=file.filename
+#         )

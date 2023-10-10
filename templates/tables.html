@@ -36,7 +36,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
       <![endif]-->
-   </head>
+   </head>z
    <body class="inner_page tables_page">
       <div class="full_container">
          <div class="inner_container">
@@ -124,36 +124,51 @@
             <!-- right content -->
             <div id="content">
                <!-- topbar -->
-               <div class="topbar">
-                  <nav class="navbar navbar-expand-lg navbar-light">
-                     <div class="full">
-                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="../static/images/logo.png" alt="#" /></a>
-                        </div>
-                        <div class="right_topbar">
-                           <div class="icon_info">
-                              <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
-                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
-                              </ul>
-                              <ul class="user_profile_dd">
-                                 <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">John David</span></a>
-                                    <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="/profile">My Profile</a>
-                                       <a class="dropdown-item" href="/settings">Settings</a>
-                                       <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
-                                    </div>
-                                 </li>
-                              </ul>
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Asignaturas</h2>
                            </div>
                         </div>
                      </div>
-                  </nav>
+                     
+                     <!-- row -->
+                     <div class="row">
+                        <!-- table section -->
+                        <div class="col-md-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <!-- Contenedor de la imagen y el texto -->
+                                 <div class="subject-container">
+                                    <!-- Imagen de Programación -->
+
+                                    <a href="tables.html"><img src="../static/images/progra.jpg" />
+                                   
+                                    <!-- Texto "Programación" -->
+                                    <h2>Programación</h2>
+                                 </div>
+                                 <form action="/upload" method="POST" enctype="multipart/form-data">
+                                    <div class="upload-section">
+                                       <!-- Subir archivos -->
+                                       <input type="file" name="file" accept=".pdf,.txt">
+                                       <input type="hidden" value="progra" name="subject">
+                                       <button type="submit">Subir Archivo</button>
+                                       <div id="fileList"></div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
+               
+               <div class="topbar">
+                  <!-- El resto de tu código topbar -->
+               </div>
+               
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">
@@ -161,7 +176,7 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Tables</h2>
+                              <h2>Asignaturas </h2>
                            </div>
                         </div>
                      </div>
@@ -172,42 +187,21 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Basic Table</h2>
+                                    <h2>Programación</h2>
                                  </div>
-                              </div>
-                              <div class="table_section padding_infor_info">
-                                 <div class="table-responsive-sm">
-                                    <table class="table">
-                                       <thead>
-                                          <tr>
-                                             <th>Firstname</th>
-                                             <th>Lastname</th>
-                                             <th>Email</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td>John</td>
-                                             <td>Doe</td>
-                                             <td>john@example.com</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Mary</td>
-                                             <td>Moe</td>
-                                             <td>mary@example.com</td>
-                                          </tr>
-                                          <tr>
-                                             <td>July</td>
-                                             <td>Dooley</td>
-                                             <td>july@example.com</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Mary</td>
-                                             <td>Moe</td>
-                                             <td>mary@example.com</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
+                                 <form action="/upload" method="POST" enctype="multipart/form-data">
+                                    <div class="upload-section">
+                                       <input type="file" name="file" accept=".pdf,.txt">
+                                       <input type="hidden" value="progra" name="subject">
+                                       <button type="submit">Subir Archivo</button>
+                                       <div id="fileList"></div>
+                                    </div>
+                                 </form>
+                    
+ 
+
+
+                              
                                  </div>
                               </div>
                            </div>
