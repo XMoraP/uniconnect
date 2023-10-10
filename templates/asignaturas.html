@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>UniConnnect - Asignaturas</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
+      <!-- Include flaticon CSS -->
+      <link rel="stylesheet" href="../static/fonts/flaticon.css">
+      <!-- Include Font Awesome CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="../static/css/style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="../static/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="../static/css/colors.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="../static/css/custom.css" />
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Bootstrap JavaScript -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="inner_page asignaturas">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                        <!--a href="/dashboard"><img class="logo_icon img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a-->
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
+                        <div class="user_info">
+                           <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
+                           <p><span class="online_animation"></span> Estudiante</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <li class="active">
+                        <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
+                     </li>
+                     <li><a href="/asignaturas"><i class="fas fa-book orange_color"></i> <span>Asignaturas</span></a></li>
+                     <li>
+                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-diamond purple_color"></i> <span>Elements</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                           <li><a href="/general_elements">> <span>General Elements</span></a></li>
+                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
+                           <li><a href="/icons">> <span>Icons</span></a></li>
+                           <li><a href="/invoice">> <span>Invoice</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="/tables"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                     <li>
+                        <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
+                        <ul class="collapse list-unstyled" id="apps">
+                           <li><a href="/email">> <span>Email</span></a></li>
+                           <li><a href="/calendar">> <span>Calendar</span></a></li>
+                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="/price"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
+                     <li>
+                        <a href="/contact">
+                        <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
+                     </li>
+                     <li class="active">
+                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
+                        <ul class="collapse list-unstyled" id="additional_page">
+                           <li>
+                              <a href="/profile">> <span>Profile</span></a>
+                           </li>
+                           <li>
+                              <a href="/project">> <span>Projects</span></a>
+                           </li>
+                           <li>
+                              <a href="login.html">> <span>Login</span></a>
+                           </li>
+                           <li>
+                              <a href="404_error.html">> <span>404 Error</span></a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li><a href="/map"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li><a href="/charts"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
+                     <li><a href="/settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                  </ul>
+               </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                           <!--a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a-->
+                        </div>
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              <ul>
+                                 <li><a href="#"><i class="fas fa-bell"></i><span class="badge"></span></a></li>
+                                 <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fas fa-envelope"></i><span class="badge"></span></a></li>
+                              </ul>
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" href="/profile">Mi Perfil</a>
+                                       <a class="dropdown-item" href="/settings">Ajuster</a>
+                                       <a class="dropdown-item" href="help.html">Ayuda</a>
+                                       <a class="dropdown-item" href="#"><span>Cerrar Sesión</span> <i class="fas fa-sign-out-alt"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Asignaturas</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Course Container Section -->
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="anadirmisasignaturas">
+                              <div class="centrar_boton">
+                                 <button class="button" id="button_nueva_asignatura" data-toggle="modal" data-target="#addCourseModal">Añadir nueva asignatura</button>
+                              </div>
+                           </div>
+
+                           <div class="row" id="courseContainers">
+                              <!-- Course containers will be added here -->
+                           </div>  
+                           
+                             
+                           <!-- Modal for adding new courses -->
+                           <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                       <h5 class="modal-title" id="addCourseModalLabel">Añadir asignatura</h5>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div>
+                                    <div class="modal-body">
+                                       <!-- Course creation form -->
+                                       <form id="courseForm"  enctype="multipart/form-data">
+                                          <div class="form-group">
+                                             <label for="courseTitle">Título del curso</label>
+                                             <input type="text" class="form-control" id="courseTitle" placeholder="Ingrese el título del curso" required>
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="courseDescription">Descripción del curso</label>
+                                             <textarea class="form-control" id="courseDescription" placeholder="Ingrese la descripción del curso" required></textarea>
+                                          </div>
+                                          <!-- New input fields for classroom, teacher, and weekdays with time -->
+                                          <div class="form-group">
+                                             <label for="classroomInput">Aula</label>
+                                             <input type="text" class="form-control" id="classroomInput" placeholder="Ingrese el aula" required>
+                                          </divs>
+                                          <div class="form-group">
+                                             <label for="teacherInput">Profesor</label>
+                                             <input type="text" class="form-control" id="teacherInput" placeholder="Ingrese el nombre del profesor" required>
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="courseImage">Imagen del curso</label>
+                                             <input type="file" class="form-control-file" id="courseImage" name="courseImage" accept="image/*" required>
+                                          </div>
+                                          <!--div class="form-group">
+                                             <label for="weekdaysTimeInput">Días y Horario</label>
+                                             <input type="text" class="form-control" id="weekdaysTimeInput" placeholder="Ingrese los días y horario" required>
+                                          </div-->
+                                          <div class="form-group">
+                                             <label for="courseDocument">Documentos del curso</label>
+                                             <input type="file" class="form-control-file" id="courseDocument" multiple>
+                                          </div>
+                                       </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       <button type="button" class="btn btn-primary" id="saveCourse">Guardar</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        <!-- end col-md-12 -->
+                        </div>
+                     <!-- end row -->
+                     </div>
+                  <!-- end container-fluid -->
+                  </div>
+               <!-- end dashboard inner -->
+               </div>
+            </div>
+            <!-- end content -->
+
+            <!-- Footer -->
+            <div class="container-fluid">
+               <div class="footer">
+                  <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- jQuery -->
+      <script src="../static/js/jquery.min.js"></script>
+      <script src="../static/js/popper.min.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+      <!-- wow animation -->
+      <script src="../static/js/animate.js"></script>
+      <!-- select country -->
+      <script src="../static/js/bootstrap-select.js"></script>
+      <!-- owl carousel -->
+      <script src="../static/js/owl.carousel.js"></script> 
+      <!-- chart js -->
+      <script src="../static/js/Chart.min.js"></script>
+      <script src="../static/js/Chart.bundle.min.js"></script>
+      <script src="../static/js/utils.js"></script>
+      <script src="../static/js/analyser.js"></script>
+      <!-- nice scrollbar -->
+      <script src="../static/js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="../static/js/custom.js"></script>
+      <!-- calendar file js -->    
+      <script src="../static/js/semantic.min.js"></script>
+      <!-- add new courses js file -->    
+      <script src="../static/js/courses_events.js"></script>
+      <script></script>
+   </body>
+</html>

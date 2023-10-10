@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <title>UniConnect - Contactos</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -43,13 +43,13 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="../static/images/logo_icon.png" alt="#" /></a>
+                        <a href="/dashboard"><img class="logo_icon img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="../static/images/user_img.jpg" alt="#" /></div>
+                        <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
                            <h6>John David</h6>
                            <p><span class="online_animation"></span> Online</p>
@@ -61,15 +61,7 @@
                   <h4>General</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                        <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
-                        <ul class="collapse list-unstyled" id="dashboard">
-                           <li>
-                              <a href="/dashboard">> <span>Default Dashboard</span></a>
-                           </li>
-                           <li>
-                              <a href="dashboard_2.html">> <span>Dashboard style 2</span></a>
-                           </li>
-                        </ul>
+                        <a href="#dashboard"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
                      </li>
                      <li><a href="/widgets"><i class="fa fa-clock-o orange_color"></i> <span>Widgets</span></a></li>
                      <li>
@@ -143,7 +135,7 @@
                                        <a class="dropdown-item" href="/profile">My Profile</a>
                                        <a class="dropdown-item" href="/settings">Settings</a>
                                        <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       <a class="dropdown-item" href="/salir"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
                                     </div>
                                  </li>
                               </ul>
@@ -174,374 +166,28 @@
                               </div>
                               <div class="full price_table padding_infor_info">
                                  <div class="row">
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
+                                    <!-- column contact -->
+                                    {% block content %}
+                                       <h2>Contactos</h2>
+                                       <div class="row">
+                                          {% for contact in contacts %}
+                                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+                                                <div class="contact_blog">
+                                                   <div class="contact_inner">
+                                                      <div class="left">
+                                                          <h3>{{ contact.nombre_apellido }}</h3>
+                                                         <p><strong>About: </strong>{{ contact.email }}</p>
+                                                         <ul class="list-unstyled">
+                                                             <li><i class="fa fa-envelope-o"></i> : {{ contact.asignaturas_tutor }}</li>
+                                                         </ul>
+                                                      </div>
+                                                   </div>
                                                 </div>
                                              </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
+                                          {% endfor %}
                                        </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- end column contact blog -->
-                                    <!-- column contact --> 
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
-                                       <div class="contact_blog">
-                                          <h4 class="brief">Digital Strategist</h4>
-                                          <div class="contact_inner">
-                                             <div class="left">
-                                                <h3>John Smith</h3>
-                                                <p><strong>About: </strong>Frontend Developer</p>
-                                                <ul class="list-unstyled">
-                                                   <li><i class="fa fa-envelope-o"></i> : test@gmail.com</li>
-                                                   <li><i class="fa fa-phone"></i> : 987 654 3210</li>
-                                                </ul>
-                                             </div>
-                                             <div class="right">
-                                                <div class="profile_contacts">
-                                                   <img class="img-responsive" src="../static/images/msg2.png" alt="#" />
-                                                </div>
-                                             </div>
-                                             <div class="bottom_list">
-                                                <div class="left_rating">
-                                                   <p class="ratings">
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star"></span></a>
-                                                      <a href="#"><span class="fa fa-star-o"></span></a>
-                                                   </p>
-                                                </div>
-                                                <div class="right_button">
-                                                   <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                                   </i> <i class="fa fa-comments-o"></i> 
-                                                   </button>
-                                                   <button type="button" class="btn btn-primary btn-xs">
-                                                   <i class="fa fa-user"> </i> View Profile
-                                                   </button>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
+                                    {% endblock %}
+
                                     <!-- end column contact blog -->
                                  </div>
                               </div>
