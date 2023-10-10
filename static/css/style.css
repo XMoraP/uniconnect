@@ -46,6 +46,7 @@
     27. Map
     28. Events (Dashboard)
     29. Courses (Asignaturas)
+    30. Profile
    
 -------------------------------------------------------------------*/
 
@@ -3636,6 +3637,15 @@ table.projects tr td:first-child {
 /* Add spacing to the modal footer buttons */
 .modal-footer button {
     margin: 0 10px;
+}
+
+/*------------------------------------------------------------------
+    PROFILE
+-------------------------------------------------------------------*/
+
+/* Botón añadir imagen*/
+.custom-button {
+    margin-left: 23px; /* Ajusta el valor según sea necesario */
 }
 
 
