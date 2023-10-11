@@ -3651,7 +3651,6 @@ table.projects tr td:first-child {
     margin: 0 10px;
 }
 
-<<<<<<< HEAD
 /*mensajes de error*/
 .error-message {
     font-size: 0.8em;
@@ -3703,9 +3702,6 @@ table.projects tr td:first-child {
     color: #202073; /* Cambia el color del título a rojo (puedes usar otros valores de color) */
   }
   
-  
-
-=======
 /*------------------------------------------------------------------
     PROFILE
 -------------------------------------------------------------------*/
@@ -3714,8 +3710,6 @@ table.projects tr td:first-child {
 .custom-button {
     margin-left: 23px; /* Ajusta el valor según sea necesario */
 }
-
->>>>>>> refs/remotes/origin/main
 
 
 

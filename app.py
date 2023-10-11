@@ -177,6 +177,7 @@ def profile():
     # Fetch user's profile information from your data source (e.g., session, database)
     user_profile = {
         'name': session.get('name'),
+        'last_name': session['last_name'],
         'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
         'role': 'Estudiante',  # Replace with the actual user's role
     }
