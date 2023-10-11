@@ -146,7 +146,6 @@ def price():
 #Contact
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
     cur = mysql.connection.cursor()
     cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor;")
     contacts = cur.fetchall()

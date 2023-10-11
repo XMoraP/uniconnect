@@ -3433,9 +3433,18 @@ table.projects tr td:first-child {
 -------------------------------------------------------------------*/
 
 .contact_blog {
-    height: 200px;
+    height: 250px;
     margin-bottom: 20px;
     width: 300px;
+}
+
+.boton_pedir_tutoria{
+    height: 20px;
+    width: 150px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 
