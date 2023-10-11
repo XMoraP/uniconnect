@@ -52,18 +52,29 @@
                                   
                   <div class="login_form">
                      
-                     <form method="POST">
+                     <form method="POST" action="/agregar">
                                                
                         <fieldset>
-                                                    
+
+                            <div class="field">
+                                <label class="label_field">Nombre</label>
+                                <input type="text" name="name" placeholder="Nombre" />
+                            </div>
+                            <div class="field">
+                                <label class="label_field">Apellido</label>
+                                <input type="text" name="last_name" placeholder="Apellido" />
+                            </div>
                            <div class="field">
                               <label class="label_field">Email</label>
-                              <input type="email" name="email" placeholder="Email" aria-required="true"/>
+                              <input type="email" name="email" placeholder="Email" />
                            </div>
+                           <div>
+
                            <div class="field">
                               <label class="label_field">Contraseña</label>
-                              <input type="password" name="password" placeholder="Contraseña" aria-required="true"/>
+                              <input type="password" name="password" placeholder="Contraseña" />
                            </div>
+
                            <div class="error-message">
                               {% with messages = get_flashed_messages() %}
                               {% if messages %}
@@ -85,11 +96,8 @@
                            <br/>
                            <div class="field margin_0">
                               <label class="label_field hidden">hidden label</label>
-                              <button class="main_bt" formaction="/index2">Volver</button>
-                              <button class="main_bt">Iniciar sesión</button>
-                           </div>
-                           <div class="register-button-container">
-                              <button class="register-button" formaction="/registrarse">Crear cuenta nueva</button>
+                              <button class="main_bt" formaction="/login">Volver</button>
+                              <button class="main_bt">Registrar</button>
                            </div>
                         </fieldset>
                      </form>

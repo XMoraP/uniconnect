@@ -62,8 +62,9 @@ https://templatemo.com/tm-570-chain-app-dev
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
+              <!--<button class="button is-success mt-2">Entrar</button>-->
               
-              <li><div class="gradient-button"><a id="modal_trigger" href="#modal"><i class="fa fa-sign-in-alt"></i> Iniciar Sesión</a></div></li> 
+              <li><div class="gradient-button"><a href="/login"> Iniciar Sesión</a></div></li> 
             </ul>        
             <a class='menu-trigger'>
                 <span>Menú</span>
@@ -75,15 +76,16 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
   </header>
   <!-- ***** Header Area End ***** -->
-  
+  <!---
   <div id="modal" class="popupContainer" style="display:none;">
     <div class="popupHeader">
         <span class="header_title">Iniciar Sesión</span>
         <span class="modal_close"><i class="fa fa-times"></i></span>
-    </div>
-
-    <section class="popupBody">
+    </div>--->
+  
+    <!--<section class="popupBody">-->
         <!-- Social Login -->
+        <!---
         <div class="social_login">
             <div class="">
                 <a href="#" class="social_box fb">
@@ -107,11 +109,11 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="one_half last"><a href="#" id="register_form" class="btn">Registrarse</a></div>
             </div>
         </div>
-
+  --->
         <!-- Username & Password Login form -->
   
  
-        
+        <!---
         <div class="user_login">
             <form method="POST" action="/login">
                 <label for="email">Email</label>
@@ -122,33 +124,20 @@ https://templatemo.com/tm-570-chain-app-dev
                 <input type="password" class="user_login" id="password" name="password" required/>
                 <br />
 
-                <!---<div class="checkbox">
+                -<div class="checkbox">
                     <input id="remember" type="checkbox" />
                     <label for="remember">Remember me on this computer</label>
                 </div>--->
 
-
-                <button class="button is-success mt-2">Entrar</button>
-                {# Mostrar mensajes / errores si es que existen #}
-                {% with mensajes_flash = get_flashed_messages() %}
-                    {% if mensajes_flash %}
-                        <div class="notification is-danger mt-2">
-                            {% for mensaje in mensajes_flash %}
-                                <li>{{ mensaje }}</li>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-                <div class="action_btns">
+                <!--<div class="action_btns">
                   <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Volver atrás</a></div>
-                  <!--<div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>-->
+                  <div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>
                 </div>
 
             </form>
 
-            <a href="#" class="forgot_password">¿Olvidaste tu contraseña?</a>
-        </div>
+
+          </div>  --->
 
         <!-- Register Form -->
         <div class="user_register">
