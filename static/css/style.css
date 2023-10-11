@@ -46,6 +46,7 @@
     27. Map
     28. Events (Dashboard)
     29. Courses (Asignaturas)
+    30. Profile
    
 -------------------------------------------------------------------*/
 
@@ -3435,9 +3436,18 @@ table.projects tr td:first-child {
 -------------------------------------------------------------------*/
 
 .contact_blog {
-    height: 200px;
+    height: 250px;
     margin-bottom: 20px;
     width: 300px;
+}
+
+.boton_pedir_tutoria{
+    height: 20px;
+    width: 150px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 
@@ -3641,6 +3651,7 @@ table.projects tr td:first-child {
     margin: 0 10px;
 }
 
+<<<<<<< HEAD
 /*mensajes de error*/
 .error-message {
     font-size: 0.8em;
@@ -3694,6 +3705,17 @@ table.projects tr td:first-child {
   
   
 
+=======
+/*------------------------------------------------------------------
+    PROFILE
+-------------------------------------------------------------------*/
+
+/* Botón añadir imagen*/
+.custom-button {
+    margin-left: 23px; /* Ajusta el valor según sea necesario */
+}
+
+>>>>>>> refs/remotes/origin/main
 
 
 

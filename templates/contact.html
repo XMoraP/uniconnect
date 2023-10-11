@@ -151,7 +151,7 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Contacts</h2>
+                              <h2>Contacta con Tutores cerca de ti</h2>
                            </div>
                         </div>
                      </div>
@@ -161,25 +161,24 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Contacts</h2>
+                                    <p>Pide tutorias de las materias que quieras con Tutores profesionales registrados en Uniconnect</p>
                                  </div>
                               </div>
                               <div class="full price_table padding_infor_info">
                                  <div class="row">
                                     <!-- column contact -->
                                     {% block content %}
-                                       <h2>Contactos</h2>
+                                       <h3>Lista de Tutores Registrados</h3>
                                        <div class="row">
                                           {% for contact in contacts %}
                                              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
                                                 <div class="contact_blog">
                                                    <div class="contact_inner">
                                                       <div class="left">
-                                                          <h3>{{ contact.nombre_apellido }}</h3>
-                                                         <p><strong>About: </strong>{{ contact.email }}</p>
-                                                         <ul class="list-unstyled">
-                                                             <li><i class="fa fa-envelope-o"></i> : {{ contact.asignaturas_tutor }}</li>
-                                                         </ul>
+                                                          <h4>{{ contact.nombre_apellido }}</h4>
+                                                         <p><strong>Contact: </strong>{{ contact.email }}</p>
+                                                         <p>{{ contact.asignaturas_tutor }}</p>
+                                                         <button class = "boton_pedir_tutoria">Pedir Tutoria</button>
                                                       </div>
                                                    </div>
                                                 </div>
