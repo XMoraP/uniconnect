@@ -30,25 +30,42 @@ def index():
 # Ruta para agregar un nuevo registro a la base de datos
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
+    error = None
     if request.method == 'POST':
         nombre = request.form['name']
         apellido = request.form['last_name']
         email = request.form['email']
         contrasenna = request.form['password']
 
-        # Realiza la inserción en la base de datos aquí
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO user (nombre, apellido, email, contrasenna) VALUES (%s, %s, %s, %s)",
-                    (nombre, apellido, email, contrasenna))
-        mysql.connection.commit()
-        cur.close()
-        return redirect(url_for('index'))
-    return render_template('index2.html')
+        if not nombre or not apellido or not email or not contrasenna:
+            flash('Todos los campos son obligatorios', 'error')
+            return redirect(url_for('registrarse'))
 
+        cur0 = mysql.connection.cursor()
+        cur0.execute("SELECT eMail from user WHERE eMail = %s", [email])
+        result = cur0.fetchone()
+
+        if result and result['eMail'] == email:
+
+            flash('Este email ya esta en uso', 'error')
+            return redirect(url_for('registrarse'))
+            
+        else:
+            # Realiza la inserción en la base de datos aquí
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO user (nombre, apellido, email, contrasenna) VALUES (%s, %s, %s, %s)",
+                        (nombre, apellido, email, contrasenna))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('login'))     
+
+    return render_template('index2.html', error=error)
+ 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
     error = None
+    result = None
 
     if request.method == 'POST':
         # Obtén los datos del formulario de inicio de sesión
@@ -62,6 +79,10 @@ def login():
         cur.execute("SELECT contrasenna, nombre, apellido FROM user WHERE eMail = %s", [email])
         result = cur.fetchone()
 
+        if not email or not contrasenna:
+            #flash('Debe ingresar email y contraseña para iniciar sesion', 'error')
+            return redirect(url_for('login'))    
+
     if result:
     # Comprueba si la contraseña ingresada coincide con la almacenada
         if contrasenna == result['contrasenna']:
@@ -74,12 +95,9 @@ def login():
             return redirect(url_for('dashboard'))
         else:
         # Contraseña incorrecta
-            flash('Contraseña incorrecta', 'error')
-    else:
-        # Usuario no encontrado
-        flash('Usuario no encontrado', 'error')
+            flash('Correo o contraseña incorrectos', 'error')
 
-    return render_template('index2.html', error=error)
+    return render_template('login.html', error=error)
 
 #DashBoard
 @app.route('/dashboard')
@@ -146,7 +164,6 @@ def price():
 #Contact
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
     cur = mysql.connection.cursor()
     cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor;")
     contacts = cur.fetchall()
@@ -160,6 +177,7 @@ def profile():
     # Fetch user's profile information from your data source (e.g., session, database)
     user_profile = {
         'name': session.get('name'),
+        'last_name': session['last_name'],
         'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
         'role': 'Estudiante',  # Replace with the actual user's role
     }
@@ -186,10 +204,19 @@ def charts():
 def settings():
     return render_template('settings.html')
 
-@app.route('/salir')
+#Boton Salir
+@app.route('/salir', methods=['GET'])
 def salir():
+    session.clear()
     return render_template('index2.html')
 
+@app.route('/registrarse',  methods=['GET', 'POST'])
+def registrarse():
+    return render_template('register.html')
+
+@app.route('/index2',  methods=['GET', 'POST'])
+def index2():
+    return render_template('index2.html')
 
 
 if __name__ == '__main__':
