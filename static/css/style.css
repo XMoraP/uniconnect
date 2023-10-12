@@ -3683,10 +3683,11 @@ table.projects tr td:first-child {
     text-transform: lowercase;
     cursor: pointer;
     height: 45px;
+    transition: ease all 0.5s;
 }
 
 .register-button:hover {
-    background-color: #ffffff;
+    background-color: #9aefaa;
 }
 
 .contenedor_titulo {

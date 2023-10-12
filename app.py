@@ -57,7 +57,7 @@ def agregar():
                         (nombre, apellido, email, contrasenna))
             mysql.connection.commit()
             cur.close()
-            return redirect(url_for('login'))     
+            return redirect(url_for('index2'))     
 
     return render_template('index2.html', error=error)
  
@@ -95,7 +95,7 @@ def login():
             return redirect(url_for('dashboard'))
         else:
         # Contraseña incorrecta
-            flash('Correo o contraseña incorrectos', 'error')
+            flash('Email o contraseña incorrectos', 'error')
 
     return render_template('login.html', error=error)
 
