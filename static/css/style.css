@@ -46,6 +46,7 @@
     27. Map
     28. Events (Dashboard)
     29. Courses (Asignaturas)
+    30. Profile
    
 -------------------------------------------------------------------*/
 
@@ -611,6 +612,7 @@ a:focus {
     max-width: 100%;
     padding: 0;
     margin: 0;
+    background-image: url('../images/fondoLogin.png');
 }
 
 .inner_container {
@@ -1259,7 +1261,7 @@ a[data-toggle="collapse"] {
     width: 100%;
 }
 
-.time_form form .field {
+.time_form form  {
     float: left;
     margin-right: 0;
     margin-left: 12px;
@@ -1748,12 +1750,12 @@ a[data-toggle="collapse"] {
 
 .main_bt {
     min-width: 125px;
-    height: auto;
+    height: 45px;
     float: left;
-    background: #1ed085;
+    background: #03a9f4;
     text-align: center;
     color: #fff;
-    padding: 10px 25px;
+    padding: 10px 5px;
     font-size: 16px;
     border-radius: 5px;
     border: none;
@@ -1765,6 +1767,7 @@ a[data-toggle="collapse"] {
 button.main_bt {
     float: none;
     margin: 0;
+    margin-right: 10px
 }
 
 .main_bt:hover,
@@ -3288,7 +3291,7 @@ table.projects tr td:first-child {
 
 .logo_login {
     background: url('images/layout_img/login_image.jpg');
-    padding: 50px 0;
+    padding: 5px 0;
     background-position: center center;
     position: relative;
 }
@@ -3299,7 +3302,7 @@ table.projects tr td:first-child {
     width: 100%;
     height: 100%;
     position: absolute;
-    background: rgba(21, 40, 60, .8);
+    background: #ffffff;
     top: 0px;
     left: 0;
 }
@@ -3310,7 +3313,7 @@ table.projects tr td:first-child {
 }
 
 .login_form {
-    padding: 50px 50px;
+    padding: 20px 40px;
     float: left;
     width: 100%;
 }
@@ -3336,8 +3339,9 @@ table.projects tr td:first-child {
 }
 
 .login_form form .field {
-    display: block;
+    display:flex;
     margin: 0 0 20px;
+
 }
 
 .login_form form .field input {
@@ -3432,9 +3436,18 @@ table.projects tr td:first-child {
 -------------------------------------------------------------------*/
 
 .contact_blog {
-    height: 200px;
+    height: 250px;
     margin-bottom: 20px;
     width: 300px;
+}
+
+.boton_pedir_tutoria{
+    height: 20px;
+    width: 150px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 
@@ -3638,6 +3651,66 @@ table.projects tr td:first-child {
     margin: 0 10px;
 }
 
+/*mensajes de error*/
+.error-message {
+    font-size: 0.8em;
+    color: #f88077;
+    text-align: center;
+}
+
+.label_inicio_sesion {
+    color: #0077B5;
+    display: flex;
+    justify-content: center;
+}
+
+.register-button-container {
+    position:relative;
+    width: 362px; 
+    height: 70px;
+}
+
+.register-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 8px 16px;
+    background-color: #61cd75;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: lowercase;
+    cursor: pointer;
+    height: 45px;
+    transition: ease all 0.5s;
+}
+
+.register-button:hover {
+    background-color: #9aefaa;
+}
+
+.contenedor_titulo {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 50px; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  .mi-titulo {
+    font-weight: bold; /* Hace que el título sea negrita */
+    color: #202073; /* Cambia el color del título a rojo (puedes usar otros valores de color) */
+  }
+  
+/*------------------------------------------------------------------
+    PROFILE
+-------------------------------------------------------------------*/
+
+/* Botón añadir imagen*/
+.custom-button {
+    margin-left: 23px; /* Ajusta el valor según sea necesario */
+}
 
 
 
