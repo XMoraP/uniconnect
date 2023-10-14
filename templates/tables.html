@@ -153,143 +153,63 @@
             <div class="topbar">
                <!-- El resto de tu código topbar -->
             </div>
-            <body class="tables">
-               <div class="full_container">
-                   <div class="inner_container">
-
-                       <div id="content">
-                           <div class="topbar">
-                               <!-- Topbar Content -->
-                           </div>
-                           <div class="midde_cont">
-                               <div class="container-fluid">
-                                   <div class="row column_title">
-                                       <div class="col-md-12">
-                                           
-                                 <div class="page_title" style="text-align: left;">
-                                  <h2>Asignaturas</h2>
-                                </div>
-                                           
-                                       </div>
-                                   </div>
-                                   <div class="row">
-                                       <div class="col-md-6">
-                                           <div class="white_shd full margin_bottom_30">
-                                               <div class="full graph_head">
-                                                   <div class="subject-container">
-                                                       <a href="tables.html">
-                                                           <img src="../static/images/progra.jpg" style="max-width: 350px; margin-bottom: 20px" alt="Programación">
-                                                       </a>
-                                                       <h2>Programación</h2>
-                                                   </div>
-                                                   <style>
-                                                       .upload-section {
-                                                           margin-top: 20px;
-                                                           text-align: center;
-                                                       }
-                                                   </style>
-                                                   <form action="/upload" method="POST" enctype="multipart/form-data">
-                                                       <div class="upload-section">
-                                                           <input type="file" name="file" accept=".pdf, .txt">
-                                                           <input type="hidden" value="progra" name="subject">
-                                                           <button type="submit">Subir Archivo</button>
-                                                           <div id="fileList"></div>
-                                                       </div>
-                                                   </form>
-                                               </div>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                           <div class="white_shd full margin_bottom_30">
-                                               <div class="full graph_head">
-                                                   <div class="subject-container">
-                                                       <a href="tables.html">
-                                                           <img src="../static/images/fisica.jpg" style="max-width: 350px; margin-bottom: 20px" alt="Física">
-                                                       </a>
-                                                       <h2>Física</h2>
-                                                   </div>
-                                                   <style>
-                                                       .upload-section {
-                                                           margin-top: 20px;
-                                                           text-align: center;
-                                                       }
-                                                   </style>
-                                                   <form action="/upload" method="POST" enctype="multipart/form-data">
-                                                       <div class="upload-section">
-                                                           <input type="file" name="file" accept=".pdf, .txt">
-                                                           <input type="hidden" value="fisica" name="subject">
-                                                           <button type="submit">Subir Archivo</button>
-                                                           <div id="fileList"></div>
-                                                       </div>
-                                                   </form>
-                                               </div>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          <div class="white_shd full margin_bottom_30">
-                                              <div class="full graph_head">
-                                                  <div class="subject-container">
-                                                      <a href="tables.html">
-                                                          <img src="../static/images/estadistica.jpg" style="max-width: 350px; margin-bottom: 20px" alt="Física">
-                                                      </a>
-                                                      <h2>Estadística</h2>
-                                                  </div>
-                                                  <style>
-                                                      .upload-section {
-                                                          margin-top: 20px;
-                                                          text-align: center;
-                                                      }
-                                                  </style>
-                                                  <form action="/upload" method="POST" enctype="multipart/form-data">
-                                                      <div class="upload-section">
-                                                          <input type="file" name="file" accept=".pdf, .txt">
-                                                          <input type="hidden" value="fisica" name="subject">
-                                             
-                                                         
-                                                          <div id="fileList"></div>
-                                                      </div>
-                                                  </form>
-                                              </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          <div class="white_shd full margin_bottom_30">
-                                              <div class="full graph_head">
-                                                  <div class="subject-container">
-                                                      <a href="tables.html">
-                                                          <img src="../static/images/algebra.jpg" style="max-width: 350px; margin-bottom: 20px" alt="Física">
-                                                      </a>
-                                                      <h2>Álgebra</h2>
-                                                  </div>
-                                                  <style>
-                                                      .upload-section {
-                                                          margin-top: 20px;
-                                                          text-align: center;
-                                                      }
-                                                  </style>
-                                                  <form action="/upload" method="POST" enctype="multipart/form-data">
-                                                      <div class="upload-section">
-                                                          <input type="file" name="file" accept=".pdf, .txt">
-                                                          <input type="hidden" value="fisica" name="subject">
-                                                          <button type="submit">Subir Archivo</button>
-                                                          
-                                                          <div id="fileList"></div>
-                                                      </div>
-                                                  </form>
-                                              </div>
-                                          </div>
-                                      </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="topbar">
-                               <!-- Topbar Content -->
-                           </div>
-                       </div>
-                   </div>
-               </div>
+          
+              
                <!-- jQuery and other scripts -->
-       
+       <body class="tables">
+    <div class="full_container">
+        <div class="inner_container">
+            <div id="content">
+                <div class="topbar">
+                    <!-- Topbar Content -->
+                </div>
+                <div class="midde_cont">
+                    <div class="container-fluid">
+                        <div class="row column_title">
+                            <div class="col-md-12">
+                                <div class="page_title" style="text-align: left;">
+                                    <h2>Asignaturas</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for subject in subjects %}
+                                <div class="col-md-6">
+                                    <div class="white_shd full margin_bottom_30">
+                                        <div class="full graph_head">
+                                            <div class="subject-container">
+                                                <a href="tables.html">
+                                                    <img src="../static/images/{{ subject.image }}" style="max-width: 350px; margin-bottom: 20px" alt="{{ subject.name }}">
+                                                </a>
+                                                <h2>{{ subject.name }}</h2>
+                                            </div>
+                                            <style>
+                                                .upload-section {
+                                                    margin-top: 20px;
+                                                    text-align: center;
+                                                }
+                                            </style>
+                                            <form action="/upload" method="POST" enctype="multipart/form-data">
+                                                <div class="upload-section">
+                                                    <input type="file" name="file" accept=".pdf, .txt">
+                                                    <input type="hidden" value="{{ subject.name }}" name="subject">
+                                                    <button type="submit">Subir Archivo</button>
+                                                    <div id="fileList"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
                            
             <div class="modal fade" id="myModal">
                <div class="modal-dialog">

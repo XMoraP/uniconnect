@@ -128,8 +128,17 @@ def tables():
         }
     else:
         user_profile = None
+    subject = None
+    id_user= None
+    session['id_user'] = id_user
+    if request.method == 'POST':
+         cur = mysql.connection.cursor()
+         cur.execute("SELECT course_title FROM courses WHERE user_id = %s", [id_user])
+         cur.fetchall()
+         cur.close()
 
-    return render_template('tables.html', user_profile=user_profile)
+    return render_template('tables.html', user_profile=user_profile, subject = subject)
+
     
 #Asignaturas
 @app.route('/asignaturas')
@@ -161,10 +170,6 @@ def invoice():
 def icons():
     return render_template('icons.html')
 
-#Tables
-#@app.route('/tables')
-#def tables():
-   # return render_template('tables.html')
 
 #Apps
 @app.route('/email')
@@ -238,59 +243,15 @@ def registrarse():
 def index2():
     return render_template('index2.html')
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    # print("inicio")
-    # for key, file in request.files.items():
-    #     print("Campo: {key}")
-    #     print("Nombre del archivo: {file.filename}")
-    #     print("Tipo MIME: {file.mimetype}")
-    #     print("Tamaño del archivo: {file.content_length} bytes")
-    # print("fin")
-    # return
-    #if 'file' not in request.files:
-     #   return 'No se seleccionó ningún archivo.'
-
-    #subject = request.form['subject']
-    #file = request.files['file']
-    #id = 12
-
-    #if file.filename == '':
-        #return 'No se seleccionó ningún archivo.'
-
-    #if file:
-        # codificamos el archivo obtenido en formato binario para poder guardarlo posteriormente en la base de datos
-        binario=base64.b64encode(file.read())
-        
-        # Subimos los datos biniarios a la base de datos de azure
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO courses(course_title, user_id, course_description, course_image) VALUES (%s, %s, %s, %s)",
-         (subject, id, binario, file.filename))
-        mysql.connection.commit()
-        cur.close()
-
-             #return redirect(url_for('tables'))
-        decodificado=base64.b64decode(binari)
-        return send_file(
-             io.BytesIO(decodificado),
-             mimetype='application/octet-stream',
-             as_attachment=True,
-             download_name=file.filename
-         )
+  
 
 
-
-         # Así es como estaba antes, esto lo guarda en local en la carpeta files:
-        #filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        f#ile.save(filename)
-        #return 'El archivo se ha subido correctamente.'
 
        
 
 
 
 
-##################
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
