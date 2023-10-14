@@ -3712,5 +3712,14 @@ table.projects tr td:first-child {
     margin-left: 23px; /* Ajusta el valor según sea necesario */
 }
 
+.noTutor-button {
+    margin-left: 550px;
+    margin-top: -55px;
+    background-color: rgb(219, 98, 68);
+    border-color: transparent;
+    
+}
+
+
 
 

@@ -1,10 +1,19 @@
 #!/usr/bin/env python3.9
+<<<<<<< HEAD
+from flask import Flask, render_template, request, redirect, url_for, session, flash, Response, send_file
+from flask_mysqldb import MySQL, MySQLdb
+import bcrypt
+import os
+import io 
+
+=======
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
 import io
 import base64
+>>>>>>> de4bf908adb1aced5cdd1ac50f135c9d27605795
 
 app = Flask(__name__, template_folder="templates")
 
@@ -80,7 +89,7 @@ def login():
         cur = mysql.connection.cursor()
 
         # Obtiene la contraseña almacenada para el usuario
-        cur.execute("SELECT contrasenna, nombre, apellido FROM user WHERE eMail = %s", [email])
+        cur.execute("SELECT contrasenna, nombre, apellido, status FROM user WHERE eMail = %s", [email])
         result = cur.fetchone()
 
         if not email or not contrasenna:
@@ -96,6 +105,7 @@ def login():
             session['email'] = email
             session['name'] = result['nombre']
             session['last_name'] = result['apellido']
+            session['status'] = result['status']
 
             return redirect(url_for('dashboard'))
         else:
@@ -200,6 +210,24 @@ def contact():
 @app.route('/profile')
 def profile():
     # Fetch user's profile information from your data source (e.g., session, database)
+    user_profile = None
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
+        'role': 'Estudiante',  # Replace with the actual user's role
+    }
+    mensaje = session.pop('mensaje', None)
+    
+
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+
+# Perfil Tutor
+@app.route('/profileTutor')
+def profileTutor():
+    # Fetch user's profile information from your data source (e.g., session, database)
     user_profile = {
         'name': session.get('name'),
         'last_name': session['last_name'],
@@ -207,9 +235,102 @@ def profile():
         'role': 'Estudiante',  # Replace with the actual user's role
     }
 
-    return render_template('profile.html', user_profile=user_profile)
+    return render_template('profileTutor.html', user_profile=user_profile)
 
+# Dashboard Tutor
+@app.route('/dashboardTutor')
+def dashboardTutor():
+    user_profile = None
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'email': session['email'],
+            'status': session['status']
+        }
+ 
+    return render_template('dashboardTutor.html', user_profile=user_profile)
 
+# Guardar cambios del Perfil
+@app.route('/guardar_perfil', methods=['POST'])
+def guardar_perfil():
+    
+    user_profile = None
+    mensaje = None
+    error = None
+
+    if request.method == 'POST':
+
+        nombre = request.form['name']
+        apellido = request.form['last_name']
+        email = request.form['email']
+        contrasenna = request.form['password']
+
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status': session['status'],
+            'email': session['email']
+           
+        }
+
+        email_from_session = session["email"]
+        cursor = mysql.connection.cursor()
+        cursor2 = mysql.connection.cursor()
+
+        # Obtener la contraseña almacenada asociada con el correo electrónico proporcionado
+        cursor.execute("SELECT contrasenna, eMail FROM user WHERE eMail = %s", [email_from_session])
+        cursor2.execute("SELECT eMail from user WHERE eMail <> %s", [email_from_session])
+        resultado = cursor.fetchone()
+        emails_existentes = cursor2.fetchone()
+
+            # Comparar la contraseña proporcionada con la almacenada en la base de datos
+        if contrasenna == resultado['contrasenna'] and not (emails_existentes['eMail'] == email):
+                # Las contraseñas coinciden, actualizar el perfil
+                cursor.execute("UPDATE user SET nombre = %s, apellido = %s, eMail = %s WHERE contrasenna = %s", [nombre, apellido, email, contrasenna])
+                mysql.connection.commit()
+                cursor.close()
+
+                session['name'] = nombre
+                session['last_name'] = apellido
+                session['email'] = email
+
+                session['mensaje'] = {'tipo': 'successUpdate', 'contenido': 'Perfil actualizado exitosamente'}
+                return redirect(url_for('profile'))
+        if emails_existentes['eMail'] == email:
+                session['mensaje'] = {'tipo': 'errorEmail', 'contenido': 'Este correo electrónico ya esta en uso.'}
+                return redirect(url_for('profile'))
+        else:
+             if not (contrasenna == resultado['contrasenna']):
+                session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+                return redirect(url_for('profile'))
+
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+
+@app.route('/subir_imagen', methods=['POST'])
+def subir_imagen():
+    if 'imagen' in request.files:
+        imagen = request.files['imagen']
+        cursor = mysql.connection.cursor()
+        
+        if imagen:
+            data =  imagen.read()
+            cursor.execute("UPDATE user SET image = %s WHERE id_user = 34", (imagen.read(),))
+            mysql.connection.commit()
+            cursor.close()
+    return "Imagen actualizada"
+
+@app.route('/cargar_imagen')
+def cargar_imagen():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT user.image FROM user WHERE user.id = 34;")
+    image = cur.fetchone()
+    cur.close()
+    if image:
+        return send_file(io.BytesIO(image[0], mimetype='image/png'))
+    else:
+        return "Imagen no encotrada", 404
+    
 @app.route('/project')
 def project():
     return render_template('project.html')
@@ -243,7 +364,81 @@ def registrarse():
 def index2():
     return render_template('index2.html')
 
+<<<<<<< HEAD
   
+=======
+<<<<<<< HEAD
+@app.route('/cambiarContrasenna',  methods=['GET', 'POST'])
+def cambiarContrasenna():
+    
+    if request.method == 'POST':
+    
+        email_from_session = session["email"]
+        contrasenna = request.form['password']
+        newPassword = request.form['newPassword']
+
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email_from_session])
+        result = cur.fetchone()
+
+        if result['contrasenna'] == contrasenna: 
+            
+            cursor = mysql.connection.cursor()
+            cursor.execute("UPDATE user SET contrasenna = %s WHERE contrasenna = %s", [newPassword, contrasenna])
+            result = cur.fetchone()
+            mysql.connection.commit()
+            cursor.close()
+
+            return redirect(url_for('profile'))
+        
+        else:
+            flash('La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.', 'error')
+            
+    return render_template('/profile.html')
+
+=======
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # print("inicio")
+    # for key, file in request.files.items():
+    #     print("Campo: {key}")
+    #     print("Nombre del archivo: {file.filename}")
+    #     print("Tipo MIME: {file.mimetype}")
+    #     print("Tamaño del archivo: {file.content_length} bytes")
+    # print("fin")
+    # return
+    #if 'file' not in request.files:
+     #   return 'No se seleccionó ningún archivo.'
+>>>>>>> de4bf908adb1aced5cdd1ac50f135c9d27605795
+
+    #subject = request.form['subject']
+    #file = request.files['file']
+    #id = 12
+
+    #if file.filename == '':
+        #return 'No se seleccionó ningún archivo.'
+
+    #if file:
+        # codificamos el archivo obtenido en formato binario para poder guardarlo posteriormente en la base de datos
+        binario=base64.b64encode(file.read())
+        
+        # Subimos los datos biniarios a la base de datos de azure
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO courses(course_title, user_id, course_description, course_image) VALUES (%s, %s, %s, %s)",
+         (subject, id, binario, file.filename))
+        mysql.connection.commit()
+        cur.close()
+
+             #return redirect(url_for('tables'))
+        decodificado=base64.b64decode(binari)
+        return send_file(
+             io.BytesIO(decodificado),
+             mimetype='application/octet-stream',
+             as_attachment=True,
+             download_name=file.filename
+         )
+>>>>>>> 52d329bc4de409636d642d839d79907608ecb3bd
 
 
 
