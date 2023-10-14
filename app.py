@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
+import tkinter as tk
+
 
 app = Flask(__name__, template_folder="templates")
 
@@ -39,7 +41,8 @@ def agregar():
 
         if not nombre or not apellido or not email or not contrasenna:
             flash('Todos los campos son obligatorios', 'error')
-            return redirect(url_for('registrarse'))
+            return redirect(url_for('mostrar_notificacion'))
+            #return redirect(url_for('registrarse'))
 
         cur0 = mysql.connection.cursor()
         cur0.execute("SELECT eMail from user WHERE eMail = %s", [email])
@@ -57,6 +60,7 @@ def agregar():
                         (nombre, apellido, email, contrasenna))
             mysql.connection.commit()
             cur.close()
+            
             return redirect(url_for('index2'))     
 
     return render_template('index2.html', error=error)
@@ -217,7 +221,6 @@ def registrarse():
 @app.route('/index2',  methods=['GET', 'POST'])
 def index2():
     return render_template('index2.html')
-
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
