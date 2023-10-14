@@ -1,13 +1,24 @@
 #!/usr/bin/env python3.9
+<<<<<<< HEAD
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Response, send_file
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import os
 import io 
 
+=======
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
+from flask_mysqldb import MySQL, MySQLdb
+import bcrypt
+import os
+import io
+import base64
+>>>>>>> de4bf908adb1aced5cdd1ac50f135c9d27605795
 
 app = Flask(__name__, template_folder="templates")
 
+app.config['UPLOAD_FOLDER'] = './files'
+ALLOWED_EXTENSIONS= {'pdf', 'txt'}
 # Configuración de la base de datos
 app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com'  # Cambia esto si tu servidor MySQL no está en localhost
 app.config['MYSQL_USER'] = 'XMoraP'
@@ -88,6 +99,7 @@ def login():
     if result:
     # Comprueba si la contraseña ingresada coincide con la almacenada
         if contrasenna == result['contrasenna']:
+
         # Inicio de sesión exitoso, establece una sesión
             session['logged_in'] = True
             session['email'] = email
@@ -113,7 +125,21 @@ def dashboard():
     else:
         user_profile = None
 
+
     return render_template('dashboard.html', user_profile=user_profile)
+#Tables
+
+@app.route('/tables')
+def tables():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name']
+        }
+    else:
+        user_profile = None
+
+    return render_template('tables.html', user_profile=user_profile)
     
 #Asignaturas
 @app.route('/asignaturas')
@@ -146,9 +172,9 @@ def icons():
     return render_template('icons.html')
 
 #Tables
-@app.route('/tables')
-def tables():
-    return render_template('tables.html')
+#@app.route('/tables')
+#def tables():
+   # return render_template('tables.html')
 
 #Apps
 @app.route('/email')
@@ -175,6 +201,7 @@ def contact():
 
 
 #Additional_Pages
+
 @app.route('/profile')
 def profile():
     # Fetch user's profile information from your data source (e.g., session, database)
@@ -332,6 +359,7 @@ def registrarse():
 def index2():
     return render_template('index2.html')
 
+<<<<<<< HEAD
 @app.route('/cambiarContrasenna',  methods=['GET', 'POST'])
 def cambiarContrasenna():
     
@@ -361,7 +389,62 @@ def cambiarContrasenna():
             
     return render_template('/profile.html')
 
+=======
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # print("inicio")
+    # for key, file in request.files.items():
+    #     print("Campo: {key}")
+    #     print("Nombre del archivo: {file.filename}")
+    #     print("Tipo MIME: {file.mimetype}")
+    #     print("Tamaño del archivo: {file.content_length} bytes")
+    # print("fin")
+    # return
+    #if 'file' not in request.files:
+     #   return 'No se seleccionó ningún archivo.'
+>>>>>>> de4bf908adb1aced5cdd1ac50f135c9d27605795
 
+    #subject = request.form['subject']
+    #file = request.files['file']
+    #id = 12
+
+    #if file.filename == '':
+        #return 'No se seleccionó ningún archivo.'
+
+    #if file:
+        # codificamos el archivo obtenido en formato binario para poder guardarlo posteriormente en la base de datos
+        binario=base64.b64encode(file.read())
+        
+        # Subimos los datos biniarios a la base de datos de azure
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO courses(course_title, user_id, course_description, course_image) VALUES (%s, %s, %s, %s)",
+         (subject, id, binario, file.filename))
+        mysql.connection.commit()
+        cur.close()
+
+             #return redirect(url_for('tables'))
+        decodificado=base64.b64decode(binari)
+        return send_file(
+             io.BytesIO(decodificado),
+             mimetype='application/octet-stream',
+             as_attachment=True,
+             download_name=file.filename
+         )
+
+
+
+         # Así es como estaba antes, esto lo guarda en local en la carpeta files:
+        #filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        f#ile.save(filename)
+        #return 'El archivo se ha subido correctamente.'
+
+       
+
+
+
+
+##################
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
+
