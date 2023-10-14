@@ -97,7 +97,21 @@ def dashboard():
     else:
         user_profile = None
 
+
     return render_template('dashboard.html', user_profile=user_profile)
+#Tables
+
+@app.route('/tables')
+def tables():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name']
+        }
+    else:
+        user_profile = None
+
+    return render_template('tables.html', user_profile=user_profile)
     
 #Asignaturas
 @app.route('/asignaturas')
@@ -130,9 +144,9 @@ def icons():
     return render_template('icons.html')
 
 #Tables
-@app.route('/tables')
-def tables():
-    return render_template('tables.html')
+#@app.route('/tables')
+#def tables():
+   # return render_template('tables.html')
 
 #Apps
 @app.route('/email')
@@ -207,46 +221,50 @@ def upload_file():
     #     print("Tamaño del archivo: {file.content_length} bytes")
     # print("fin")
     # return
-    if 'file' not in request.files:
-        return 'No se seleccionó ningún archivo.'
+    #if 'file' not in request.files:
+     #   return 'No se seleccionó ningún archivo.'
 
-    subject = request.form['subject']
-    file = request.files['file']
+    #subject = request.form['subject']
+    #file = request.files['file']
+    #id = 12
 
-    if file.filename == '':
-        return 'No se seleccionó ningún archivo.'
+    #if file.filename == '':
+        #return 'No se seleccionó ningún archivo.'
 
-    if file:
+    #if file:
         # codificamos el archivo obtenido en formato binario para poder guardarlo posteriormente en la base de datos
         binario=base64.b64encode(file.read())
         
         # Subimos los datos biniarios a la base de datos de azure
-        #cur = mysql.connection.cursor()
-        #cur.execute("INSERT INTO files (filename, file, subject, user) VALUES (%s, %s, %s, %s)",
-         #(file.filename, binario, subject, session["email"]))
-        #mysql.connection.commit()
-        #cur.close()
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO courses(course_title, user_id, course_description, course_image) VALUES (%s, %s, %s, %s)",
+         (subject, id, binario, file.filename))
+        mysql.connection.commit()
+        cur.close()
+
+             #return redirect(url_for('tables'))
+        decodificado=base64.b64decode(binari)
+        return send_file(
+             io.BytesIO(decodificado),
+             mimetype='application/octet-stream',
+             as_attachment=True,
+             download_name=file.filename
+         )
+
+
 
          # Así es como estaba antes, esto lo guarda en local en la carpeta files:
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(filename)
-        return 'El archivo se ha subido correctamente.'
-    
-        return redirect(url_for('tables'))
+        #filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        f#ile.save(filename)
+        #return 'El archivo se ha subido correctamente.'
+
+       
+
+
+
+
 ##################
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
 
-
-
-
-
-
-# decodificado=base64.b64decode(binario)
-#         return send_file(
-#             io.BytesIO(decodificado),
-#             mimetype='application/octet-stream',
-#             as_attachment=True,
-#             download_name=file.filename
-#         )
