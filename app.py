@@ -308,7 +308,7 @@ def subir_imagen():
         cursor = mysql.connection.cursor()
         
         if imagen:
-            data = base64.b64encode(imagen.read()).decode('utf-8')
+            data = base64.b64encode(imagen.read())
             cursor.execute("UPDATE user SET image = %s WHERE id_user = 34", (data,))
             mysql.connection.commit()
             cursor.close()
