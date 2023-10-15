@@ -38,9 +38,12 @@
       <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
       <!-- calendar file css -->
       <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <!--Alerts-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
+
       <![endif]-->
    </head>
    <body class="dashboard dashboard_1">
@@ -60,7 +63,7 @@
                         <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
                            <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
-                           <p><span class="online_animation"></span> Tutor </p>
+                           <p><span class="online_animation"></span> {{ user_profile['status'] }}</p>
                         </div>
                      </div>
                   </div>
@@ -69,7 +72,7 @@
                   <h4>General</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                        <a href="/dashboardTutor"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
+                        <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
                      </li>
                      <li><a href="/asignaturas"><i class="fas fa-book orange_color"></i> <span>Asignaturas</span></a></li>
                      <li>
@@ -90,7 +93,7 @@
                            <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
                         </ul>
                      </li>
-                     <li><a href="/price"><i class="fa fa-briefcase blue1_color"></i> <span>Tutelados</span></a></li>
+                     <li><a href="/price"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
                      <li>
                         <a href="/contact">
                         <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
@@ -138,7 +141,8 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" />
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="/profile">Perfil</a>
                                        <a class="dropdown-item" href="/settings">Configuración</a>
@@ -180,22 +184,29 @@
                                     <div class="col-lg-12">
                                        <div class="full dis_flex center_text">
                                            <!-- Botón de selección de imagen -->
+                                           <form action="/subir_imagen" method="POST" enctype ="multipart/form-data">
                                            <label for="profileImage" class="profile_img" style="cursor:pointer;">
-                                               <img width="180" class="rounded-circle" src="../static/images/user_img.jpg" alt="#" />
-                                               <input type="file" id="profileImage" accept="image/*" style="display:none;">
+                                               <img width="180" class="rounded-circle" src="/cargar_imagen" alt="Imagen del Usuario">
+                                               <br/>
+                                               <!--input type ="text" name="nombre" placeholder="Nombre de la Imagen"-->
+                                               <input type="file" name="imagen">
+                                             <input type="file" id="profileImage" accept="image/*" style="display:none;">
                                            </label>
-                                   
-                                           <div class="profile_contant">
-                                               <div class="contact_inner">
-                                                <h3>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h3>
-                                                <p><strong>Status: </strong>{{ user_profile['status'] }}</p>
-                                                <p><strong>Email: </strong>{{ user_profile['email'] }}</p>                                                
-                                               </div>
-                                           </div>
+                                          
                                        </div>
                                        <!-- Botón para añadir imagen -->
-                                       <button class="btn btn-primary custom-button" id="addImage">Añadir Imagen</button>
-                                   
+                                       <input type="submit" value = "Subir Imagen">
+                                       <br/>
+                                       <div class="profile_contant">
+                                          <div class="contact_inner">
+                                             <br/>
+                                             <h3>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h3>
+                                              <p><strong>Status: </strong>{{ user_profile['status'] }}</p>
+                                              <p><strong>Email: </strong>{{ user_profile['email'] }}</p>  
+                                              <p style="margin-left: 200px; margin-top: -65px;"><strong>Grado: </strong>{{ user_profile['nombre_grado'] }}</p>                                                 
+                                          </div>
+                                      </div>
+                                    </form>
                                    </div>
                                    <br/>
                                    
@@ -207,7 +218,7 @@
                <div class="nav nav-tabs" id="nav-tab" role="tablist">
                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#recent_activity" role="tab" aria-selected="true">Editar perfil</a>
                    <a class="nav-item nav-link" id="nav-password-tab" data-toggle="tab" href="#password_change" role="tab" aria-selected="false">Cambiar Contraseña</a>
-                   <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#project_worked" role="tab" aria-selected="false">Perfil Tutor</a>
+                   <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#project_worked" role="tab" aria-selected="false">Ser tutor</a>
                    
                </div>
            </nav>
@@ -217,61 +228,53 @@
                    <form method="POST" action="/guardar_perfil">
                        <div class="form-group">
                            <label for="email">Email:</label>
-                           <input type="email" class="form-control" id="email" placeholder="Ingrese su email" name="email" required>
+                           <input type="email" class="form-control" id="email" placeholder="Ingrese su email" name="email" required value="{{ user_profile['email'] }}" >
                        </div>
                        <div class="form-group">
                            <label for="name">Nombre:</label>
-                           <input type="text" class="form-control" id="name" placeholder="Ingrese su nombre" name="name" required >
+                           <input type="text" class="form-control" id="name" placeholder="Ingrese su nombre" name="name" required value="{{ user_profile['name'] }}">
                        </div>
                        <div class="form-group">
                            <label for="last_name">Apellido:</label>
-                           <input type="text" class="form-control" id="last_name" placeholder="Ingrese su apellido" name="last_name" required>
+                           <input type="text" class="form-control" id="last_name" placeholder="Ingrese su apellido" name="last_name" required value="{{ user_profile['last_name'] }}">
                        </div>
                        <div class="form-group">
                         <label for="grado">Grado:</label>
-                        <input type="text" class="form-control" id="grado" placeholder="Ingrese su grado" name="grado" required>
+                        <input type="text" class="form-control" id="grado" placeholder="Ingrese su grado" name="grado" required value="{{ user_profile['nombre_grado'] }}">
                        </div>
                        <div class="form-group">
                            <label for="password">Contraseña:</label>
                            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" required>
-                       </div>
-               
+                       </div>              
                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-      
+                       
                    </form>
                </div>
                <div class="tab-pane fade" id="project_worked" role="tabpanel" aria-labelledby="nav-profile-tab">
-                  <form>
+                  <form action="/altaTutor" method="POST">
                       <div class="form-group">
-                        <p>Añade las asignaturas que deseas impartir como tutor.</p>
-                      </br>  
-                        <label for="asignaturas">Asignaturas:</label>
-                          <input type="text" class="form-control" id="asignaturas" placeholder="Ingrese sus asignaturas" required>
                           <div class="form-group">
-                          </br>
+                           <label>Introduzca su contraseña para darse de alta como Tutor</label>
+                           <br/>
                            <label for="password">Contraseña:</label>
                            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" required>
                        </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>             
+                      <button type="submit" class="btn btn-primary">Ser Tutor</button>
                   </form>
-                  
-                  <button type="submit" class="btn btn-primary noTutor-button">Dejar de ser tutor</button>
-               
               </div>
               <div class="tab-pane fade" id="password_change" role="tabpanel" aria-labelledby="nav-profile-tab">
                <form method="POST" action="/cambiarContrasenna">
                    <div class="form-group">
-                     <p>Cambio de contraseña</p>
                    </br>  
                      <label for="oldPassword">Contraseña:</label>
-                       <input type="text" class="form-control" id="old_password" placeholder="Ingrese su contraseña actual" required>
+                       <input type="password" class="form-control" name="password" id="old_password" placeholder="Ingrese su contraseña actual" required>
                   </br>
                      <label for="newPassword">Nueva contraseña:</label>
-                       <input type="text" class="form-control" id="new_password" placeholder="Ingrese su nueva contraseña" required>
+                       <input type="password" class="form-control" id="new_password" name="newPassword" placeholder="Ingrese su nueva contraseña" required>
                      </br>
                      <label for="confirmPassword">Confirmar contraseña:</label>
-                       <input type="text" class="form-control" id="confirm_password" placeholder="Ingrese nuevamente su contraseña" required>
+                       <input type="password" class="form-control" id="confirm_password" name="confirmPassword" placeholder="Confirme nueva su contraseña" required>
                    </div>
                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                </form>
@@ -304,6 +307,7 @@
             </div>
          </div>
       </div>
+      
       <!-- jQuery -->
       <script src="../static/js/jquery.min.js"></script>
       <script src="../static/js/popper.min.js"></script>
@@ -328,9 +332,12 @@
       <script src="../static/js/custom.js"></script>
       <!-- calendar file css -->    
       <script src="../static/js/semantic.min.js"></script>
+      <!--Alerts-->
+      <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
+
 
       <!-- Lógica Boton añadir imagen-->
-      <script>
+      <!--script>
       
        document.getElementById('addImage').addEventListener('click', function() {
            document.getElementById('profileImage').click();
@@ -350,7 +357,41 @@
             reader.readAsDataURL(file); // Leer el archivo como URL de datos
         }
     });
-   </script>
+   </script-->
+
+<div id="flash-message" data-tipo="{{ mensaje['tipo'] }}" data-contenido="{{ mensaje['contenido'] }}"></div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       const flashMessage = document.getElementById('flash-message');
+       const tipo = flashMessage.dataset.tipo;
+       const contenido = flashMessage.dataset.contenido;
+
+       if (tipo === 'successUpdate') {
+           Swal.fire({
+               title: 'Éxito',
+               text: contenido,
+               icon: 'success',
+               confirmButtonText: 'Aceptar'
+           });
+       } else if (tipo === 'errorPassword') {
+           Swal.fire({
+               title: 'Error de Contraseña',
+               text: contenido,
+               icon: 'error',
+               confirmButtonText: 'Aceptar'
+           });
+       } else if (tipo === 'errorEmail') {
+           Swal.fire({
+               title: 'Error de Email',
+               text: contenido,
+               icon: 'error',
+               confirmButtonText: 'Aceptar'
+           });
+       }
+   });
+</script>
+
      
    </body>
 </html>
