@@ -83,7 +83,7 @@ def login():
         cur = mysql.connection.cursor()
 
         # Obtiene la contraseña almacenada para el usuario
-        cur.execute("SELECT contrasenna, nombre, apellido, status FROM user WHERE eMail = %s", [email])
+        cur.execute("SELECT id_user, contrasenna, nombre, apellido, status FROM user WHERE eMail = %s", [email])
         result = cur.fetchone()
 
         if not email or not contrasenna:
@@ -97,6 +97,7 @@ def login():
         # Inicio de sesión exitoso, establece una sesión
             session['logged_in'] = True
             session['email'] = email
+            session['id_user'] = result['id_user']
             session['name'] = result['nombre']
             session['last_name'] = result['apellido']
             session['status'] = result['status']
@@ -303,25 +304,41 @@ def guardar_perfil():
 
 @app.route('/subir_imagen', methods=['POST'])
 def subir_imagen():
+    id_user = session['id_user'] 
     if 'imagen' in request.files:
         imagen = request.files['imagen']
         cursor = mysql.connection.cursor()
-        
-        if imagen:
+        cursor.execute("SELECT image from image WHERE id_user = %s", (id_user,))
+        result = cursor.fetchall()
+        mysql.connection.commit()
+
+        if result:
             data = base64.b64encode(imagen.read())
-            cursor.execute("UPDATE user SET image = %s WHERE id_user = 34", (data,))
+            cursor.execute("UPDATE image SET image = %s WHERE id_user = %s", (data, id_user,))
             mysql.connection.commit()
             cursor.close()
             session['mensaje'] = {'tipo':'successUpdate','contenido':'imagen actualizada'}
             return redirect(url_for('profile'))
         else:
-            session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
+            data = base64.b64encode(imagen.read())
+            cursor.execute("INSERT INTO image (id_user, image) VALUES (%s,%s)", (id_user, data,))
+            mysql.connection.commit()
+            cursor.close()
+            session['mensaje'] = {'tipo':'successUpdate','contenido':'imagen actualizada Nuevo'}
             return redirect(url_for('profile'))
+
+
+
+            
+        #else:
+         #   session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
+          #  return redirect(url_for('profile')) 
         
 @app.route('/cargar_imagen')
 def cargar_imagen():
+    id_user = session['id_user']
     cur = mysql.connection.cursor()
-    cur.execute("SELECT image FROM user WHERE id_user = 34;")
+    cur.execute("SELECT image FROM image WHERE id_user = %s", (id_user,))
     image_data = cur.fetchone()
     cur.close()
     if image_data is not None:
