@@ -382,6 +382,8 @@ select,
 textarea,
 option {
     font-family: 'Poppins', sans-serif;
+
+
 }
 
 a#submit {
@@ -3105,6 +3107,9 @@ ul.labels-category li p {
 .contact_inner {
     float: left;
     width: 100%;
+    justify-content:center;
+    margin-left: 260px;
+    margin-top: -200px;
 }
 
 .contact_inner .left {
@@ -3184,7 +3189,8 @@ ul.labels-category li p {
 
 .profile_img {
     float: left;
-    margin-right: 20px;
+    margin-right: 20px; 
+    display: grid;
 }
 
 .profile_contant {
@@ -3712,6 +3718,7 @@ table.projects tr td:first-child {
     margin-left: 23px; /* Ajusta el valor según sea necesario */
 }
 
+/* Boton para dejar de ser tutor*/
 .noTutor-button {
     margin-left: 550px;
     margin-top: -55px;
@@ -3719,6 +3726,13 @@ table.projects tr td:first-child {
     border-color: transparent;
     
 }
+
+/*Botón de seleccionar archivo foto*/
+input[type="file"] {
+    color: lightslategray; /* Cambia el color del texto */
+    background-color:#f0f0f0; /* Cambia el color del fondo */
+  }
+  
 
 
 

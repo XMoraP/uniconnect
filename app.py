@@ -83,7 +83,7 @@ def login():
         cur = mysql.connection.cursor()
 
         # Obtiene la contraseña almacenada para el usuario
-        cur.execute("SELECT id_user, contrasenna, nombre, apellido, status FROM user WHERE eMail = %s", [email])
+        cur.execute("SELECT id_user, contrasenna, nombre, apellido, status, nombre_grado FROM user WHERE eMail = %s", [email])
         result = cur.fetchone()
 
         if not email or not contrasenna:
@@ -101,6 +101,7 @@ def login():
             session['name'] = result['nombre']
             session['last_name'] = result['apellido']
             session['status'] = result['status']
+            session['nombre_grado'] = result['nombre_grado']
 
             return redirect(url_for('dashboard'))
         else:
@@ -115,7 +116,8 @@ def dashboard():
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
-            'last_name': session['last_name']
+            'last_name': session['last_name'],
+            'status' : session['status']
         }
     else:
         user_profile = None
@@ -199,6 +201,7 @@ def profile():
         'last_name': session['last_name'],
         'email': session['email'],
         'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
         'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
         'role': 'Estudiante',  # Replace with the actual user's role
     }
@@ -210,15 +213,19 @@ def profile():
 # Perfil Tutor
 @app.route('/profileTutor')
 def profileTutor():
-    # Fetch user's profile information from your data source (e.g., session, database)
+    user_profile = None
     user_profile = {
         'name': session.get('name'),
         'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
         'photo_url': 'static/images/userPhoto.png',  # Replace with the actual URL of the user's photo
         'role': 'Estudiante',  # Replace with the actual user's role
     }
+    mensaje = session.pop('mensaje', None)
 
-    return render_template('profileTutor.html', user_profile=user_profile)
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje)
 
 # Dashboard Tutor
 @app.route('/dashboardTutor')
@@ -231,8 +238,9 @@ def dashboardTutor():
             'email': session['email'],
             'status': session['status']
         }
+        mensaje = session.pop('mensaje', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje)
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -248,12 +256,14 @@ def guardar_perfil():
         apellido = request.form['last_name']
         email = request.form['email']
         contrasenna = request.form['password']
+        grado = request.form['grado']
 
         user_profile = {
             'name': session['name'],
             'last_name': session['last_name'],
             'status': session['status'],
-            'email': session['email']
+            'email': session['email'],
+            'nombre_grado': session['nombre_grado']
            
         }
 
@@ -270,13 +280,14 @@ def guardar_perfil():
             # Comparar la contraseña proporcionada con la almacenada en la base de datos
         if contrasenna == resultado['contrasenna'] and not (emails_existentes['eMail'] == email):
                 # Las contraseñas coinciden, actualizar el perfil
-                cursor.execute("UPDATE user SET nombre = %s, apellido = %s, eMail = %s WHERE contrasenna = %s", [nombre, apellido, email, contrasenna])
+                cursor.execute("UPDATE user SET nombre = %s, apellido = %s, eMail = %s, nombre_grado= %s WHERE contrasenna = %s", [nombre, apellido, email, grado, contrasenna])
                 mysql.connection.commit()
                 cursor.close()
 
                 session['name'] = nombre
                 session['last_name'] = apellido
                 session['email'] = email
+                session['nombre_grado'] = grado
 
                 session['mensaje'] = {'tipo': 'successUpdate', 'contenido': 'Perfil actualizado exitosamente'}
                 return redirect(url_for('profile'))
@@ -290,6 +301,7 @@ def guardar_perfil():
 
     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
 
+# Codigos para subir imagenes de perfil.
 @app.route('/subir_imagen', methods=['POST'])
 def subir_imagen():
     id_user = session['id_user'] 
@@ -317,6 +329,8 @@ def subir_imagen():
         #else:
          #   session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
           #  return redirect(url_for('profile')) 
+
+
         
 @app.route('/cargar_imagen')
 def cargar_imagen():
@@ -328,7 +342,7 @@ def cargar_imagen():
     if image_data is not None:
         # Decodifica la imagen en formato base64 para mostrarla
         image_bytes = base64.b64decode(image_data['image'])
-        return send_file(io.BytesIO(image_bytes), mimetype='image/png')
+        return send_file(io.BytesIO(image_bytes), mimetype='image/*')
     else:
         return "Imagen no encontrada", 404 
 
@@ -365,14 +379,18 @@ def registrarse():
 def index2():
     return render_template('index2.html')
 
+# Cambiar contraseña de usuario
 @app.route('/cambiarContrasenna',  methods=['GET', 'POST'])
 def cambiarContrasenna():
+    user_profile = None
+    mensaje = None
     
     if request.method == 'POST':
     
         email_from_session = session["email"]
         contrasenna = request.form['password']
         newPassword = request.form['newPassword']
+        confirmPassword = request.form['confirmPassword']
 
 
         cur = mysql.connection.cursor()
@@ -380,19 +398,72 @@ def cambiarContrasenna():
         result = cur.fetchone()
 
         if result['contrasenna'] == contrasenna: 
-            
-            cursor = mysql.connection.cursor()
-            cursor.execute("UPDATE user SET contrasenna = %s WHERE contrasenna = %s", [newPassword, contrasenna])
-            result = cur.fetchone()
-            mysql.connection.commit()
-            cursor.close()
+            if newPassword == confirmPassword:
+                cursor = mysql.connection.cursor()
+                cursor.execute("UPDATE user SET contrasenna = %s WHERE contrasenna = %s", [newPassword, contrasenna])
+                result = cur.fetchone()
+                mysql.connection.commit()
+                cursor.close()
 
-            return redirect(url_for('profile'))
-        
+                session['contrasenna']: newPassword
+                session['mensaje'] = {'tipo':'successUpdate','contenido':'Contraseña actualizada'}
+                return redirect(url_for('profile'))
+            else:
+                session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'Los campos Nueva contraseña y Confirmar contraseña no coinciden. Por favor, inténtalo de nuevo.'}
+                return redirect(url_for('profile'))
         else:
-            flash('La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.', 'error')
+            session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+            return redirect(url_for('profile')) 
+        
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+
+#Darse de alta de tutor
+@app.route('/altaTutor',  methods=['GET', 'POST'])
+def altaTutor():
+     
+     user_profile = None
+     mensaje = None
+     
+     if request.method == 'POST':
+    
+        email_from_session = session["email"]
+        contrasenna = request.form['password']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email_from_session])
+        result = cur.fetchone()
+
+        if result['contrasenna'] == contrasenna:
+                cursor = mysql.connection.cursor()
+                cursor.execute("UPDATE user SET status = 'Tutor' WHERE contrasenna = %s", [contrasenna])
+                result = cursor.fetchone()
+                mysql.connection.commit()
+
             
-    return render_template('/profile.html')
+                session['mensaje'] = {'tipo':'successUpdate','contenido':'Te has dado de alta de Tutor'}
+
+                cursor2 = mysql.connection.cursor()
+                cursor2.execute("SELECT status FROM user WHERE eMail = %s", [email_from_session])
+                resultado = cursor2.fetchone()
+                mysql.connection.commit()
+                session['status'] = resultado['status']
+
+                return redirect(url_for('dashboardTutor'))
+        
+
+        else:
+            session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+            return redirect(url_for('profile')) 
+        
+     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+
+
+
+
+        
+
+
+    
 
 # Ruta para subir un archivo
 @app.route('/upload', methods=['POST'])
