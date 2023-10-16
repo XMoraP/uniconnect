@@ -133,18 +133,8 @@ def tables():
         }
     else:
         user_profile = None
-    subject = None
-    id_user= None
-    session['id_user'] = id_user
-    if request.method == 'POST':
-         cur = mysql.connection.cursor()
-         cur.execute("SELECT course_title FROM courses WHERE user_id = %s", [id_user])
-         cur.fetchall()
-         cur.close()
-
-    return render_template('tables.html', user_profile=user_profile, subject = subject)
-
-    
+    return render_template('tables.html', user_profile=user_profile)
+ 
 #Asignaturas
 @app.route('/asignaturas')
 def asignaturas():
@@ -174,8 +164,6 @@ def invoice():
 @app.route('/icons')
 def icons():
     return render_template('icons.html')
-
-
 #Apps
 @app.route('/email')
 def email():
@@ -326,10 +314,6 @@ def subir_imagen():
             cursor.close()
             session['mensaje'] = {'tipo':'successUpdate','contenido':'imagen actualizada Nuevo'}
             return redirect(url_for('profile'))
-
-
-
-            
         #else:
          #   session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
           #  return redirect(url_for('profile')) 
@@ -346,7 +330,7 @@ def cargar_imagen():
         image_bytes = base64.b64decode(image_data['image'])
         return send_file(io.BytesIO(image_bytes), mimetype='image/png')
     else:
-        return "Imagen no encontrada", 404
+        return "Imagen no encontrada", 404 
 
 @app.route('/project')
 def project():
@@ -409,6 +393,38 @@ def cambiarContrasenna():
             flash('La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.', 'error')
             
     return render_template('/profile.html')
+
+# Ruta para subir un archivo
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    file_data = file.read()
+
+    query = "INSERT INTO file (file) VALUES (%s)"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (file_data,))
+    mysql.connection.commit()
+
+    return redirect(url_for('profile'))
+
+# Ruta para descargar un archivo
+@app.route('/download', methods=['POST'])
+def download_file():
+    file_id = request.form['file_id']
+
+    query = "SELECT file FROM file WHERE id_file = %s"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (file_id,))
+    result = cursor.fetchone()
+
+    file_data = result['file']
+
+    return send_file(
+        io.BytesIO(file_data),
+        mimetype='application/octet-stream',
+        download_name=f"file_{file_id}.pdf",
+        as_attachment=True
+    )
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
