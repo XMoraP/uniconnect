@@ -8,36 +8,84 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>UniConnect - Inicio</title>
+      <title>Inicio CRUD(Create, Read, Update, Delete) with Python Flask and Mysql</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
+      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
       <!-- Include flaticon CSS -->
       <link rel="stylesheet" href="../static/fonts/flaticon.css">
       <!-- Include Font Awesome CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="./static/css/bootstrap.min.css">
       <!-- site css -->
-      <link rel="stylesheet" href="../static/css/style.css" />
+      <link rel="stylesheet" href="./static/css/style.css">
       <!-- responsive css -->
-      <link rel="stylesheet" href="../static/css/responsive.css" />
+      <link rel="stylesheet" href="./static/css/responsive.css">
       <!-- color css -->
-      <link rel="stylesheet" href="../static/css/colors.css" />
+      <link rel="stylesheet" href="./static/css/color_2.css">
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+      <link rel="stylesheet" href="./static/css/bootstrap-select.css">
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+      <link rel="stylesheet" href="./static/css/perfect-scrollbar.css">
       <!-- custom css -->
-      <link rel="stylesheet" href="../static/css/custom.css" />
+      <link rel="stylesheet" href="./static/css/custom.css">
       <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <link rel="stylesheet" href="./static/css/semantic.min.css">
       <!-- fancy box js -->
-      <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
+      <!-- fullcalendar -->
+      <link href='./static/fullcalendar/main.css' rel='stylesheet' />
+      <script src='./static/fullcalendar/main.js'></script>
+
+
+      <!-- JS script for fullcalendar events-->
+      <script>
+         $(document).ready(function() {
+           var calendar = $('#calendar').fullCalendar({
+            editable: true,
+            header: {
+               left: 'prev,next today',
+               center: 'title',
+               right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+               {% for row in calendar %}
+               {
+                  id: '{{row.event_id}}',
+                  title: '{{row.title}}',
+                  start: '{{row.start}}',
+                  end: '{{row.end}}'
+                 },
+               {% endfor %}
+            ],
+            
+            selectable: true,
+            selectHelper: true,
+
+            select: function(start, end, allDay) {
+               var title = prompt("Enter Event Title");
+               if (title) {
+                  var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                  var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+                  $.ajax({
+                     url: "/add_event",
+                     type: "POST",
+                     data: { title: title, start: start, end: end },
+                     success: function(data) {
+                        alert("Added Successfully");
+                        window.location.replace("/");
+                     }
+                  }):
+               }
+             },
+           });
+         });
+       </script>
+       
+
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -165,85 +213,11 @@
                         </div>
                      </div>
 
-                     <div class="row column4 graph">
-                        <div class="col-md-8">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Calendario</h2>
-                                 </div>
-                              </div>
-                              <div class="full progress_bar_inner">
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                       <div class="full">
-                                          <div class="ui calendar" id="example14"></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <!-- Eventos Section -->
-                        <div class="col-md-4">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Eventos</h2>
-                                 </div>
-                                 <!-- Add Event Button (Open Modal) -->
-                                 <button id="openAddEventModalButton" class="btn btn-success" data-toggle="modal" data-target="#addEventModal">Agregar Evento</button>
-                              </div>
-                              <div class="full progress_bar_inner">
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                       <div class="msg_list_main">
-                                          <ul class="msg_list" id="eventList">
-                                             <!-- Existing and new event items go here -->
-                                          </ul>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <div class="container">
+                        <div id="calendar"></div>
                      </div>
-                  </div>
+                     
 
-                  <!-- Add Event Modal -->
-                  <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                                 <h5 class="modal-title" id="addEventModalLabel">Agregar Evento</h5>
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                 </button>
-                           </div>
-                           <div class="modal-body">
-                                 <!-- Event Form -->
-                                 <form id="eventForm">
-                                    <div class="form-group">
-                                       <label for="eventName">Título del Evento</label>
-                                       <input type="text" class="form-control" id="eventName" placeholder="Ingrese el título del evento">
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="eventDate">Fecha del Evento</label>
-                                       <input type="date" class="form-control" id="eventDate" placeholder="Seleccione la fecha">
-                                   </div>
-                                   <div class="form-group">
-                                       <label for="eventTime">Hora del Evento</label>
-                                       <input type="time" class="form-control" id="eventTime" placeholder="Seleccione la hora">
-                                   </div>
-                              </form>
-                           </div>
-                           <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                 <button type="button" class="btn btn-primary" id="saveEventButton">Guardar</button>
-                           </div>
-                        </div>
-                     </div>
                   </div>
 
                   <!-- footer -->
@@ -282,33 +256,35 @@
          </div>
       </div>
       <!-- jQuery -->
-      <script src="../static/js/jquery.min.js"></script>
-      <script src="../static/js/popper.min.js"></script>
-      <script src="../static/js/bootstrap.min.js"></script>
+      <script src="./static/js/jquery.min.js"></script>
+      <script src="./static/js/popper.min.js"></script>
+      <script src="./static/js/bootstrap.min.js"></script>
       <!-- wow animation -->
-      <script src="../static/js/animate.js"></script>
+      <script src="./static/js/animate.js"></script>
       <!-- select country -->
-      <script src="../static/js/bootstrap-select.js"></script>
+      <script src="./static/js/bootstrap-select.js"></script>
       <!-- owl carousel -->
-      <script src="../static/js/owl.carousel.js"></script> 
+      <script src="./static/js/owl.carousel.js"></script> 
       <!-- chart js -->
-      <script src="../static/js/Chart.min.js"></script>
-      <script src="../static/js/Chart.bundle.min.js"></script>
-      <script src="../static/js/utils.js"></script>
-      <script src="../static/js/analyser.js"></script>
+      <script src="./static/js/Chart.min.js"></script>
+      <script src="./static/js/Chart.bundle.min.js"></script>
+      <script src="./static/js/utils.js"></script>
+      <script src="./static/js/analyser.js"></script>
       <!-- nice scrollbar -->
-      <script src="../static/js/perfect-scrollbar.min.js"></script>
+      <script src="./static/js/perfect-scrollbar.min.js"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- fancy box js -->
-      <script src="../static/js/jquery-3.3.1.min.js"></script>
-      <script src="../static/js/jquery.fancybox.min.js"></script>
+      <script src="./static/js/jquery-3.3.1.min.js"></script>
+      <script src="./static/js/jquery.fancybox.min.js"></script>
       <!-- custom js -->
-      <script src="../static/js/custom.js"></script>
+      <script src="./static/js/custom.js"></script>
+      <script src="./static/js/custom2.js"></script>
       <!-- calendar file css -->    
-      <script src="../static/js/semantic.min.js"></script>
+      <script src="./static/js/semantic.min.js"></script>
       <!--js de crear eventos-->
-      <script src="../static/js/events.js"></script>
+      <script src="./static/js/events.js"></script>
+
    </body>
 </html>

@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify
 from flask_mysqldb import MySQL, MySQLdb
 from PIL import Image
 import bcrypt
 import os
 import io
 import base64
+import json
+from datetime import datetime
+
 
 
 app = Flask(__name__, template_folder="templates")
@@ -113,6 +116,10 @@ def login():
 #DashBoard
 @app.route('/dashboard')
 def dashboard():
+    
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
@@ -122,10 +129,13 @@ def dashboard():
     else:
         user_profile = None
 
+    cur.execute("SELECT * FROM events ORDER BY event_id")
+    calendar = cur.fetchall()  
 
-    return render_template('dashboard.html', user_profile=user_profile)
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
+
+
 #Tables
-
 @app.route('/tables')
 def tables():
     if 'logged_in' in session:
@@ -465,14 +475,60 @@ def altaTutor():
      return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
 
 
+# MANEJO DE EVENTOS PARA FULLCALENDAR
+@app.route('/add_event', methods=['POST','GET'])
+def add_event():
+
+    id_user = session['id_user']
+
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if request.method == 'POST':
+        title = request.form['title']
+        start = request.form['start']
+        end = request.form['end']
+        print(title)     
+        print(start)  
+        cur.execute("INSERT INTO events (id_user,title,start,end) VALUES (%s,%s,%s,%s)",[id_user,title,start,end])
+        mysql.connection.commit()
+        cur.close()
+        msg = 'success'  
+    return jsonify(msg)
 
 
-        
+""""
+@app.route("/update",methods=["POST","GET"])
+def update():
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if request.method == 'POST':
+        title = request.form['title']
+        start = request.form['start']
+        end = request.form['end']
+        event_id = request.form['event_id']
+        print(title)     
+        print(start)  
+        cur.execute("UPDATE events SET title = %s, start = %s, end = %s WHERE event_id = %s ", [title, start, end, event_id])
+        mysql.connection.commit()       
+        cur.close()
+        msg = 'success'  
+    return jsonify(msg)    
 
-
-    
+@app.route("/ajax_delete",methods=["POST","GET"])
+def ajax_delete():
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if request.method == 'POST':
+        getid = request.form['event_id']
+        print(getid)
+        cur.execute('DELETE FROM events WHERE event_id = {0}'.format(getid))
+        mysql.connection.commit()       
+        cur.close()
+        msg = 'Record deleted successfully'  
+    return jsonify(msg) 
+"""
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
-
