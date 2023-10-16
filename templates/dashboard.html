@@ -8,36 +8,42 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>UniConnect - Inicio</title>
+      <title>Inicio CRUD(Create, Read, Update, Delete) with Python Flask and Mysql</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
+      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
       <!-- Include flaticon CSS -->
       <link rel="stylesheet" href="../static/fonts/flaticon.css">
       <!-- Include Font Awesome CSS -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="./static/css/bootstrap.min.css">
       <!-- site css -->
-      <link rel="stylesheet" href="../static/css/style.css" />
+      <link rel="stylesheet" href="./static/css/style.css">
       <!-- responsive css -->
-      <link rel="stylesheet" href="../static/css/responsive.css" />
+      <link rel="stylesheet" href="./static/css/responsive.css">
       <!-- color css -->
-      <link rel="stylesheet" href="../static/css/colors.css" />
+      <link rel="stylesheet" href="./static/css/color_2.css">
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+      <link rel="stylesheet" href="./static/css/bootstrap-select.css">
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+      <link rel="stylesheet" href="./static/css/perfect-scrollbar.css">
       <!-- custom css -->
-      <link rel="stylesheet" href="../static/css/custom.css" />
+      <link rel="stylesheet" href="./static/css/custom.css">
       <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <link rel="stylesheet" href="./static/css/semantic.min.css">
       <!-- fancy box js -->
-      <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
+      <!-- fullcalendar -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+      
+       
+
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -117,6 +123,7 @@
                      <li><a href="/settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
                   </ul>
                </div>
+               
             </nav>
             <!-- end sidebar -->
             <!-- right content -->
@@ -164,90 +171,13 @@
                            </div>
                         </div>
                      </div>
-
-                     <div class="row column4 graph">
-                        <div class="col-md-8">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Calendario</h2>
-                                 </div>
-                              </div>
-                              <div class="full progress_bar_inner">
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                       <div class="full">
-                                          <div class="ui calendar" id="example14"></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <!-- Eventos Section -->
-                        <div class="col-md-4">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Eventos</h2>
-                                 </div>
-                                 <!-- Add Event Button (Open Modal) -->
-                                 <button id="openAddEventModalButton" class="btn btn-success" data-toggle="modal" data-target="#addEventModal">Agregar Evento</button>
-                              </div>
-                              <div class="full progress_bar_inner">
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                       <div class="msg_list_main">
-                                          <ul class="msg_list" id="eventList">
-                                             <!-- Existing and new event items go here -->
-                                          </ul>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-                  <!-- Add Event Modal -->
-                  <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                                 <h5 class="modal-title" id="addEventModalLabel">Agregar Evento</h5>
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                 </button>
-                           </div>
-                           <div class="modal-body">
-                                 <!-- Event Form -->
-                                 <form id="eventForm">
-                                    <div class="form-group">
-                                       <label for="eventName">Título del Evento</label>
-                                       <input type="text" class="form-control" id="eventName" placeholder="Ingrese el título del evento">
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="eventDate">Fecha del Evento</label>
-                                       <input type="date" class="form-control" id="eventDate" placeholder="Seleccione la fecha">
-                                   </div>
-                                   <div class="form-group">
-                                       <label for="eventTime">Hora del Evento</label>
-                                       <input type="time" class="form-control" id="eventTime" placeholder="Seleccione la hora">
-                                   </div>
-                              </form>
-                           </div>
-                           <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                 <button type="button" class="btn btn-primary" id="saveEventButton">Guardar</button>
-                           </div>
-                        </div>
-                     </div>
                   </div>
 
                   <!-- footer -->
                   <div class="container-fluid">
+                     <div class="calendar-container">
+                        <div id="calendar"></div>
+                     </div>
                      <div class="footer">
                         <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                      </div>
@@ -282,33 +212,131 @@
          </div>
       </div>
       <!-- jQuery -->
-      <script src="../static/js/jquery.min.js"></script>
-      <script src="../static/js/popper.min.js"></script>
-      <script src="../static/js/bootstrap.min.js"></script>
+      <script src="./static/js/jquery.min.js"></script>
+      <script src="./static/js/popper.min.js"></script>
+      <script src="./static/js/bootstrap.min.js"></script>
       <!-- wow animation -->
-      <script src="../static/js/animate.js"></script>
+      <script src="./static/js/animate.js"></script>
       <!-- select country -->
-      <script src="../static/js/bootstrap-select.js"></script>
+      <script src="./static/js/bootstrap-select.js"></script>
       <!-- owl carousel -->
-      <script src="../static/js/owl.carousel.js"></script> 
+      <script src="./static/js/owl.carousel.js"></script> 
       <!-- chart js -->
-      <script src="../static/js/Chart.min.js"></script>
-      <script src="../static/js/Chart.bundle.min.js"></script>
-      <script src="../static/js/utils.js"></script>
-      <script src="../static/js/analyser.js"></script>
+      <script src="./static/js/Chart.min.js"></script>
+      <script src="./static/js/Chart.bundle.min.js"></script>
+      <script src="./static/js/utils.js"></script>
+      <script src="./static/js/analyser.js"></script>
       <!-- nice scrollbar -->
-      <script src="../static/js/perfect-scrollbar.min.js"></script>
+      <script src="./static/js/perfect-scrollbar.min.js"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- fancy box js -->
-      <script src="../static/js/jquery-3.3.1.min.js"></script>
-      <script src="../static/js/jquery.fancybox.min.js"></script>
+      <script src="./static/js/jquery-3.3.1.min.js"></script>
+      <script src="./static/js/jquery.fancybox.min.js"></script>
       <!-- custom js -->
-      <script src="../static/js/custom.js"></script>
+      <script src="./static/js/custom.js"></script>
+      <script src="./static/js/custom2.js"></script>
       <!-- calendar file css -->    
-      <script src="../static/js/semantic.min.js"></script>
+      <script src="./static/js/semantic.min.js"></script>
       <!--js de crear eventos-->
-      <script src="../static/js/events.js"></script>
+      <script src="./static/js/events.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+      <script>
+         $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+            editable:true,
+            header:{
+            left:'prev,next today',
+            center:'title',
+            right:'month,agendaWeek,agendaDay'
+            },
+            events: [{% for row in calendar %}{ id : '{{row.id}}', title : '{{row.title}}', start : '{{row.start}}', end : '{{row.end}}', }, {% endfor %}],
+            selectable:true,
+            selectHelper:true,
+            select: function(start, end, allDay)
+            {
+            var title = prompt("Enter Event Title");
+            if(title)
+            {
+               var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+               var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+               $.ajax({
+               url:"/insert",
+               type:"POST",
+               data:{title:title, start:start, end:end},
+               success:function(data)
+               {
+                  //alert(data)
+               alert("Added Successfully");
+               window.location.replace("/dashboard");
+               }
+               })
+            }
+            },
+            editable:true,
+            eventResize:function(event)
+            {
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+               url:"/update",
+               type:"POST",
+               data:{title:title, start:start, end:end, id:id},
+               success:function(){
+               calendar.fullCalendar('refetchEvents');
+               alert('Event Update');
+               }
+            })
+            },
+            
+            eventDrop:function(event)
+            {
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+               url:"/update",
+               type:"POST",
+               data:{title:title, start:start, end:end, id:id},
+               success:function()
+               {
+               calendar.fullCalendar('refetchEvents');
+               alert("Event Updated");
+               }
+            });
+            },
+         
+            eventClick:function(event)
+            {
+            if(confirm("Are you sure you want to remove it?"))
+            {
+               var id = event.id;
+               $.ajax({
+               url:"/ajax_delete",
+               type:"POST",
+               data:{id:id},
+               success:function()
+               {
+               calendar.fullCalendar('refetchEvents');
+               alert("Event Removed");
+               }
+               })
+            }
+            },
+         
+            });
+         });
+         
+      </script>
+            
+
    </body>
 </html>

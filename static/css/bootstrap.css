@@ -555,8 +555,8 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right:10px;
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -587,12 +587,18 @@ pre code {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
 }
-
+.calendar-container {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  overflow: hidden;
+}
 .row {
   display: -webkit-box;
   display: -ms-flexbox;

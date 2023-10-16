@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify
 from flask_mysqldb import MySQL, MySQLdb
 from PIL import Image
 import bcrypt
 import os
 import io
 import base64
+import json
+from datetime import datetime
+
 
 
 app = Flask(__name__, template_folder="templates")
@@ -109,6 +112,14 @@ def login():
 #DashBoard
 @app.route('/dashboard')
 def dashboard():
+
+    id_user = session['id_user']
+    
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
+    calendar = cur.fetchall()  
+
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
@@ -116,12 +127,12 @@ def dashboard():
             'status' : session['status']
         }
     else:
-        user_profile = None
+        user_profile = None 
+
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
 
 
-    return render_template('dashboard.html', user_profile=user_profile)
 #Tables
-
 @app.route('/tables')
 def tables():
     if 'logged_in' in session:
@@ -131,18 +142,8 @@ def tables():
         }
     else:
         user_profile = None
-    subject = None
-    id_user= None
-    session['id_user'] = id_user
-    if request.method == 'POST':
-         cur = mysql.connection.cursor()
-         cur.execute("SELECT course_title FROM courses WHERE user_id = %s", [id_user])
-         cur.fetchall()
-         cur.close()
-
-    return render_template('tables.html', user_profile=user_profile, subject = subject)
-
-    
+    return render_template('tables.html', user_profile=user_profile)
+ 
 #Asignaturas
 @app.route('/asignaturas')
 def asignaturas():
@@ -172,8 +173,6 @@ def invoice():
 @app.route('/icons')
 def icons():
     return render_template('icons.html')
-
-
 #Apps
 @app.route('/email')
 def email():
@@ -334,8 +333,12 @@ def subir_imagen():
             cursor.close()
             session['mensaje'] = {'tipo':'successUpdate','contenido':'imagen actualizada Nuevo'}
             return redirect(url_for('profile'))
+        #else:
+         #   session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
+          #  return redirect(url_for('profile')) 
 
-      
+
+        
 @app.route('/cargar_imagen')
 def cargar_imagen():
     id_user = session['id_user']
@@ -348,7 +351,7 @@ def cargar_imagen():
         image_bytes = base64.b64decode(image_data['image'])
         return send_file(io.BytesIO(image_bytes), mimetype='image/*')
     else:
-        return "Imagen no encontrada", 404
+        return "Imagen no encontrada", 404 
 
 
 @app.route('/project')
@@ -512,4 +515,3 @@ def campos_tutor():
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
     app.run(debug=True)
-
