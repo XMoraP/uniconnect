@@ -205,14 +205,15 @@
                             <div>
                               <form action="/archivos_disponibles" method="GET">
                                  <h1><strong>Archivos Disponibles para Descargar</strong></h1>
+                                       <div>
+                                          <ol>
+                                          {% for archivo in archivos %}
+                                          <li>{{ archivo }}</li>
+                                          {% endfor %}
+                                          </ol>
+                                       </div>
 
-                                 <ul>
-                                 {% for archivo in archivos %}
-                                 <li>{{ archivo }}</li>
-                                 {% endfor %}
-                                 </ul>
-
-                                 <input type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Mostrar archivos</button>>
+                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Mostrar archivos</button>
                               </form>
                            </div>
                            <br/>
@@ -221,10 +222,10 @@
                             <h1><strong>Subir Archivo</strong></h1>
                               <form action="/upload" method="post" enctype="multipart/form-data">
                                  <label for="name">Nombre del archivo: </label>
-                                 <input type="text" name="name" placeholder="Nombre del archivo" style="border: 1px solid black;">
+                                 <input type="text" name="name" placeholder="Nombre del archivo" style="border: 1px solid black;" required>
 
                                  <input type="file" name="file"><br/>
-                                 <input type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Subir archivo</button><br/>
+                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Subir archivo</button><br/>
                               </form>
                               </form>
                               <br/>
@@ -232,14 +233,13 @@
                            <h1><strong>Descargar Archivo</strong></h1>
                               <form action="/download" method="post">
                                  <label for="name">Escriba el nombre del archivo que desea descargar: </label>
-                                 <input type="text" name="name" placeholder="Nombre del archivo"><br/>
+                                 <input type="text" name="name" placeholder="Nombre del archivo" required><br/>
                                  <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Descargar archivo</button>
                               <br/>
                               <br/>
                               </form>
                               <br/>
                               <br/>
-                       
                            </div>
                         </div>
                     </div>
@@ -248,91 +248,9 @@
         </div>
     </div>
 </body>
-
-
-                           
-            <div class="modal fade" id="myModal">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                     <!-- Modal Header -->
-                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Heading</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     </div>
-                     <!-- Modal body -->
-                     <div class="modal-body">
-                        Modal body..
-                     </div>
-                     <!-- Modal footer -->
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            
-            <!-- end sidebar -->
-           
-           
-
-
-         
-                  <!-- El resto de tu código topbar -->
-          
-                        <!-- table section -->
-                       
-                        <!-- table section -->
-            
-                      <!-- table section -->
-                        
-                        <!-- table section -->
-                        
-                        <!-- table section -->
-                        <div class="col-md-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                   
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- table section -->
-                    
-                        <!-- table section -->
-          </div>   
-         </div> 
-               </div>       
-                  <!-- footer -->
-                  <div class="modal fade" id="myModal">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                           <!-- Modal Header -->
-                           <div class="modal-header">
-                              <h4 class="modal-title">Modal Heading</h4>
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           </div>
-                           <!-- Modal body -->
-                           <div class="modal-body">
-                              Modal body..
-                           </div>
-                           <!-- Modal footer -->
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                           </div>
-                        </div>
-                     </div>
-               </div>
-               <!-- end dashboard inner -->
-          
-         </div>
-         <!-- model popup -->
-         <!-- The Modal -->
-       
-        
-         <!-- end model popup -->
-         
-      </div>
+      </div>   
+   </div>            
+</div>
       <!-- jQuery -->
       <script src="../static/js/jquery.min.js"></script>
       <script src="../static/js/popper.min.js"></script>
