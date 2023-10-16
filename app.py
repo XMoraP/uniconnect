@@ -39,6 +39,7 @@ def index():
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
     error = None
+    mensaje = None
     if request.method == 'POST':
         nombre = request.form['name']
         apellido = request.form['last_name']
@@ -51,7 +52,7 @@ def agregar():
 
         if result and result['eMail'] == email:
 
-            flash('Este email ya esta en uso', 'error')
+            flash('El email ya está en uso', 'error')
             return redirect(url_for('registrarse'))
             
         else:
@@ -61,9 +62,11 @@ def agregar():
                         (nombre, apellido, email, contrasenna))
             mysql.connection.commit()
             cur.close()
-            return redirect(url_for('index2'))     
 
-    return render_template('index2.html', error=error)
+            session['mensaje'] = {'tipo': 'successUpdate', 'contenido': '¡Registro exitoso!'}
+            return redirect(url_for('registrarse'))     
+
+    return render_template('index2.html', error=error, mensaje=mensaje)
  
  
 @app.route('/login', methods=['GET', 'POST'])
@@ -245,9 +248,9 @@ def dashboardTutor():
             'email': session['email'],
             'status': session['status']
         }
-        mensaje = session.get('mensaje')
+        mensaje = session.pop('mensaje', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje=mensaje)
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -381,7 +384,8 @@ def salir():
 
 @app.route('/registrarse',  methods=['GET', 'POST'])
 def registrarse():
-    return render_template('register.html')
+    mensaje = session.pop('mensaje', None)
+    return render_template('register.html', mensaje=mensaje)
 
 @app.route('/index2',  methods=['GET', 'POST'])
 def index2():

@@ -172,7 +172,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row"></div>
                             {% for subject in subjects %}
                                 <div class="col-md-6">
                                     <div class="white_shd full margin_bottom_30">
@@ -193,7 +193,8 @@
                                                 <div class="upload-section">
                                                     <input type="file" name="file" accept=".pdf, .txt">
                                                     <input type="hidden" value="{{ subject.name }}" name="subject">
-                                                    <button type="submit">Subir Archivo</button>
+                                                    <button type="submit" style="background-color:007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; font-size: 16px; font-weight: bold;"><strong>Subir Archivo</strong></button>
+
                                                     <div id="fileList"></div>
                                                 </div>
                                             </form>
@@ -203,7 +204,7 @@
                             {% endfor %}
                             <div>
                               <form action="/archivos_disponibles" method="GET">
-                                 <h1>Archivos Disponibles para Descargar</h1>
+                                 <h1><strong>Archivos Disponibles para Descargar</strong></h1>
 
                                  <ul>
                                  {% for archivo in archivos %}
@@ -211,26 +212,30 @@
                                  {% endfor %}
                                  </ul>
 
-                                 <input type="submit" value="Mostrar archivos">
+                                 <input type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Mostrar archivos</button>>
                               </form>
                            </div>
                            <br/>
                            <br/>
                            <div>
-                            <h1>Subir Archivo</h1>
+                            <h1><strong>Subir Archivo</strong></h1>
                               <form action="/upload" method="post" enctype="multipart/form-data">
                                  <label for="name">Nombre del archivo: </label>
-                                 <input type="text" name="name" placeholder="Nombre del archivo"><br/>
+                                 <input type="text" name="name" placeholder="Nombre del archivo" style="border: 1px solid black;">
+
                                  <input type="file" name="file"><br/>
-                                 <input type="submit" value="Subir archivo"><br/>
+                                 <input type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Subir archivo</button><br/>
+                              </form>
                               </form>
                               <br/>
 
-                           <h1>Descargar Archivo</h1>
+                           <h1><strong>Descargar Archivo</strong></h1>
                               <form action="/download" method="post">
                                  <label for="name">Escriba el nombre del archivo que desea descargar: </label>
                                  <input type="text" name="name" placeholder="Nombre del archivo"><br/>
-                                 <input type="submit" value="Descargar archivo">
+                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Descargar archivo</button>
+                              <br/>
+                              <br/>
                               </form>
                               <br/>
                               <br/>

@@ -30,6 +30,8 @@
       <link rel="stylesheet" href="../static/css/custom.css" />
       <!-- calendar file css -->
       <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <!--Alerts-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -75,7 +77,7 @@
                               <input type="password" id="password" name="password" placeholder="Contraseña" required/>
                            </div>
 
-                           <div class="error-message">
+                           <iv class="error-message">
                               {% with messages = get_flashed_messages() %}
                               {% if messages %}
                               <ul>
@@ -88,7 +90,7 @@
                               {% endwith %}
                            
 
-                           <!--<div class="field">
+                           <!--div class="field">
                               <label class="label_field hidden">hidden label</label>
                               <label class="form-check-label"><input type="checkbox" class="form-check-input"> Remember Me</label>
                               <a class="forgot" href="">Forgotten Password?</a>
@@ -121,9 +123,43 @@
       </script>
       <!-- custom js -->
       <script src="../static/js/custom.js"></script>
+       <!--Alerts-->
+       <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
 
-      
-      <script>
+      <div id="flash-message" data-tipo="{{ mensaje['tipo'] }}" data-contenido="{{ mensaje['contenido'] }}"></div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       const flashMessage = document.getElementById('flash-message');
+       const tipo = flashMessage.dataset.tipo;
+       const contenido = flashMessage.dataset.contenido;
+
+       if (tipo === 'successUpdate') {
+           Swal.fire({
+               title: 'Éxito',
+               text: contenido,
+               icon: 'success',
+               confirmButtonText: 'Aceptar'
+           });
+       } else if (tipo === 'errorPassword') {
+           Swal.fire({
+               title: 'Error de Contraseña',
+               text: contenido,
+               icon: 'error',
+               confirmButtonText: 'Aceptar'
+           });
+       } else if (tipo === 'errorEmail') {
+           Swal.fire({
+               title: 'Error de Email',
+               text: contenido,
+               icon: 'error',
+               confirmButtonText: 'Aceptar'
+           });
+       }
+   });
+</script>
+
+   <script>
   document.getElementById('password').addEventListener('input', function() {
     let password = this.value;
     let containsUpperCase = /[A-Z]/.test(password);
