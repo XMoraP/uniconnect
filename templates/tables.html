@@ -201,6 +201,19 @@
                                     </div>
                                 </div>
                             {% endfor %}
+                           <div>
+                            <h1>Subir Archivo</h1>
+                              <form action="/upload" method="post" enctype="multipart/form-data">
+                                 <input type="file" name="file">
+                                 <input type="submit" value="Subir archivo">
+                              </form>
+
+                           <h1>Descargar Archivo</h1>
+                              <form action="/download" method="post">
+                                 <input type="text" name="file_id" placeholder="ID del archivo">
+                                 <input type="submit" value="Descargar archivo">
+                              </form>
+                           </div>
                         </div>
                     </div>
                 </div>
