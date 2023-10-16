@@ -3679,7 +3679,8 @@ table.projects tr td:first-child {
 
 /*mensajes de error*/
 .error-message {
-    font-size: 0.8em;
+    font-size: 1em;
+    font-weight: bold;
     color: #f88077;
     text-align: center;
 }
