@@ -39,7 +39,6 @@ def index():
 @app.route('/agregar', methods=['GET', 'POST'])
 def agregar():
     error = None
-    mensaje = None
     if request.method == 'POST':
         nombre = request.form['name']
         apellido = request.form['last_name']
@@ -52,7 +51,7 @@ def agregar():
 
         if result and result['eMail'] == email:
 
-            flash('El email ya está en uso', 'error')
+            flash('Este email ya esta en uso', 'error')
             return redirect(url_for('registrarse'))
             
         else:
@@ -62,11 +61,9 @@ def agregar():
                         (nombre, apellido, email, contrasenna))
             mysql.connection.commit()
             cur.close()
+            return redirect(url_for('index2'))     
 
-            session['mensaje'] = {'tipo': 'successUpdate', 'contenido': '¡Registro exitoso!'}
-            return redirect(url_for('registrarse'))     
-
-    return render_template('index2.html', error=error, mensaje=mensaje)
+    return render_template('index2.html', error=error)
  
  
 @app.route('/login', methods=['GET', 'POST'])
@@ -104,8 +101,11 @@ def login():
             session['status'] = result['status']
             session['nombre_grado'] = result['nombre_grado']
         
-
-            return redirect(url_for('dashboard'))
+            if session['status'] == 'Tutor':
+                return redirect(url_for('dashboardTutor'))
+            else:
+                return redirect(url_for('dashboard'))
+            
         else:
         # Contraseña incorrecta
             flash('Email o contraseña incorrectos', 'error')
@@ -146,6 +146,18 @@ def tables():
     else:
         user_profile = None
     return render_template('tables.html', user_profile=user_profile)
+
+#TablesTutor
+@app.route('/tablesTutor')
+def tablesTutor():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name']
+        }
+    else:
+        user_profile = None
+    return render_template('tablesTutor.html', user_profile=user_profile)
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -199,8 +211,20 @@ def contact():
     cur.close()
     return render_template('contact.html', contacts=contacts)
 
+#Tutelados
+@app.route('/tutelados')
+def tutelados():
 
-#Additional_Pages
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status' : session['status']
+        }
+    else:
+        user_profile = None
+
+    return render_template('tutelados.html', user_profile=user_profile)
 
 @app.route('/profile')
 def profile():
@@ -248,9 +272,9 @@ def dashboardTutor():
             'email': session['email'],
             'status': session['status']
         }
-        mensaje = session.pop('mensaje', None)
+        mensaje = session.get('mensaje')
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje=mensaje)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje)
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -384,8 +408,7 @@ def salir():
 
 @app.route('/registrarse',  methods=['GET', 'POST'])
 def registrarse():
-    mensaje = session.pop('mensaje', None)
-    return render_template('register.html', mensaje=mensaje)
+    return render_template('register.html')
 
 @app.route('/index2',  methods=['GET', 'POST'])
 def index2():
