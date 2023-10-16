@@ -221,8 +221,8 @@ def profile():
     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
 
 # Perfil Tutor
-@app.route('/profileTutor')
-def profileTutor():
+@app.route('/profileTutor', methods=['GET'] )
+def profileTutor():    
     user_profile = None
     user_profile = {
         'name': session.get('name'),
@@ -314,7 +314,8 @@ def guardar_perfil():
 # Codigos para subir imagenes de perfil.
 @app.route('/subir_imagen', methods=['POST'])
 def subir_imagen():
-    id_user = session['id_user'] 
+    id_user = session['id_user']
+
     if 'imagen' in request.files:
         imagen = request.files['imagen']
         cursor = mysql.connection.cursor()
@@ -339,7 +340,6 @@ def subir_imagen():
         #else:
          #   session['mensaje'] = {'tipo':'error','contenido':'imagen no actualizada'}
           #  return redirect(url_for('profile')) 
-
 
         
 @app.route('/cargar_imagen')
