@@ -42,11 +42,6 @@ def agregar():
         email = request.form['email']
         contrasenna = request.form['password']
 
-        if not nombre or not apellido or not email or not contrasenna:
-            flash('Todos los campos son obligatorios', 'error')
-            return redirect(url_for('mostrar_notificacion'))
-            #return redirect(url_for('registrarse'))
-
         cur0 = mysql.connection.cursor()
         cur0.execute("SELECT eMail from user WHERE eMail = %s", [email])
         result = cur0.fetchone()
@@ -63,10 +58,10 @@ def agregar():
                         (nombre, apellido, email, contrasenna))
             mysql.connection.commit()
             cur.close()
-            
             return redirect(url_for('index2'))     
 
     return render_template('index2.html', error=error)
+ 
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -102,6 +97,7 @@ def login():
             session['last_name'] = result['apellido']
             session['status'] = result['status']
             session['nombre_grado'] = result['nombre_grado']
+        
 
             return redirect(url_for('dashboard'))
         else:
@@ -250,7 +246,7 @@ def dashboardTutor():
             'email': session['email'],
             'status': session['status']
         }
-        mensaje = session.pop('mensaje', None)
+        mensaje = session.get('mensaje')
  
     return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje)
 
@@ -338,7 +334,8 @@ def subir_imagen():
             cursor.close()
             session['mensaje'] = {'tipo':'successUpdate','contenido':'imagen actualizada Nuevo'}
             return redirect(url_for('profile'))
-        
+
+      
 @app.route('/cargar_imagen')
 def cargar_imagen():
     id_user = session['id_user']
@@ -352,6 +349,7 @@ def cargar_imagen():
         return send_file(io.BytesIO(image_bytes), mimetype='image/*')
     else:
         return "Imagen no encontrada", 404
+
 
 @app.route('/project')
 def project():
@@ -446,8 +444,6 @@ def altaTutor():
                 result = cursor.fetchone()
                 mysql.connection.commit()
 
-            
-                session['mensaje'] = {'tipo':'successUpdate','contenido':'Te has dado de alta de Tutor'}
 
                 cursor2 = mysql.connection.cursor()
                 cursor2.execute("SELECT status FROM user WHERE eMail = %s", [email_from_session])
@@ -455,22 +451,63 @@ def altaTutor():
                 mysql.connection.commit()
                 session['status'] = resultado['status']
 
-                return redirect(url_for('dashboardTutor'))
-        
-
+                session['mensaje'] = {'tipo':'successUpdate','contenido':'Te has dado de alta de Tutor'}
+                return redirect(url_for('dashboardTutor'))     
         else:
             session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
             return redirect(url_for('profile')) 
         
      return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
 
+#Cambiar campos de tutor
+@app.route('/camposTutor', methods=['GET', 'POST'])
+def campos_tutor():
 
+    user_profile = None
+    mensaje = None
 
-
-        
-
-
+    if request.method == 'POST':
     
+     contrasenna = request.form['password']
+     tarifa = request.form['tarifa']
+     asignaturas = request.form['asignaturas']
+     email_from_session = session["email"]
+     id_user = session["id_user"]
+     
+     cur = mysql.connection.cursor()
+     cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email_from_session])
+     result = cur.fetchone()
+
+     if result['contrasenna'] == contrasenna:
+
+        # Comprobar si ya existen registros para este usuario
+            cursor = mysql.connection.cursor()
+            cursor.execute("SELECT * FROM tutor WHERE id_tutor = %s", (id_user,))
+            existing_data = cursor.fetchone()
+
+            if existing_data:
+                # Si ya existen datos, realizar una actualización
+                cursor.execute("UPDATE tutor SET tarifa = %s, asignaturas_tutor = %s WHERE id_tutor = %s", (tarifa, asignaturas, id_user))
+                mysql.connection.commit()
+                cursor.close()
+
+                session['mensaje'] = {'tipo': 'successUpdate', 'contenido': 'Campos actualizados correctamente'}
+                return redirect(url_for('profileTutor'))
+
+            else:
+                # Si no existen datos, realizar una inserción
+                cursor.execute("INSERT INTO tutor (id_tutor,tarifa, asignaturas_tutor) VALUES (%s,%s, %s)", (id_user,tarifa, asignaturas))
+                mysql.connection.commit()
+                cursor.close()
+
+                session['mensaje'] = {'tipo': 'successUpdate', 'contenido': 'Campos actualizados correctamente'}
+                return redirect(url_for('profileTutor'))
+    else:
+        session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+        return redirect(url_for('profileTutor'))
+    
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje)
+
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)

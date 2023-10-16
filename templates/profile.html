@@ -392,6 +392,24 @@
    });
 </script>
 
+<script>
+   document.getElementById('new_password').addEventListener('input', function() {
+     let password = this.value;
+     let containsUpperCase = /[A-Z]/.test(password);
+     let containsLowerCase = /[a-z]/.test(password);
+     let containsNumbers = /\d/.test(password);
+     let containsSymbols = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+     
+     let isValid = containsUpperCase && containsLowerCase && containsNumbers && containsSymbols;
+     
+     if (isValid) {
+       this.setCustomValidity('');
+     } else {
+       this.setCustomValidity('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo.');
+     }
+   });
+ </script>   
+
      
    </body>
 </html>

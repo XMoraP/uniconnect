@@ -3390,6 +3390,26 @@ table.projects tr td:first-child {
     color: #22daff;
 }
 
+.button-style {
+    display: inline-block;
+    padding: 10px 38px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #23aa4e;
+    color: #ffffff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 225px;
+  }
+  
+  .button-style:hover {
+    background-color: #8e8e8e;
+  }
+  
+
 
 /*------------------------------------------------------------------
     26. Error

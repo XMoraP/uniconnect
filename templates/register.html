@@ -52,27 +52,27 @@
                                   
                   <div class="login_form">
                      
-                     <form method="POST" action="/agregar">
+                     <form method="POST" action="/agregar" onsubmit="return validarContrasena()">
                                                
                         <fieldset>
 
                             <div class="field">
                                 <label class="label_field">Nombre</label>
-                                <input type="text" name="name" placeholder="Nombre" />
+                                <input type="text" name="name" placeholder="Nombre" required/>
                             </div>
                             <div class="field">
                                 <label class="label_field">Apellido</label>
-                                <input type="text" name="last_name" placeholder="Apellido" />
+                                <input type="text" name="last_name" placeholder="Apellido" required/>
                             </div>
                            <div class="field">
                               <label class="label_field">Email</label>
-                              <input type="email" name="email" placeholder="Email" />
+                              <input type="email" name="email" placeholder="Email" required />
                            </div>
                            <div>
 
                            <div class="field">
                               <label class="label_field">Contraseña</label>
-                              <input type="password" name="password" placeholder="Contraseña" />
+                              <input type="password" id="password" name="password" placeholder="Contraseña" required/>
                            </div>
 
                            <div class="error-message">
@@ -96,11 +96,11 @@
                            <br/>
                            <div class="field margin_0">
                               <label class="label_field hidden">hidden label</label>
-                              <button class="main_bt">Registrar</button>
-                              <button class="main_bt" formaction="/login">Volver</button>
+                              <button class="main_bt" style="margin-left: 80px": 230px>Registrar</button>
                            </div>
                         </fieldset>
                      </form>
+                     <a href="/login" class="button-style">Volver</a>
                   </div>
                </div>
             </div>
@@ -121,5 +121,24 @@
       </script>
       <!-- custom js -->
       <script src="../static/js/custom.js"></script>
+
+      
+      <script>
+  document.getElementById('password').addEventListener('input', function() {
+    let password = this.value;
+    let containsUpperCase = /[A-Z]/.test(password);
+    let containsLowerCase = /[a-z]/.test(password);
+    let containsNumbers = /\d/.test(password);
+    let containsSymbols = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    let isValid = containsUpperCase && containsLowerCase && containsNumbers && containsSymbols;
+    
+    if (isValid) {
+      this.setCustomValidity('');
+    } else {
+      this.setCustomValidity('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo.');
+    }
+  });
+</script>   
    </body>
 </html>
