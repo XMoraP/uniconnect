@@ -116,9 +116,13 @@ def login():
 #DashBoard
 @app.route('/dashboard')
 def dashboard():
+
+    id_user = session['id_user']
     
     cursor = mysql.connection.cursor()
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
+    calendar = cur.fetchall()  
 
     if 'logged_in' in session:
         user_profile = {
@@ -127,10 +131,7 @@ def dashboard():
             'status' : session['status']
         }
     else:
-        user_profile = None
-
-    cur.execute("SELECT * FROM events ORDER BY event_id")
-    calendar = cur.fetchall()  
+        user_profile = None 
 
     return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
 
@@ -469,28 +470,25 @@ def altaTutor():
 
 
 # MANEJO DE EVENTOS PARA FULLCALENDAR
-@app.route('/add_event', methods=['POST','GET'])
-def add_event():
+@app.route("/insert",methods=["POST","GET"])
+def insert():
 
     id_user = session['id_user']
-
-    cursor = mysql.connection.cursor()
+    
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-
     if request.method == 'POST':
         title = request.form['title']
         start = request.form['start']
         end = request.form['end']
         print(title)     
         print(start)  
-        cur.execute("INSERT INTO events (id_user,title,start,end) VALUES (%s,%s,%s,%s)",[id_user,title,start,end])
-        mysql.connection.commit()
+
+        cur.execute("INSERT INTO events (id_user, title, start, end) VALUES (%s,%s,%s,%s)",[id_user,title,start,end])
+        mysql.connection.commit()       
         cur.close()
         msg = 'success'  
     return jsonify(msg)
 
-
-""""
 @app.route("/update",methods=["POST","GET"])
 def update():
     cursor = mysql.connection.cursor()
@@ -499,28 +497,27 @@ def update():
         title = request.form['title']
         start = request.form['start']
         end = request.form['end']
-        event_id = request.form['event_id']
+        id = request.form['id']
         print(title)     
         print(start)  
-        cur.execute("UPDATE events SET title = %s, start = %s, end = %s WHERE event_id = %s ", [title, start, end, event_id])
+        cur.execute("UPDATE events SET title = %s, start = %s, end = %s WHERE id = %s ", [title, start, end, id])
         mysql.connection.commit()       
         cur.close()
         msg = 'success'  
     return jsonify(msg)    
-
+ 
 @app.route("/ajax_delete",methods=["POST","GET"])
 def ajax_delete():
     cursor = mysql.connection.cursor()
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'POST':
-        getid = request.form['event_id']
+        getid = request.form['id']
         print(getid)
-        cur.execute('DELETE FROM events WHERE event_id = {0}'.format(getid))
+        cur.execute('DELETE FROM events WHERE id = {0}'.format(getid))
         mysql.connection.commit()       
         cur.close()
         msg = 'Record deleted successfully'  
     return jsonify(msg) 
-"""
 
 # Ruta para subir un archivo
 @app.route('/upload', methods=['POST'])
@@ -528,21 +525,23 @@ def upload_file():
     file = request.files['file']
     file_data = file.read()
 
-    query = "INSERT INTO file (file) VALUES (%s)"
+    name = request.form['name']
+
+    query = "INSERT INTO file (name, file) VALUES (%s,%s)"
     cursor = mysql.connection.cursor()
-    cursor.execute(query, (file_data,))
+    cursor.execute(query, (name, file_data,))
     mysql.connection.commit()
 
-    return redirect(url_for('profile'))
+    return redirect(url_for('tables'))
 
 # Ruta para descargar un archivo
 @app.route('/download', methods=['POST'])
 def download_file():
-    file_id = request.form['file_id']
+    file_name = request.form['name']
 
-    query = "SELECT file FROM file WHERE id_file = %s"
+    query = "SELECT file FROM file WHERE name = %s"
     cursor = mysql.connection.cursor()
-    cursor.execute(query, (file_id,))
+    cursor.execute(query, (file_name,))
     result = cursor.fetchone()
 
     file_data = result['file']
@@ -550,9 +549,30 @@ def download_file():
     return send_file(
         io.BytesIO(file_data),
         mimetype='application/octet-stream',
-        download_name=f"file_{file_id}.pdf",
+        download_name=f"file_{file_name}.pdf",
         as_attachment=True
     )
+
+@app.route('/archivos_disponibles', methods=['GET'])
+def mostrar_archivos():
+
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status' : session['status']
+        }
+    else:
+        user_profile = None 
+
+
+    if request.method == 'GET':
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT name FROM file")
+        archivos = [archivo['name'] for archivo in cursor.fetchall()]
+        return render_template('tables.html', archivos=archivos, user_profile=user_profile)
+
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)

@@ -37,53 +37,11 @@
       <!-- fancy box js -->
       <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
       <!-- fullcalendar -->
-      <link href='./static/fullcalendar/main.css' rel='stylesheet' />
-      <script src='./static/fullcalendar/main.js'></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
-      <!-- JS script for fullcalendar events-->
-      <script>
-         $(document).ready(function() {
-           var calendar = $('#calendar').fullCalendar({
-            editable: true,
-            header: {
-               left: 'prev,next today',
-               center: 'title',
-               right: 'month,agendaWeek,agendaDay'
-            },
-            events: [
-               {% for row in calendar %}
-               {
-                  id: '{{row.event_id}}',
-                  title: '{{row.title}}',
-                  start: '{{row.start}}',
-                  end: '{{row.end}}'
-                 },
-               {% endfor %}
-            ],
-            
-            selectable: true,
-            selectHelper: true,
-
-            select: function(start, end, allDay) {
-               var title = prompt("Enter Event Title");
-               if (title) {
-                  var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                  var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                  $.ajax({
-                     url: "/add_event",
-                     type: "POST",
-                     data: { title: title, start: start, end: end },
-                     success: function(data) {
-                        alert("Added Successfully");
-                        window.location.replace("/");
-                     }
-                  }):
-               }
-             },
-           });
-         });
-       </script>
+      
        
 
       <!--[if lt IE 9]>
@@ -165,6 +123,7 @@
                      <li><a href="/settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
                   </ul>
                </div>
+               
             </nav>
             <!-- end sidebar -->
             <!-- right content -->
@@ -212,16 +171,13 @@
                            </div>
                         </div>
                      </div>
-
-                     <div class="container">
-                        <div id="calendar"></div>
-                     </div>
-                     
-
                   </div>
 
                   <!-- footer -->
                   <div class="container-fluid">
+                     <div class="calendar-container">
+                        <div id="calendar"></div>
+                     </div>
                      <div class="footer">
                         <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                      </div>
@@ -285,6 +241,102 @@
       <script src="./static/js/semantic.min.js"></script>
       <!--js de crear eventos-->
       <script src="./static/js/events.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script>
+  $(document).ready(function() {
+   var calendar = $('#calendar').fullCalendar({
+    editable:true,
+    header:{
+     left:'prev,next today',
+     center:'title',
+     right:'month,agendaWeek,agendaDay'
+    },
+    events: [{% for row in calendar %}{ id : '{{row.id}}', title : '{{row.title}}', start : '{{row.start}}', end : '{{row.end}}', }, {% endfor %}],
+    selectable:true,
+    selectHelper:true,
+    select: function(start, end, allDay)
+    {
+     var title = prompt("Enter Event Title");
+     if(title)
+     {
+      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+      $.ajax({
+       url:"/insert",
+       type:"POST",
+       data:{title:title, start:start, end:end},
+       success:function(data)
+       {
+         //alert(data)
+        alert("Added Successfully");
+        window.location.replace("/dashboard");
+       }
+      })
+     }
+    },
+    editable:true,
+    eventResize:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"/update",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function(){
+       calendar.fullCalendar('refetchEvents');
+       alert('Event Update');
+      }
+     })
+    },
+     
+    eventDrop:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"/update",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function()
+      {
+       calendar.fullCalendar('refetchEvents');
+       alert("Event Updated");
+      }
+     });
+    },
+ 
+    eventClick:function(event)
+    {
+     if(confirm("Are you sure you want to remove it?"))
+     {
+      var id = event.id;
+      $.ajax({
+       url:"/ajax_delete",
+       type:"POST",
+       data:{id:id},
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        alert("Event Removed");
+       }
+      })
+     }
+    },
+ 
+   });
+  });
+    
+  </script>
+      
 
    </body>
 </html>

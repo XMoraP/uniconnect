@@ -201,18 +201,40 @@
                                     </div>
                                 </div>
                             {% endfor %}
+                            <div>
+                              <form action="/archivos_disponibles" method="GET">
+                                 <h1>Archivos Disponibles para Descargar</h1>
+
+                                 <ul>
+                                 {% for archivo in archivos %}
+                                 <li>{{ archivo }}</li>
+                                 {% endfor %}
+                                 </ul>
+
+                                 <input type="submit" value="Mostrar archivos">
+                              </form>
+                           </div>
+                           <br/>
+                           <br/>
                            <div>
                             <h1>Subir Archivo</h1>
                               <form action="/upload" method="post" enctype="multipart/form-data">
-                                 <input type="file" name="file">
-                                 <input type="submit" value="Subir archivo">
+                                 <label for="name">Nombre del archivo: </label>
+                                 <input type="text" name="name" placeholder="Nombre del archivo"><br/>
+                                 <input type="file" name="file"><br/>
+                                 <input type="submit" value="Subir archivo"><br/>
                               </form>
+                              <br/>
 
                            <h1>Descargar Archivo</h1>
                               <form action="/download" method="post">
-                                 <input type="text" name="file_id" placeholder="ID del archivo">
+                                 <label for="name">Escriba el nombre del archivo que desea descargar: </label>
+                                 <input type="text" name="name" placeholder="Nombre del archivo"><br/>
                                  <input type="submit" value="Descargar archivo">
                               </form>
+                              <br/>
+                              <br/>
+                       
                            </div>
                         </div>
                     </div>
