@@ -270,7 +270,7 @@ def profileTutor():
 def dashboardTutor():
 
     id_user = session['id_user']
-
+    
     cursor = mysql.connection.cursor()
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
@@ -284,9 +284,9 @@ def dashboardTutor():
             'email': session['email'],
             'status': session['status']
         }
-        mensaje = session.get('mensaje')
+    mensaje1 = session.pop('mensaje1', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje, calendar=calendar)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar)
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -470,7 +470,7 @@ def cambiarContrasenna():
 def altaTutor():
      
      user_profile = None
-     mensaje = None
+     mensaje1 = None
      
      if request.method == 'POST':
     
@@ -494,13 +494,13 @@ def altaTutor():
                 mysql.connection.commit()
                 session['status'] = resultado['status']
 
-                session['mensaje'] = {'tipo':'successUpdate','contenido':'Te has dado de alta de Tutor'}
+                session['mensaje1'] = {'tipo':'successUpdate','contenido':'Te has dado de alta como Tutor'}
                 return redirect(url_for('dashboardTutor'))     
         else:
-            session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+            session['mensaje1'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
             return redirect(url_for('profile')) 
         
-     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+     return render_template('profile.html', user_profile=user_profile, mensaje1=mensaje1)
 
 #Cambiar campos de tutor
 @app.route('/camposTutor', methods=['GET', 'POST'])

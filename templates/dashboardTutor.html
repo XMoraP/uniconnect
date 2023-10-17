@@ -39,6 +39,8 @@
       <!-- fullcalendar -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <!--Alerts-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -204,6 +206,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+      <!--Alerts-->
+      <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
       <script>
          $(document).ready(function() {
             var calendar = $('#calendar').fullCalendar({
@@ -293,6 +297,38 @@
             });
          });
          
+      </script>
+      <div id="flash-message" data-tipo="{{ mensaje1['tipo'] }}" data-contenido="{{ mensaje1['contenido'] }}"></div>
+
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+             const flashMessage = document.getElementById('flash-message');
+             const tipo = flashMessage.dataset.tipo;
+             const contenido = flashMessage.dataset.contenido;
+      
+             if (tipo === 'successUpdate') {
+                 Swal.fire({
+                     title: 'Éxito',
+                     text: contenido,
+                     icon: 'success',
+                     confirmButtonText: 'Aceptar'
+                 });
+             } else if (tipo === 'errorPassword') {
+                 Swal.fire({
+                     title: 'Error de Contraseña',
+                     text: contenido,
+                     icon: 'error',
+                     confirmButtonText: 'Aceptar'
+                 });
+             } else if (tipo === 'errorEmail') {
+                 Swal.fire({
+                     title: 'Error de Email',
+                     text: contenido,
+                     icon: 'error',
+                     confirmButtonText: 'Aceptar'
+                 });
+             }
+         });
       </script>
             
 
