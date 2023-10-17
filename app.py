@@ -141,7 +141,8 @@ def tables():
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
-            'last_name': session['last_name']
+            'last_name': session['last_name'],
+            'status' : session['status']
         }
     else:
         user_profile = None
@@ -153,7 +154,8 @@ def tablesTutor():
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
-            'last_name': session['last_name']
+            'last_name': session['last_name'],
+            'status' : session['status']
         }
     else:
         user_profile = None
@@ -165,7 +167,8 @@ def asignaturas():
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
-            'last_name': session['last_name']
+            'last_name': session['last_name'],
+            'status' : session['status']
         }
     else:
         user_profile = None
@@ -264,6 +267,14 @@ def profileTutor():
 # Dashboard Tutor
 @app.route('/dashboardTutor')
 def dashboardTutor():
+
+    id_user = session['id_user']
+
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
+    calendar = cur.fetchall()  
+
     user_profile = None
     if 'logged_in' in session:
         user_profile = {
@@ -274,7 +285,7 @@ def dashboardTutor():
         }
         mensaje = session.get('mensaje')
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje = mensaje, calendar=calendar)
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])

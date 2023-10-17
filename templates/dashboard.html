@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Inicio Estudiantes</title>
+      <title>Inicio CRUD(Create, Read, Update, Delete) with Python Flask and Mysql</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -39,6 +39,11 @@
       <!-- fullcalendar -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+      
+       
+
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -52,6 +57,7 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
+                        <a href="/dashboard"><img class="logo_icon img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
@@ -60,7 +66,7 @@
                         <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
                            <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
-                           <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
+                           <p><span class="online_animation"></span> Estudiante </p>
                         </div>
                      </div>
                   </div>
@@ -71,14 +77,53 @@
                      <li class="active">
                         <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
                      </li>
-                     <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                     <li><a href="/asignaturas"><i class="fas fa-book orange_color"></i> <span>Asignaturas</span></a></li>
+                     <li>
+                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                           <li><a href="/general_elements">> <span>General Elements</span></a></li>
+                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
+                           <li><a href="/icons">> <span>Icons</span></a></li>
+                           <li><a href="/invoice">> <span>Invoice</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="/tables"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                     <li>
+                        <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
+                        <ul class="collapse list-unstyled" id="apps">
+                           <li><a href="/email">> <span>Email</span></a></li>
+                           <li><a href="/calendar">> <span>Calendar</span></a></li>
+                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="/price"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
                      <li>
                         <a href="/contact">
-                        <i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a>
+                        <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
                      </li>
-                     <li><a href="/profile"><i class="fa fa-cog yellow_color"></i> <span>Perfil</span></a></li>
+                     <li class="active">
+                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
+                        <ul class="collapse list-unstyled" id="additional_page">
+                           <li>
+                              <a href="/profile">> <span>Profile</span></a>
+                           </li>
+                           <li>
+                              <a href="/project">> <span>Projects</span></a>
+                           </li>
+                           <li>
+                              <a href="login.html">> <span>Login</span></a>
+                           </li>
+                           <li>
+                              <a href="404_error.html">> <span>404 Error</span></a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li><a href="/map"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li><a href="/charts"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
+                     <li><a href="/settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
                   </ul>
                </div>
+               
             </nav>
             <!-- end sidebar -->
             <!-- right content -->
@@ -100,12 +145,10 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
-                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>                                    
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
                                     <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="/profile">Configuración</a>
-                                       <!--a class="dropdown-item" href="/settings">Perfil</a-->
-                                       <!--a class="dropdown-item" href="help.html">Ayuda</a-->
+                                       <a class="dropdown-item" href="/profile">Perfil</a>
+
                                        <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
                                     </div>
                                  </li>
@@ -125,22 +168,21 @@
                            <div class="page_title">
                               <h2>Inicio</h2>
                            </div>
-                           <div class="calendar-container">
-                              <div id="calendar"></div>
-                           </div>
                         </div>
                      </div>
                   </div>
 
                   <!-- footer -->
                   <div class="container-fluid">
+                     <div class="calendar-container">
+                        <div id="calendar"></div>
+                     </div>
                      <div class="footer">
                         <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                      </div>
                   </div>
                </div>
                <!-- end dashboard inner -->
-
                </div>
             </div>
             <!-- model popup -->
@@ -220,8 +262,8 @@
             var title = prompt("Enter Event Title");
             if(title)
             {
-               var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-               var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
+               var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+               var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                $.ajax({
                url:"/insert",
                type:"POST",
@@ -238,8 +280,8 @@
             editable:true,
             eventResize:function(event)
             {
-            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
             var title = event.title;
             var id = event.id;
             $.ajax({
@@ -255,8 +297,8 @@
             
             eventDrop:function(event)
             {
-            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
             var title = event.title;
             var id = event.id;
             $.ajax({
