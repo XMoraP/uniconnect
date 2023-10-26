@@ -54,8 +54,8 @@
                      <div class="user_profle_side">
                         <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
-                           <h6>John David</h6>
-                           <p><span class="online_animation"></span> Online</p>
+                           <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
+                           <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
                         </div>
                      </div>
                   </div>
@@ -89,15 +89,13 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">John David</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
                                     <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="/profile">My Profile</a>
-                                       <a class="dropdown-item" href="/settings">Settings</a>
-                                       <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="/salir"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       <a class="dropdown-item" href="/profile">Perfil</a>
+                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
                                     </div>
                                  </li>
-                              </ul>
                            </div>
                         </div>
                      </div>

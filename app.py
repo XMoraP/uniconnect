@@ -214,6 +214,15 @@ import binascii
 
 @app.route('/contact')
 def contact():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status' : session['status']
+        }
+    else:
+        user_profile = None
+
     if not os.path.exists("static/Fotos_Tutor"):
         os.makedirs("static/Fotos_Tutor")
     cur = mysql.connection.cursor()
@@ -269,7 +278,7 @@ def contact():
 
         contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list)
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
 
 
 #Tutelados
