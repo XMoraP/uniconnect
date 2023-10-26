@@ -3107,9 +3107,6 @@ ul.labels-category li p {
 .contact_inner {
     float: left;
     width: 100%;
-    justify-content:center;
-    margin-left: 260px;
-    margin-top: -200px;
 }
 
 .contact_inner .left {
@@ -3223,6 +3220,21 @@ td ul.list-inline li {
     margin: 0 5px;
 }
 
+.rounded-container {
+    display: inline-block;
+    background-color: white;
+    border-radius: 50%; /* Hace que el contenedor sea redondeado */
+    padding: 10px; /* Espacio entre el borde y la imagen */
+}
+
+.rounded-image {
+    border-radius: 50%; /* Hace que la imagen sea redondeada */
+    width: 50px; /* Ancho de la imagen */
+    height: 50px; /* Altura de la imagen */
+}
+.right {
+    text-align: right; /* Alinea el contenido a la derecha */
+}
 
 /*------------------------------------------------------------------
     24. Progress bar

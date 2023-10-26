@@ -6,6 +6,7 @@ import os
 import io
 import base64
 import json
+import binascii
 from datetime import datetime
 
 
@@ -207,13 +208,78 @@ def price():
     return render_template('price.html')
 
 #Contact
+from flask import render_template
+import base64
+import binascii
+
 @app.route('/contact')
 def contact():
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status' : session['status']
+        }
+    else:
+        user_profile = None
+
+    if not os.path.exists("static/Fotos_Tutor"):
+        os.makedirs("static/Fotos_Tutor")
     cur = mysql.connection.cursor()
-    cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor;")
+    cur.execute("SELECT count(user.nombre) FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor INNER JOIN image ON user.id_user = image.id_user;")
+    cont_fotos = cur.fetchone()['count(user.nombre)']
+    print(cont_fotos)
+    if(cont_fotos > 0):
+        for i in range(0,cont_fotos-1):
+            temp_image_path = f'static/Fotos_Tutor/temp_image{i}.jpg'
+            if os.path.exists(temp_image_path):
+                os.remove(temp_image_path)
+        print("Imagenes borradas")
+
+    cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor, image.image FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor LEFT JOIN image ON user.id_user = image.id_user;")
     contacts = cur.fetchall()
     cur.close()
-    return render_template('contact.html', contacts=contacts)
+    contacts_list = []
+    cont = 0
+    for result in contacts:
+        nombre_apellido = result['nombre_apellido']
+        email = result['email']
+        asignaturas_tutor = result['asignaturas_tutor']
+        image_data_hex = result['image']
+
+
+        if image_data_hex:
+            try:
+
+                # Decodifica los datos base64 en una representación de bytes
+                image_data = base64.b64decode(image_data_hex)
+
+                # Crea un archivo temporal para almacenar la imagen
+                with open(f'static/Fotos_Tutor/temp_image{cont}.jpg', 'wb') as f:
+                    f.write(image_data)
+
+                image_base64 = f"static/Fotos_Tutor/temp_image{cont}.jpg";
+
+                cont = cont + 1
+
+            except binascii.Error:
+                # Si hay un error al decodificar, puedes manejarlo de acuerdo a tus necesidades
+                image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+        else:
+            image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+
+        print(image_base64)
+        contact = {
+            'nombre_apellido': nombre_apellido,
+            'email': email,
+            'asignaturas_tutor': asignaturas_tutor,
+            'imagen': image_base64
+        }
+
+        contacts_list.append(contact)
+
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
+
 
 #Tutelados
 @app.route('/tutelados')

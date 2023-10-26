@@ -8,12 +8,16 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>UniConnect - Contactos</title>
+      <title>Contactos</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
+      <!-- Include flaticon CSS -->
+      <link rel="stylesheet" href="../static/fonts/flaticon.css">
+      <!-- Include Font Awesome CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
       <!-- bootstrap css -->
       <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
       <!-- site css -->
@@ -21,7 +25,7 @@
       <!-- responsive css -->
       <link rel="stylesheet" href="../static/css/responsive.css" />
       <!-- color css -->
-      <link rel="stylesheet" href="../static/css/colors.css" />
+      <link rel="stylesheet" href="../static/css/color_2.css" />
       <!-- select bootstrap -->
       <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
       <!-- scrollbar css -->
@@ -43,7 +47,6 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
-                        <a href="/dashboard"><img class="logo_icon img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
@@ -51,8 +54,8 @@
                      <div class="user_profle_side">
                         <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
-                           <h6>John David</h6>
-                           <p><span class="online_animation"></span> Online</p>
+                           <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
+                           <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
                         </div>
                      </div>
                   </div>
@@ -61,52 +64,11 @@
                   <h4>General</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                        <a href="#dashboard"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
+                        <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
                      </li>
-                     <li><a href="/widgets"><i class="fa fa-clock-o orange_color"></i> <span>Widgets</span></a></li>
-                     <li>
-                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="/general_elements">> <span>General Elements</span></a></li>
-                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
-                           <li><a href="/icons">> <span>Icons</span></a></li>
-                           <li><a href="/invoice">> <span>Invoice</span></a></li>
-                        </ul>
-                     </li>
-                     <li><a href="/tables"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
-                     <li>
-                        <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
-                        <ul class="collapse list-unstyled" id="apps">
-                           <li><a href="/email">> <span>Email</span></a></li>
-                           <li><a href="/calendar">> <span>Calendar</span></a></li>
-                           <li><a href="/media_gallery">> <span>Media Gallery</span></a></li>
-                        </ul>
-                     </li>
-                     <li><a href="/price"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
-                     <li>
-                        <a href="/contact">
-                        <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
-                     </li>
-                     <li class="active">
-                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
-                        <ul class="collapse list-unstyled" id="additional_page">
-                           <li>
-                              <a href="/profile">> <span>Profile</span></a>
-                           </li>
-                           <li>
-                              <a href="/project">> <span>Projects</span></a>
-                           </li>
-                           <li>
-                              <a href="login.html">> <span>Login</span></a>
-                           </li>
-                           <li>
-                              <a href="404_error.html">> <span>404 Error</span></a>
-                           </li>
-                        </ul>
-                     </li>
-                     <li><a href="/map"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
-                     <li><a href="/charts"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
-                     <li><a href="/settings"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                     <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                     <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
+                     <li><a href="/profile"><i class="fa fa-cog yellow_color"></i> <span>Perfil</span></a></li>
                   </ul>
                </div>
             </nav>
@@ -118,27 +80,22 @@
                   <nav class="navbar navbar-expand-lg navbar-light">
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="../static/images/logo.png" alt="#" /></a>
-                        </div>
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge"></span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge"></span></a></li>
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="../static/images/user_img.jpg" alt="#" /><span class="name_user">John David</span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
                                     <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="/profile">My Profile</a>
-                                       <a class="dropdown-item" href="/settings">Settings</a>
-                                       <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="/salir"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       <a class="dropdown-item" href="/profile">Perfil</a>
+                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
                                     </div>
                                  </li>
-                              </ul>
                            </div>
                         </div>
                      </div>
@@ -179,6 +136,11 @@
                                                          <p><strong>Contact: </strong>{{ contact.email }}</p>
                                                          <p>{{ contact.asignaturas_tutor }}</p>
                                                          <button class = "boton_pedir_tutoria">Pedir Tutoria</button>
+                                                         <div class="right">
+                                                            <div class="rounded-container">
+                                                               <img src="{{contact.imagen}}" alt="Imagen de usuario" class="rounded-image">
+                                                            </div>
+                                                         </div>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -197,9 +159,7 @@
                      <!-- footer -->
                      <div class="container-fluid">
                         <div class="footer">
-                           <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                              Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                           </p>
+                           <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                         </div>
                      </div>
                   </div>
