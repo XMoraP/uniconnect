@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'uni-connectt'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3BE39E537ED4C658CFD74AC144F0504 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E97F74CF491E4F46AD8713C270C0EBCC }}
