@@ -264,9 +264,9 @@ def contact():
 
             except binascii.Error:
                 # Si hay un error al decodificar, puedes manejarlo de acuerdo a tus necesidades
-                image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+                image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
         else:
-            image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+            image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
 
         print(image_base64)
         contact = {
