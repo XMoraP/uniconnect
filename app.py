@@ -236,7 +236,7 @@ def contact():
                 os.remove(temp_image_path)
         print("Imagenes borradas")
 
-    cur.execute("SELECT CONCAT(user.nombre, ' ', user.apellido) AS nombre_apellido, user.email, tutor.asignaturas_tutor, image.image FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor LEFT JOIN image ON user.id_user = image.id_user;")
+    cur.execute("SELECT * FROM vista_ventana_tutores")
     contacts = cur.fetchall()
     cur.close()
     contacts_list = []
@@ -264,9 +264,9 @@ def contact():
 
             except binascii.Error:
                 # Si hay un error al decodificar, puedes manejarlo de acuerdo a tus necesidades
-                image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+                image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
         else:
-            image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/user_img.jpg', 'rb').read()).decode('utf-8')
+            image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
 
         print(image_base64)
         contact = {
