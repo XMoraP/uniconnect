@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify
 from flask_mysqldb import MySQL, MySQLdb
-from PIL import Image
-import bcrypt
 import os
 import io
 import base64
@@ -12,6 +10,8 @@ from datetime import datetime
 
 
 app = Flask(__name__, template_folder="templates")
+
+app.secret_key = '12345'
 
 app.config['UPLOAD_FOLDER'] = './files'
 ALLOWED_EXTENSIONS= {'pdf', 'txt'}
@@ -723,5 +723,4 @@ def mostrar_archivos():
 
 
 if __name__ == '__main__':
-    app.secret_key = os.urandom(24)
-    app.run(debug=True)
+    app.run()
