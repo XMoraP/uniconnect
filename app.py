@@ -701,6 +701,27 @@ def download_file():
         as_attachment=True
     )
 
+# Estudio -- grupos de estudio
+#DashBoard
+@app.route('/estudio')
+def estudio():
+
+    id_user = session['id_user']
+    
+    cursor = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if 'logged_in' in session:
+        user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status' : session['status']
+        }
+    else:
+        user_profile = None 
+
+    return render_template('estudio.html', user_profile=user_profile)
+
 @app.route('/archivos_disponibles', methods=['GET'])
 def mostrar_archivos():
 
