@@ -84,6 +84,55 @@
             /* Puedes ajustar el valor según sea necesario */
 
         }
+
+        .fa-play,
+        .fa-volume-up,
+        .fa-pause,
+        .fa-fast-forward,
+        .fa-fast-backward,
+        .fa-stop,
+        .fa-volume-up a {
+            color: white;
+        }
+
+        .fa-play,
+        .fa-volume-up,
+        .fa-pause,
+        .fa-fast-forward,
+        .fa-fast-backward,
+        .fa-stop,
+        .fa-volume-up a:hover {
+            color: #1de2de;
+        }
+
+        .image_container {
+            text-align: right;
+            margin-top: -130px;
+        }
+
+        .image_container img {
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+
+        }
+
+        .playback_controls button {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #007bff;
+            border-color: white;
+        }
+
+        .volume_controls button {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #007bff;
+            border-color: white;
+        }
+
     </style>
 </head>
 
@@ -119,9 +168,13 @@
                         </li>
                         <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
                         <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
-                        <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
-                        <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
-                        <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
+                        <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i>
+                                <span>Perfil</span></a></li>
+                        <li><a href="/estudio"><i class="fas fa-graduation-cap"
+                                    style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i>
+                                <span>Estudio</span></a></li>
+                        <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -220,6 +273,9 @@
                                         <input type="range" id="volume" oninput="setVolume(this.value)" min="0" max="1"
                                             step="0.01" value="1">
                                     </div>
+                                    <div class="image_container">
+                                        <img src="../static/images/podcastLogo.png" alt="podcast">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -288,76 +344,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--SCRIPT-->
+    <script src="../static/js/podcast.js"></script>
 
-
-    <script>
-        // Resto del código JavaScript sigue igual...
-
-        // Nuevas funciones para mostrar y cerrar la ventana de reproducción
-        function showAudioPlayer() {
-            document.getElementById('audioPlayer').style.display = 'block';
-        }
-
-        function closeAudioPlayer() {
-            document.getElementById('audioPlayer').style.display = 'none';
-        }
-    </script>
-    <script>
-        var song = new Audio;
-        var muted = false;
-        var vol = 1;
-        song.type = 'audio/mpeg';
-        song.src = 'https://www.bensound.com/bensound-music/bensound-summer.mp3'; // Aquí es donde puedes cambiar la URL de la música
-
-        function skip(time) {
-            if (time == 'back') {
-                song.currentTime = (song.currentTime - 5);
-            } else if (time == 'fwd') {
-                song.currentTime = (song.currentTime + 5);
-            }
-        }
-
-        function playpause() {
-            if (!song.paused) {
-                song.pause();
-            } else {
-                song.play();
-            }
-        }
-
-        function stop() {
-            song.pause();
-            song.currentTime = 0;
-            document.getElementById('seek').value = 0;
-        }
-
-        function setPos(pos) {
-            song.currentTime = pos;
-        }
-
-        function mute() {
-            if (muted) {
-                song.volume = vol;
-                muted = false;
-                document.getElementById('mute').innerHTML = '<i class="fa fa-volume-up"></i>';
-            } else {
-                song.volume = 0;
-                muted = true;
-                document.getElementById('mute').innerHTML = '<i class="fa fa-volume-off"></i>';
-            }
-        }
-
-        function setVolume(volume) {
-            song.volume = volume;
-            vol = volume;
-        }
-
-        song.addEventListener('timeupdate', function () {
-            curtime = parseInt(song.currentTime, 10);
-            document.getElementById('seek').max = song.duration;
-            document.getElementById('seek').value = curtime;
-        })
-    </script>
 </body>
 
 </html>
