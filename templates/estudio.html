@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Inicio Estudiantes</title>
+      <title>Inicio</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -118,17 +118,23 @@
 
                <!-- dashboard inner -->
                <div class="midde_cont">
+                  
                   <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Inicio</h2>
-                           </div>
-                           <div class="calendar-container">
-                              <div id="calendar"></div>
-                           </div>
+
+                     <div class="page_title">
+                        <h2>Inicio</h2>
+                      </div>
+
+                      <div class="col-md-2">
+                        <!-- Button to open the modal -->
+                        <div class="text-right mt-3">
+                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">Formar Grupo</button>
                         </div>
-                     </div>
+
+                      </div>
+                     
+                       
+                       
                   </div>
 
                   <!-- footer -->
@@ -142,28 +148,58 @@
 
                </div>
             </div>
+
             <!-- model popup -->
-         <!-- The Modal -->
-         <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-               <div class="modal-content">
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                     <h4 class="modal-title">Modal Heading</h4>
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                     Modal body..
-                  </div>
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <!-- Modal for adding containers -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Nuevo grupo de estudio</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <!-- Form for adding study group details -->
+                        <form id="studyGroupForm">
+                           <div class="form-group">
+                              <label for="groupTitle">Título:</label>
+                              <input type="text" class="form-control" id="groupTitle" placeholder="Ingrese el título" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="subject">Asignatura:</label>
+                              <input type="text" class="form-control" id="subject" placeholder="Ingrese la asignatura" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="description">Descripción:</label>
+                              <textarea class="form-control" id="description" placeholder="Ingrese la descripción" rows="3" required></textarea>
+                           </div>
+                           <div class="form-group">
+                              <label for="location">Ubicación:</label>
+                              <input type="text" class="form-control" id="location" placeholder="Ingrese la ubicación" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="days">Días:</label>
+                              <input type="text" class="form-control" id="days" placeholder="Ingrese los días" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="time">Hora:</label>
+                              <input type="text" class="form-control" id="time" placeholder="Ingrese la hora" required>
+                           </div>
+                           <!-- Add the "Crear Grupo" button with the proper ID -->
+                           <button type="button" class="btn btn-primary" id="createGroupBtn">Crear Grupo</button>
+                        </form>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <!-- Remove the button from here -->
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-         <!-- end model popup -->
+
+
             
          </div>
       </div>
@@ -202,8 +238,50 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-     
-            
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <script>
+         $(document).ready(function () {
+           // Event listener for the "Crear Grupo" button
+           $('#createGroupBtn').click(function () {
+             // Get values from the form
+             var title = $('#groupTitle').val();
+             var subject = $('#subject').val();
+             var description = $('#description').val();
+             var location = $('#location').val();
+             var days = $('#days').val();
+             var time = $('#time').val();
+       
+             // Create a new container with the user-provided information
+             var newContainer = `
+               <div class="col-md-4 mb-4">
+                 <div class="card">
+                   <div class="card-body">
+                     <h5 class="card-title">${title}</h5>
+                     <p class="card-text">Asignatura: ${subject}</p>
+                     <p class="card-text">Descripción: ${description}</p>
+                     <p class="card-text">Ubicación: ${location}</p>
+                     <p class="card-text">Días: ${days}</p>
+                     <p class="card-text">Hora: ${time}</p>
+                   </div>
+                 </div>
+               </div>
+             `;
+       
+             // Append the new container to the grid
+             $('#gridContainer').append(newContainer);
+       
+             // Close the modal
+             $('#exampleModalCenter').modal('hide');
+       
+             // Reset the form
+             $('#studyGroupForm')[0].reset();
+           });
+         });
+       </script>
+                  
 
    </body>
 </html>
