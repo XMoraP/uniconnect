@@ -120,8 +120,7 @@
                         <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
                         <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                         <li><a href="/profile"><i class="fa fa-cog yellow_color"></i> <span>Perfil</span></a></li>
-                        <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
-                        <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
+                        <li><a href="/podcast"><i class="fa fa-cog purple_color"></i> <span>Podcast</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -176,7 +175,8 @@
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <div class="card">
-                                <img src="../static/images/podcastLogo.png" class="card-img-top" alt="Imagen del Estudiante">
+                                <img src="../static/images/podcastLogo.png" class="card-img-top"
+                                    alt="Imagen del Estudiante">
                                 <div class="card-body">
                                     <h5 class="card-title">Alan Turing</h5>
                                     <p class="card-text">Episodio 1: Máquina de Turing...</p>
@@ -293,7 +293,74 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-    
+    <script>
+        // Resto del código JavaScript sigue igual...
+
+        // Nuevas funciones para mostrar y cerrar la ventana de reproducción
+        function showAudioPlayer() {
+            document.getElementById('audioPlayer').style.display = 'block';
+        }
+
+        function closeAudioPlayer() {
+            document.getElementById('audioPlayer').style.display = 'none';
+        }
+    </script>
+    <script>
+        var song = new Audio;
+        var muted = false;
+        var vol = 1;
+        song.type = 'audio/mpeg';
+        song.src = 'https://www.bensound.com/bensound-music/bensound-summer.mp3'; // Aquí es donde puedes cambiar la URL de la música
+
+        function skip(time) {
+            if (time == 'back') {
+                song.currentTime = (song.currentTime - 5);
+            } else if (time == 'fwd') {
+                song.currentTime = (song.currentTime + 5);
+            }
+        }
+
+        function playpause() {
+            if (!song.paused) {
+                song.pause();
+            } else {
+                song.play();
+            }
+        }
+
+        function stop() {
+            song.pause();
+            song.currentTime = 0;
+            document.getElementById('seek').value = 0;
+        }
+
+        function setPos(pos) {
+            song.currentTime = pos;
+        }
+
+        function mute() {
+            if (muted) {
+                song.volume = vol;
+                muted = false;
+                document.getElementById('mute').innerHTML = '<i class="fa fa-volume-up"></i>';
+            } else {
+                song.volume = 0;
+                muted = true;
+                document.getElementById('mute').innerHTML = '<i class="fa fa-volume-off"></i>';
+            }
+        }
+
+        function setVolume(volume) {
+            song.volume = volume;
+            vol = volume;
+        }
+
+        song.addEventListener('timeupdate', function () {
+            curtime = parseInt(song.currentTime, 10);
+            document.getElementById('seek').max = song.duration;
+            document.getElementById('seek').value = curtime;
+        })
+    </script>
 </body>
 
 </html>
