@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 
+
 app = Flask(__name__, template_folder="templates")
 
 app.secret_key = '12345'
@@ -208,12 +209,10 @@ def price():
     return render_template('price.html')
 
 #Contact
-from flask import render_template
-import base64
-import binascii
-
 @app.route('/contact')
 def contact():
+    ruta = "static/Fotos_Tutor"
+
     if 'logged_in' in session:
         user_profile = {
             'name': session['name'],
@@ -223,12 +222,14 @@ def contact():
     else:
         user_profile = None
 
-    if not os.path.exists("static/Fotos_Tutor"):
-        os.makedirs("static/Fotos_Tutor")
+    if not os.path.exists(ruta):
+        os.makedirs(ruta)
     cur = mysql.connection.cursor()
-    cur.execute("SELECT count(user.nombre) FROM user INNER JOIN tutor ON user.id_user = tutor.id_tutor INNER JOIN image ON user.id_user = image.id_user;")
-    cont_fotos = cur.fetchone()['count(user.nombre)']
-    print(cont_fotos)
+
+    archivos = os.listdir(ruta)
+    archivos = [archivo for archivo in archivos if os.path.isfile(os.path.join(ruta, archivo))]
+    cont_fotos = len(archivos)
+
     if(cont_fotos > 0):
         for i in range(0,cont_fotos-1):
             temp_image_path = f'static/Fotos_Tutor/temp_image{i}.jpg'
@@ -268,7 +269,6 @@ def contact():
         else:
             image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
 
-        print(image_base64)
         contact = {
             'nombre_apellido': nombre_apellido,
             'email': email,
