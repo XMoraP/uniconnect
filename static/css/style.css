@@ -966,11 +966,13 @@ a[data-toggle="collapse"] {
 
 .user_img img {
     border-radius: 100% 100%;
+    float: left
 }
 
 .user_info {
-    margin: 0 0 0 15px;
-    padding-top: 15px;
+    margin: 0px 20px 10px 15px;
+    padding-top: 5px;
+    float: right;
 }
 
 .online_animation {
@@ -1035,10 +1037,19 @@ a[data-toggle="collapse"] {
     float: left;
 }
 
+
 .logo_section img {
     height: 42px;
     padding: 0;
     margin: 8px 15px 0;
+    float: left;
+}
+
+.logo_section h4 {
+    height: 42px;
+    padding: 0;
+    margin: 22px 0 0;
+    float: right
 }
 
 #sidebar.active .logo_section a {
