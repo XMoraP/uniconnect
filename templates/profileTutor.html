@@ -1,312 +1,357 @@
 <!DOCTYPE html>
 <html lang="es">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Perfil</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- site icon -->
-      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
-      <!-- Include flaticon CSS -->
-      <link rel="stylesheet" href="../static/fonts/flaticon.css">
-      <!-- Include Font Awesome CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="../static/css/style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="../static/css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="../static/css/color_2.css" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="../static/css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
-      <!-- fancy box js -->
-      <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="../static/js/semantic.min.css" />
-      <!--Alerts-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
-      <!--[if lt IE 9]>
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>Perfil</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
+   <!-- Include flaticon CSS -->
+   <link rel="stylesheet" href="../static/fonts/flaticon.css">
+   <!-- Include Font Awesome CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+   <!-- site css -->
+   <link rel="stylesheet" href="../static/css/style.css" />
+   <!-- responsive css -->
+   <link rel="stylesheet" href="../static/css/responsive.css" />
+   <!-- color css -->
+   <link rel="stylesheet" href="../static/css/color_2.css" />
+   <!-- select bootstrap -->
+   <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+   <!-- scrollbar css -->
+   <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+   <!-- custom css -->
+   <link rel="stylesheet" href="../static/css/custom.css" />
+   <!-- calendar file css -->
+   <link rel="stylesheet" href="../static/js/semantic.min.css" />
+   <!-- fancy box js -->
+   <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
+   <!-- calendar file css -->
+   <link rel="stylesheet" href="../static/js/semantic.min.css" />
+   <!--Alerts-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
+   <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
 
       <![endif]-->
-   </head>
-   <body class="dashboard dashboard_1">
-      <div class="full_container">
-         <div class="inner_container">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-               <div class="sidebar_blog_1">
-                  <div class="sidebar-header">
-                     <div class="logo_section">
-                        <a href="/dashboard"><img class="logo_icon img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
-                     </div>
-                  </div>
-                  <div class="sidebar_user_info">
-                     <div class="icon_setting"></div>
-                     <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
-                        <div class="user_info">
-                           <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
-                           <p><span class="online_animation"></span> {{ user_profile['status'] }}</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="sidebar_blog_2">
-                  <h4>General</h4>
-                  <ul class="list-unstyled components">
-                     <li class="active">
-                        <a href="/dashboardTutor"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
-                     </li>
-                     <li><a href="/tablesTutor"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
-                     <li><a ><i class="fas fa-school green_color"></i> <span>Tutelados</span></a></li>
-                     <li>
-                        <a >
-                        <i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a>
-                     </li>
-                     <li><a href="/profileTutor"><i class="fa fa-cog yellow_color"></i> <span>Perfil</span></a></li>
-                     <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
+</head>
 
-                  </ul>
+<body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+         <nav id="sidebar">
+            <div class="sidebar_blog_1">
+               <div class="sidebar-header">
+                  <div class="logo_section">
+                     <a href="/dashboard"><img class="logo_icon img-responsive"
+                           src="../static/images/logoUniConnect.png" alt="#" /></a>
+                  </div>
                </div>
-            </nav>
-            <!-- end sidebar -->
-            <!-- right content -->
-            <div id="content">
-               <!-- topbar -->
-               <div class="topbar">
-                  <nav class="navbar navbar-expand-lg navbar-light">
-                     <div class="full">
-                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <div class="logo_section">
-                           <!--a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a-->
-                        </div>
-                        <div class="right_topbar">
-                           <div class="icon_info">
-                              <ul>
-                                 <li><a href="#"><i class="fas fa-bell"></i><span class="badge"></span></a></li>
-                                 <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fas fa-envelope"></i><span class="badge"></span></a></li>
-                              </ul>
-                              <ul class="user_profile_dd">
-                                 <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" />
-                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
-                                    <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="/profileTutor">Perfil</a>
-                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
-                                    </div>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </nav>
-               </div>
-               <!-- end topbar -->
-               <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Perfil</h2>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- row -->
-                     <div class="row column1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Perfil de Tutor</h2>
-                                 </div>
-                              </div>
-                              <div class="full price_table padding_infor_info">
-                                 <div class="row">
-                                    <!-- user profile section --> 
-                                    <!-- profile image -->
-                                    <div class="col-lg-12">
-                                       <div class="full dis_flex center_text">
-                                           <!-- Botón de selección de imagen -->
-                                           <form action="/subir_imagen" method="POST" enctype ="multipart/form-data">
-                                           <label for="profileImage" class="profile_img" style="cursor:pointer;">
-                                               <img width="180" class="rounded-circle" src="/cargar_imagen" alt="Imagen del Usuario">
-                                               <br/>
-                                               <!--input type ="text" name="nombre" placeholder="Nombre de la Imagen"-->
-                                               <input type="file" name="imagen">
-                                             <input type="file" id="profileImage" accept="image/*" style="display:none;">
-                                           </label>
-                                          
-                                       </div>
-                                       <!-- Botón para añadir imagen -->
-                                       <input type="submit" value = "Subir Imagen">
-                                       <br/>
-                                       <div class="profile_contant">
-                                          <div class="contact_inner">
-                                             <br/>
-                                             <h3>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h3>
-                                              <p><strong>Status: </strong>{{ user_profile['status'] }}</p>
-                                              <p><strong>Email: </strong>{{ user_profile['email'] }}</p>  
-                                              <p style="margin-left: 200px; margin-top: -65px;"><strong>Grado: </strong>{{ user_profile['nombre_grado'] }}</p>                                                 
-                                          </div>
-                                      </div>
-                                    </form>
-                                   </div>
-                                   <br/>
-                                   
-                                       <!-- profile content section -->
-<div class="full inner_elements margin_top_30">
-   <div class="tab_style2">
-       <div class="tabbar">
-           <nav>
-               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                   <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#recent_activity" role="tab" aria-selected="true">Editar perfil</a>
-                   <a class="nav-item nav-link" id="nav-password-tab" data-toggle="tab" href="#password_change" role="tab" aria-selected="false">Cambiar Contraseña</a>
-                   <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#project_worked" role="tab" aria-selected="false">Información Tutor</a>
-                   
-               </div>
-           </nav>
-           <div class="tab-content" id="nav-tabContent">
-               <div class="tab-pane fade show active" id="recent_activity" role="tabpanel" aria-labelledby="nav-home-tab">
-                   <!-- Formulario de edición de perfil -->
-                   <form method="POST" action="/guardar_perfil">
-                       <div class="form-group">
-                           <label for="email">Email:</label>
-                           <input type="email" class="form-control" id="email" placeholder="Ingrese su email" name="email" required value="{{ user_profile['email'] }}" >
-                       </div>
-                       <div class="form-group">
-                           <label for="name">Nombre:</label>
-                           <input type="text" class="form-control" id="name" placeholder="Ingrese su nombre" name="name" required value="{{ user_profile['name'] }}">
-                       </div>
-                       <div class="form-group">
-                           <label for="last_name">Apellido:</label>
-                           <input type="text" class="form-control" id="last_name" placeholder="Ingrese su apellido" name="last_name" required value="{{ user_profile['last_name'] }}">
-                       </div>
-                       <div class="form-group">
-                        <label for="grado">Grado:</label>
-                        <input type="text" class="form-control" id="grado" placeholder="Ingrese su grado" name="grado" required value="{{ user_profile['nombre_grado'] }}">
-                       </div>
-                       <div class="form-group">
-                           <label for="password">Contraseña:</label>
-                           <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" required>
-                       </div>              
-                       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                       
-                   </form>
-               </div>
-               <div class="tab-pane fade" id="project_worked" role="tabpanel" aria-labelledby="nav-profile-tab">
-                  <form action="/camposTutor" method="POST">
-                     <div class="form-group">
-                         <br/>
-                         <label for="asignaturas">Asignaturas (separadas por coma):</label>
-                         <input type="text" class="form-control" id="asignaturas" placeholder="Ingrese las asignaturas" name="asignaturas" required>
-                     </div>
-                     <div class="form-group">
-                         <label for="tarifa">Tarifa:</label>
-                         <input type="number" class="form-control" id="tarifa" placeholder="Ingrese la tarifa" name="tarifa" required>
-                     </div>
-                     <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña " name="password" required>
-                     </div>
-                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                 </form>
-                 
-              </div>
-              <div class="tab-pane fade" id="password_change" role="tabpanel" aria-labelledby="nav-profile-tab">
-               <form method="POST" action="/cambiarContrasenna">
-                   <div class="form-group">
-                   </br>  
-                     <label for="oldPassword">Contraseña:</label>
-                       <input type="password" class="form-control" name="password" id="old_password" placeholder="Ingrese su contraseña actual" required>
-                  </br>
-                     <label for="newPassword">Nueva contraseña:</label>
-                       <input type="password" class="form-control" id="new_password" name="newPassword" placeholder="Ingrese su nueva contraseña" required>
-                     </br>
-                     <label for="confirmPassword">Confirmar contraseña:</label>
-                       <input type="password" class="form-control" id="confirm_password" name="confirmPassword" placeholder="Confirme nueva su contraseña" required>
-                   </div>
-                   <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-               </form>
-           </div>
-           </div>
-       </div>
-   </div>
-</div>
-<!-- end user profile section -->
-
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-2"></div>
-                        </div>
-                        <!-- end row -->
-                     </div>
-                     <!-- footer -->
-                     <div class="container-fluid">
-                        <div class="footer">
-                           <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                              Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                           </p>
-                        </div>
+               <div class="sidebar_user_info">
+                  <div class="icon_setting"></div>
+                  <div class="user_profle_side">
+                     <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png"
+                           alt="#" /></div>
+                     <div class="user_info">
+                        <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
+                        <p><span class="online_animation"></span> {{ user_profile['status'] }}</p>
                      </div>
                   </div>
-                  <!-- end dashboard inner -->
                </div>
             </div>
+            <div class="sidebar_blog_2">
+               <h4>General</h4>
+               <ul class="list-unstyled components">
+                  <li class="active">
+                     <a href="/dashboardTutor"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
+                  </li>
+                  <li><a href="/tablesTutor"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                  <li><a><i class="fas fa-school green_color"></i> <span>Tutelados</span></a></li>
+                  <li>
+                     <a>
+                        <i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a>
+                  </li>
+                  <li><a href="/profileTutor"><i class="fa fa-cog yellow_color"></i> <span>Perfil</span></a></li>
+                  <li><a href="/estudio"><i class="fas fa-graduation-cap"
+                           style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i>
+                        <span>Estudio</span></a></li>
+                  <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
+               </ul>
+            </div>
+         </nav>
+         <!-- end sidebar -->
+         <!-- right content -->
+         <div id="content">
+            <!-- topbar -->
+            <div class="topbar">
+               <nav class="navbar navbar-expand-lg navbar-light">
+                  <div class="full">
+                     <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                           class="fa fa-bars"></i></button>
+                     <div class="logo_section">
+                        <!--a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a-->
+                     </div>
+                     <div class="right_topbar">
+                        <div class="icon_info">
+                           <ul>
+                              <li><a href="#"><i class="fas fa-bell"></i><span class="badge"></span></a></li>
+                              <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
+                              <li><a href="#"><i class="fas fa-envelope"></i><span class="badge"></span></a></li>
+                           </ul>
+                           <ul class="user_profile_dd">
+                              <li>
+                                 <a class="dropdown-toggle" data-toggle="dropdown"><img
+                                       class="img-responsive rounded-circle" src="/cargar_imagen"
+                                       alt="Imagen de perfil" />
+                                    <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name']
+                                       }}</span></a>
+                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/profileTutor">Perfil</a>
+                                    <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i
+                                          class="fas fa-sign-out-alt"></i></a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+            </div>
+            <!-- end topbar -->
+            <!-- dashboard inner -->
+            <div class="midde_cont">
+               <div class="container-fluid">
+                  <div class="row column_title">
+                     <div class="col-md-12">
+                        <div class="page_title">
+                           <h2>Perfil</h2>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- row -->
+                  <div class="row column1">
+                     <div class="col-md-2"></div>
+                     <div class="col-md-8">
+                        <div class="white_shd full margin_bottom_30">
+                           <div class="full graph_head">
+                              <div class="heading1 margin_0">
+                                 <h2>Perfil de Tutor</h2>
+                              </div>
+                           </div>
+                           <div class="full price_table padding_infor_info">
+                              <div class="row">
+                                 <!-- user profile section -->
+                                 <!-- profile image -->
+                                 <div class="col-lg-12">
+                                    <div class="full dis_flex center_text">
+                                       <!-- Botón de selección de imagen -->
+                                       <form action="/subir_imagen" method="POST" enctype="multipart/form-data">
+                                          <label for="profileImage" class="profile_img" style="cursor:pointer;">
+                                             <img width="180" class="rounded-circle" src="/cargar_imagen"
+                                                alt="Imagen del Usuario">
+                                             <br />
+                                             <!--input type ="text" name="nombre" placeholder="Nombre de la Imagen"-->
+                                             <input type="file" name="imagen">
+                                             <input type="file" id="profileImage" accept="image/*"
+                                                style="display:none;">
+                                          </label>
+
+                                    </div>
+                                    <!-- Botón para añadir imagen -->
+                                    <input type="submit" value="Subir Imagen">
+                                    <br />
+                                    <div class="profile_contant">
+                                       <div class="contact_inner">
+                                          <br />
+                                          <h3>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h3>
+                                          <p><strong>Status: </strong>{{ user_profile['status'] }}</p>
+                                          <p><strong>Email: </strong>{{ user_profile['email'] }}</p>
+                                          <p style="margin-left: 200px; margin-top: -65px;"><strong>Grado: </strong>{{
+                                             user_profile['nombre_grado'] }}</p>
+                                       </div>
+                                    </div>
+                                    </form>
+                                 </div>
+                                 <br />
+
+                                 <!-- profile content section -->
+                                 <div class="full inner_elements margin_top_30">
+                                    <div class="tab_style2">
+                                       <div class="tabbar">
+                                          <nav>
+                                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+                                                   href="#recent_activity" role="tab" aria-selected="true">Editar
+                                                   perfil</a>
+                                                <a class="nav-item nav-link" id="nav-password-tab" data-toggle="tab"
+                                                   href="#password_change" role="tab" aria-selected="false">Cambiar
+                                                   Contraseña</a>
+                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+                                                   href="#project_worked" role="tab" aria-selected="false">Información
+                                                   Tutor</a>
+
+                                             </div>
+                                          </nav>
+                                          <div class="tab-content" id="nav-tabContent">
+                                             <div class="tab-pane fade show active" id="recent_activity" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <!-- Formulario de edición de perfil -->
+                                                <form method="POST" action="/guardar_perfil">
+                                                   <div class="form-group">
+                                                      <label for="email">Email:</label>
+                                                      <input type="email" class="form-control" id="email"
+                                                         placeholder="Ingrese su email" name="email" required
+                                                         value="{{ user_profile['email'] }}">
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="name">Nombre:</label>
+                                                      <input type="text" class="form-control" id="name"
+                                                         placeholder="Ingrese su nombre" name="name" required
+                                                         value="{{ user_profile['name'] }}">
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="last_name">Apellido:</label>
+                                                      <input type="text" class="form-control" id="last_name"
+                                                         placeholder="Ingrese su apellido" name="last_name" required
+                                                         value="{{ user_profile['last_name'] }}">
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="grado">Grado:</label>
+                                                      <input type="text" class="form-control" id="grado"
+                                                         placeholder="Ingrese su grado" name="grado" required
+                                                         value="{{ user_profile['nombre_grado'] }}">
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="password">Contraseña:</label>
+                                                      <input type="password" class="form-control" id="password"
+                                                         placeholder="Ingrese su contraseña" name="password" required>
+                                                   </div>
+                                                   <button type="submit" class="btn btn-primary">Guardar
+                                                      Cambios</button>
+
+                                                </form>
+                                             </div>
+                                             <div class="tab-pane fade" id="project_worked" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">
+                                                <form action="/camposTutor" method="POST">
+                                                   <div class="form-group">
+                                                      <br />
+                                                      <label for="asignaturas">Asignaturas (separadas por coma):</label>
+                                                      <input type="text" class="form-control" id="asignaturas"
+                                                         placeholder="Ingrese las asignaturas" name="asignaturas"
+                                                         required>
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="tarifa">Tarifa:</label>
+                                                      <input type="number" class="form-control" id="tarifa"
+                                                         placeholder="Ingrese la tarifa" name="tarifa" required>
+                                                   </div>
+                                                   <div class="form-group">
+                                                      <label for="password">Contraseña:</label>
+                                                      <input type="password" class="form-control" id="password"
+                                                         placeholder="Ingrese su contraseña " name="password" required>
+                                                   </div>
+                                                   <button type="submit" class="btn btn-primary">Guardar
+                                                      cambios</button>
+                                                </form>
+
+                                             </div>
+                                             <div class="tab-pane fade" id="password_change" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">
+                                                <form method="POST" action="/cambiarContrasenna">
+                                                   <div class="form-group">
+                                                      </br>
+                                                      <label for="oldPassword">Contraseña:</label>
+                                                      <input type="password" class="form-control" name="password"
+                                                         id="old_password" placeholder="Ingrese su contraseña actual"
+                                                         required>
+                                                      </br>
+                                                      <label for="newPassword">Nueva contraseña:</label>
+                                                      <input type="password" class="form-control" id="new_password"
+                                                         name="newPassword" placeholder="Ingrese su nueva contraseña"
+                                                         required>
+                                                      </br>
+                                                      <label for="confirmPassword">Confirmar contraseña:</label>
+                                                      <input type="password" class="form-control" id="confirm_password"
+                                                         name="confirmPassword"
+                                                         placeholder="Confirme nueva su contraseña" required>
+                                                   </div>
+                                                   <button type="submit" class="btn btn-primary">Guardar
+                                                      Cambios</button>
+                                                </form>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <!-- end user profile section -->
+
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-2"></div>
+                  </div>
+                  <!-- end row -->
+               </div>
+               <!-- footer -->
+               <div class="container-fluid">
+                  <div class="footer">
+                     <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                        Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <!-- end dashboard inner -->
          </div>
       </div>
-      
-      <!-- jQuery -->
-      <script src="../static/js/jquery.min.js"></script>
-      <script src="../static/js/popper.min.js"></script>
-      <script src="../static/js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="../static/js/animate.js"></script>
-      <!-- select country -->
-      <script src="../static/js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="../static/js/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="../static/js/Chart.min.js"></script>
-      <script src="../static/js/Chart.bundle.min.js"></script>
-      <script src="../static/js/utils.js"></script>
-      <script src="../static/js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="../static/js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="../static/js/custom.js"></script>
-      <!-- calendar file css -->    
-      <script src="../static/js/semantic.min.js"></script>
-      <!--Alerts-->
-      <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
+   </div>
+   </div>
+
+   <!-- jQuery -->
+   <script src="../static/js/jquery.min.js"></script>
+   <script src="../static/js/popper.min.js"></script>
+   <script src="../static/js/bootstrap.min.js"></script>
+   <!-- wow animation -->
+   <script src="../static/js/animate.js"></script>
+   <!-- select country -->
+   <script src="../static/js/bootstrap-select.js"></script>
+   <!-- owl carousel -->
+   <script src="../static/js/owl.carousel.js"></script>
+   <!-- chart js -->
+   <script src="../static/js/Chart.min.js"></script>
+   <script src="../static/js/Chart.bundle.min.js"></script>
+   <script src="../static/js/utils.js"></script>
+   <script src="../static/js/analyser.js"></script>
+   <!-- nice scrollbar -->
+   <script src="../static/js/perfect-scrollbar.min.js"></script>
+   <script>
+      var ps = new PerfectScrollbar('#sidebar');
+   </script>
+   <!-- custom js -->
+   <script src="../static/js/custom.js"></script>
+   <!-- calendar file css -->
+   <script src="../static/js/semantic.min.js"></script>
+   <!--Alerts-->
+   <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
 
 
-      <!-- Lógica Boton añadir imagen-->
-      <!--script>
+   <!-- Lógica Boton añadir imagen-->
+   <!--script>
       
        document.getElementById('addImage').addEventListener('click', function() {
            document.getElementById('profileImage').click();
@@ -328,57 +373,58 @@
     });
    </script-->
 
-<div id="flash-message" data-tipo="{{ mensaje['tipo'] }}" data-contenido="{{ mensaje['contenido'] }}"></div>
+   <div id="flash-message" data-tipo="{{ mensaje['tipo'] }}" data-contenido="{{ mensaje['contenido'] }}"></div>
 
-<script>
-   document.addEventListener('DOMContentLoaded', function () {
-       const flashMessage = document.getElementById('flash-message');
-       const tipo = flashMessage.dataset.tipo;
-       const contenido = flashMessage.dataset.contenido;
+   <script>
+      document.addEventListener('DOMContentLoaded', function () {
+         const flashMessage = document.getElementById('flash-message');
+         const tipo = flashMessage.dataset.tipo;
+         const contenido = flashMessage.dataset.contenido;
 
-       if (tipo === 'successUpdate') {
-           Swal.fire({
+         if (tipo === 'successUpdate') {
+            Swal.fire({
                title: 'Éxito',
                text: contenido,
                icon: 'success',
                confirmButtonText: 'Aceptar'
-           });
-       } else if (tipo === 'errorPassword') {
-           Swal.fire({
+            });
+         } else if (tipo === 'errorPassword') {
+            Swal.fire({
                title: 'Error de Contraseña',
                text: contenido,
                icon: 'error',
                confirmButtonText: 'Aceptar'
-           });
-       } else if (tipo === 'errorEmail') {
-           Swal.fire({
+            });
+         } else if (tipo === 'errorEmail') {
+            Swal.fire({
                title: 'Error de Email',
                text: contenido,
                icon: 'error',
                confirmButtonText: 'Aceptar'
-           });
-       }
-   });
-</script>
+            });
+         }
+      });
+   </script>
 
-<script>
-   document.getElementById('new_password').addEventListener('input', function() {
-     let password = this.value;
-     let containsUpperCase = /[A-Z]/.test(password);
-     let containsLowerCase = /[a-z]/.test(password);
-     let containsNumbers = /\d/.test(password);
-     let containsSymbols = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-     
-     let isValid = containsUpperCase && containsLowerCase && containsNumbers && containsSymbols;
-     
-     if (isValid) {
-       this.setCustomValidity('');
-     } else {
-       this.setCustomValidity('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo.');
-     }
-   });
- </script> 
+   <script>
+      document.getElementById('new_password').addEventListener('input', function () {
+         let password = this.value;
+         let containsUpperCase = /[A-Z]/.test(password);
+         let containsLowerCase = /[a-z]/.test(password);
+         let containsNumbers = /\d/.test(password);
+         let containsSymbols = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-     
-   </body>
+         let isValid = containsUpperCase && containsLowerCase && containsNumbers && containsSymbols;
+
+         if (isValid) {
+            this.setCustomValidity('');
+         } else {
+            this.setCustomValidity('La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo.');
+         }
+      });
+   </script>
+
+
+</body>
+
 </html>
