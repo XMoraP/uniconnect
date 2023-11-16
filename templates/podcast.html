@@ -293,20 +293,16 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulario de añadir podcast -->
-                                    <form>
+                                    <form action="/uploadMp3" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="podcastName">Nombre del Podcast</label>
                                             <input type="text" class="form-control" id="podcastName"
-                                                placeholder="Ingrese el nombre del podcast">
+                                                placeholder="Ingrese el nombre del podcast" name="podcastName">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="podcastDescription">Descripción</label>
-                                            <textarea class="form-control" id="podcastDescription" rows="3"
-                                                placeholder="Ingrese la descripción del podcast"></textarea>
-                                        </div>
+        
                                         <div class="form-group">
                                             <label for="podcastFile">Archivo MP3</label>
-                                            <input type="file" class="form-control-file" id="podcastFile">
+                                            <input type="file" class="form-control-file" id="podcastFile" name="podcastFile">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Subir Podcast</button>
                                     </form>

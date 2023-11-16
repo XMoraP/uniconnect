@@ -741,8 +741,22 @@ def podcast():
 
     return render_template('podcast.html', user_profile=user_profile)
 
+# Ruta para subir un archivos mp3
+@app.route('/uploadMp3', methods=['POST'])
+def upload_mp3():
+    podcast = request.files['podcastFile']
+    podcast_data = podcast.read()
 
-# Archivos
+    name = request.form['podcastName']
+
+    query = "INSERT INTO podcast (name, podcast) VALUES (%s,%s)"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (name, podcast_data,))
+    mysql.connection.commit()
+
+    return redirect(url_for('podcast'))
+
+# Archivos disponibles
 @app.route('/archivos_disponibles', methods=['GET'])
 def mostrar_archivos():
 
