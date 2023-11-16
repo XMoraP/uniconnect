@@ -702,7 +702,6 @@ def download_file():
     )
 
 # Estudio -- grupos de estudio
-#DashBoard
 @app.route('/estudio')
 def estudio():
 
