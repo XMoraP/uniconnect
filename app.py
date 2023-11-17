@@ -723,12 +723,7 @@ def estudio():
 
 # Podcast
 @app.route('/podcast')
-def podcast():
-
-    id_user = session['id_user']
-    
-    cursor = mysql.connection.cursor()
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+def podcast(): 
 
     if 'logged_in' in session:
         user_profile = {
@@ -739,9 +734,46 @@ def podcast():
     else:
         user_profile = None 
 
-    return render_template('podcast.html', user_profile=user_profile)
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT name, name_user, id_podcast from podcast")
+    podcasts_data = cur.fetchall()
+    cur.close()
+ 
+    podcasts_list = []
+    for podcast in podcasts_data:
+        nombre_podcast = podcast['name']
+        nombre_usuario = podcast['name_user']
+        id_podcast = podcast['id_podcast']
+
+        
+        podcast_info = {
+            'nombre_podcast': nombre_podcast,
+            'nombre_usuario': nombre_usuario,
+            'id_podcast': id_podcast
+            # Puedes agregar más campos del podcast si los necesitas
+        }
+        podcasts_list.append(podcast_info)
+
+    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list)
 
 # Ruta para subir un archivos mp3
+
+@app.route('/get_audio')
+def get_audio():
+    # Obtén el archivo de audio desde la base de datos utilizando el podcast_id
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT podcast FROM podcast WHERE id_podcast = 1")
+    audio_data = cursor.fetchone()
+
+    # Guarda el audio en un archivo temporal
+    audio_filename = 'temp_audio.mp3'
+    with open(audio_filename, 'wb') as audio_file:
+        audio_file.write(audio_data['podcast'])
+
+    # Devuelve el archivo de audio al navegador
+    return send_file(audio_filename, as_attachment=True)
+
+
 @app.route('/uploadMp3', methods=['POST'])
 def upload_mp3():
     name_user = session['name']
@@ -758,25 +790,6 @@ def upload_mp3():
 
     return redirect(url_for('podcast'))
 
-# Ruta para mostrar los podcasts
-@app.route('/podcasts_mostrar')
-def podcasts():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT id_user from podcast")
-    podcasts_data = cur.fetchall()
-    cur.close()
- 
-    podcasts_list = []
-    for podcast in podcasts_data:
-        podcast_info = {
-            'nombre_podcast': podcast['nombre_podcast'],
-            'nombre_usuario': podcast['nombre_usuario'],
-            'archivo_mp3': base64.b64encode(podcast['archivo_mp3']).decode('utf-8') if podcast['archivo_mp3'] else None
-            # Puedes agregar más campos del podcast si los necesitas
-        }
-        podcasts_list.append(podcast_info)
- 
-    return render_template('podcasts.html', podcasts=podcasts_list)
 # Archivos disponibles
 @app.route('/archivos_disponibles', methods=['GET'])
 def mostrar_archivos():
@@ -797,6 +810,7 @@ def mostrar_archivos():
         cursor.execute("SELECT name FROM file")
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
         return render_template('tables.html', archivos=archivos, user_profile=user_profile)
+    
 
 
 if __name__ == '__main__':

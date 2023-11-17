@@ -13,7 +13,7 @@
         var muted = false;
         var vol = 1;
         song.type = 'audio/mpeg';
-        song.src = 'https://www.bensound.com/bensound-music/bensound-summer.mp3'; // Aquí es donde puedes cambiar la URL de la música
+        song.src = '/get_audio'; // Aquí es donde puedes cambiar la URL de la música
 
         function skip(time) {
             if (time == 'back') {

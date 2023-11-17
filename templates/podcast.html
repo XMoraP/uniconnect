@@ -228,18 +228,21 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="../static/images/podcastLogo.png" class="card-img-top"
-                                    alt="Imagen del Estudiante">
-                                <div class="card-body">
-                                    <h5 class="card-title">Alan Turing</h5>
-                                    <p class="card-text">Episodio 1: Máquina de Turing...</p>
-                                    <button class="btn btn-primary btn-block" data-toggle="modal"
-                                        data-target="#audioModal">
+                            <!--form action="/podcasts_mostrar" method="post">
+                                <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Mostrar podcast</button><br-->
+                            {% for podcast in podcasts %}
+                                <div class="card">
+                                    <img src="../static/images/podcastLogo.png" class="card-img-top" alt="Imagen del Estudiante">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{ podcast.nombre_usuario }}</h5>
+                                    <p class="card-text">{{ podcast.nombre_podcast }}</p>
+                                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#audioModal">
                                         <i class="fas fa-play"></i> Play
                                     </button>
-                                </div>
-                            </div>
+                                    </div>
+                                </div><br>
+                            {% endfor %}
+                            <!--/form-->
                         </div>
                     </div>
 
