@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Inicio</title>
+      <title>Grupos de estudio</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -39,10 +39,69 @@
       <!-- fullcalendar -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+
+      <style>
+         /* Custom styles for the "Formar Grupo" button */
+         .btn-warning {
+            background-color: #ffc107; /* Button background color */
+            color: #212529; /* Button text color */
+            border: 1px solid #ffc107; /* Button border color */
+            padding: auto;
+            margin: 20px;
+         }
+
+         /* Optional: Add hover effect for the button */
+         .btn-warning:hover {
+            background-color: #e0a800; /* Hover background color */
+            border: 1px solid #e0a800; /* Hover border color */
+            color: #212529; /* Hover text color */
+         }
+
+         /* Custom styles for the modal container */
+         #exampleModalCenter {
+            background-color: whitesmoke; /* Background color */
+            padding: auto;
+            margin: auto;
+         }
+
+         /* Custom styles for the modal header */
+         #exampleModalCenter .modal-header {
+            background-color: #007bff; /* Header background color */
+            color: #fff; /* Header text color */
+         }
+
+         /* Custom styles for the modal body */
+         #exampleModalCenter .modal-body {
+            background-color: #ffffff; /* Body background color */
+            color: #000000; /* Body text color */
+         }
+
+         /* Custom styles for the form within the modal */
+         #studyGroupForm {
+            margin-bottom: 0; /* Remove default margin */
+         }
+
+         /* Custom styles for form inputs */
+         #studyGroupForm input,
+         #studyGroupForm textarea {
+            margin-bottom: 10px; /* Add spacing between form elements */
+         }
+
+         /* Custom styles for the "Crear Grupo" button */
+         #createGroupBtn {
+            background-color: #28a745; /* Button background color */
+            color: #fff; /* Button text color */
+            border: 1px solid #28a745; /* Button border color */
+         }
+
+         /* Optional: Add hover effect for the button */
+         #createGroupBtn:hover {
+            background-color: #218838; /* Hover background color */
+            border: 1px solid #218838; /* Hover border color */
+         }
+
+      </style>
+      
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -57,7 +116,7 @@
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="/cargar_imagen" alt="#" /></div>
+                        <div class="user_img"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></div>
                         <div class="user_info">
                            <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
                            <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
@@ -90,7 +149,7 @@
                         <div class="logo_section">
                            <a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                            <h4>Uniconnect</h4>
-                        </div>
+                       </div>
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
@@ -121,21 +180,36 @@
                <div class="midde_cont">
                   
                   <div class="container-fluid">
-
                      <div class="page_title">
-                        <h2>Inicio</h2>
+                        <h2>Grupos de Estudio</h2>
+                        <div class="col-md-2">
+                           <!-- Button to open the modal -->
+                           <div class="text-right mt-3">
+                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">Formar Grupo</button>
+                           </div>
+                         </div>  
                       </div>
+                  </div>
+ 
 
-                      <div class="col-md-2">
-                        <!-- Button to open the modal -->
-                        <div class="text-right mt-3">
-                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">Formar Grupo</button>
+                  <div class="gridContainer">
+                     <div class="row" id="gridContainer">
+                       <!-- Add the study group cards here -->
+                       <div class="col-md-4 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="/static/images/DrawKit Vector Illustration Team Work (6).png" alt="Study Group Header">
+                           <div class="card-body">
+                              <h5 class="card-title">Repaso de Prolog</h5>
+                              <p class="card-text">Asignatura: Inteligencia Artificial</p>
+                              <p class="card-text">Resumen: Vamos a repasar el temario de prolog de cara al examen</p>
+                              <p class="card-text">Dónde: En la pecera</p>
+                              <p class="card-text">Qué día: Viernes y lunes</p>
+                              <p class="card-text">A qué hora: 14.30</p>
+                              <button type="button" class="btn btn-success">¡Me uno!</button>
+                           </div>
                         </div>
-
-                      </div>
-                     
-                       
-                       
+                     </div>
+                     </div>
                   </div>
 
                   <!-- footer -->
@@ -164,6 +238,10 @@
                      <div class="modal-body">
                         <!-- Form for adding study group details -->
                         <form id="studyGroupForm">
+                           <div class="form-group">
+                              <label for="headerPhoto">Foto o póster:</label>
+                              <input type="file" class="form-control-file" id="headerPhoto" accept="image/*" capture="environment">
+                           </div>
                            <div class="form-group">
                               <label for="groupTitle">Título:</label>
                               <input type="text" class="form-control" id="groupTitle" placeholder="Ingrese el título" required>
@@ -225,7 +303,6 @@
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- fancy box js -->
-      <script src="./static/js/jquery-3.3.1.min.js"></script>
       <script src="./static/js/jquery.fancybox.min.js"></script>
       <!-- custom js -->
       <script src="./static/js/custom.js"></script>
@@ -234,7 +311,6 @@
       <script src="./static/js/semantic.min.js"></script>
       <!--js de crear eventos-->
       <script src="./static/js/events.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -245,42 +321,57 @@
 
       <script>
          $(document).ready(function () {
-           // Event listener for the "Crear Grupo" button
-           $('#createGroupBtn').click(function () {
-             // Get values from the form
-             var title = $('#groupTitle').val();
-             var subject = $('#subject').val();
-             var description = $('#description').val();
-             var location = $('#location').val();
-             var days = $('#days').val();
-             var time = $('#time').val();
-       
-             // Create a new container with the user-provided information
-             var newContainer = `
-               <div class="col-md-4 mb-4">
-                 <div class="card">
-                   <div class="card-body">
-                     <h5 class="card-title">${title}</h5>
-                     <p class="card-text">Asignatura: ${subject}</p>
-                     <p class="card-text">Descripción: ${description}</p>
-                     <p class="card-text">Ubicación: ${location}</p>
-                     <p class="card-text">Días: ${days}</p>
-                     <p class="card-text">Hora: ${time}</p>
-                   </div>
-                 </div>
-               </div>
-             `;
-       
-             // Append the new container to the grid
-             $('#gridContainer').append(newContainer);
-       
-             // Close the modal
-             $('#exampleModalCenter').modal('hide');
-       
-             // Reset the form
-             $('#studyGroupForm')[0].reset();
-           });
+            // Event listener for the "Crear Grupo" button
+            $('#createGroupBtn').click(function () {
+               // Get values from the form
+               var title = $('#groupTitle').val();
+               var subject = $('#subject').val();
+               var description = $('#description').val();
+               var location = $('#location').val();
+               var days = $('#days').val();
+               var time = $('#time').val();
+               var headerPhoto = $('#headerPhoto')[0].files[0]; // Get the selected file
+
+               // Check if the user has uploaded a photo
+               if (headerPhoto) {
+                  // Handle the photo upload
+                  // You may want to use FormData to send the file to the server
+                  // For now, we'll just assume the file is uploaded and set a placeholder URL
+                  var photoURL = '/static/images/DrawKit Vector Illustration Team Work (2).png'; // Replace with your default photo URL
+               } else {
+                  // Use a default photo URL if the user didn't upload one
+                  var photoURL = '/static/images/DrawKit Vector Illustration Team Work (2).png'; // Replace with your default photo URL
+               }
+
+               // Create a new container with the user-provided information and the photo URL
+               var newContainer = `
+                  <div class="col-md-4 mb-4">
+                     <div class="card">
+                        <img class="card-img-top" src="${photoURL}" alt="Group Header">
+                        <div class="card-body">
+                           <h5 class="card-title">${title}</h5>
+                           <p class="card-text">Asignatura: ${subject}</p>
+                           <p class="card-text">Resumen: ${description}</p>
+                           <p class="card-text">Dónde: ${location}</p>
+                           <p class="card-text">Qué día: ${days}</p>
+                           <p class="card-text">A qué hora: ${time}</p>
+                           <button type="button" class="btn btn-success">¡Me uno!</button>
+                        </div>
+                     </div>
+                  </div>
+               `;
+
+               // Append the new container to the grid
+               $('#gridContainer').append(newContainer);
+
+               // Close the modal
+               $('#exampleModalCenter').modal('hide');
+
+               // Reset the form
+               $('#studyGroupForm')[0].reset();
+            });
          });
+
        </script>
                   
 
