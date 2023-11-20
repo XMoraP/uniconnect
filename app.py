@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 app = Flask(__name__, template_folder="templates")
-
+app.debug = True
 app.secret_key = '12345'
 
 app.config['UPLOAD_FOLDER'] = './files'
