@@ -1,5 +1,7 @@
 .DS_Store
 .vscode
+.deployment
+.gunicorn.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
