@@ -155,6 +155,8 @@ def asignaturas():
 def general_elements():
     return render_template('general_elements.html')
 
+
+
 @app.route('/media_gallery')
 def media_gallery():
     return render_template('media_gallery.html')
@@ -658,14 +660,28 @@ def download_file():
     )
 
 # Estudio -- grupos de estudio
-@app.route('/estudio')
+@app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
 
-    id_user = session['id_user']
-    
+    if request.method == 'POST':
+        # Obtener datos del formulario
+        curso = request.form['groupTitle']
+        asignatura = request.form['subject']
+        descripcion = request.form['description']
+        ubicacion = request.form['location']
+        dias = request.form['days']
+        hora = request.form['time']
     cursor = mysql.connection.cursor()
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    curso = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(
+            "INSERT INTO grupos_estudio (curso, asignatura, descripcion, ubicacion, dias, hora, foto_portada_url) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (curso, asignatura, descripcion, ubicacion, dias, hora)
+        )
+    
+    mysql.connection.commit()
 
+    cursor.close()
+    
     user_profile = loginfo(session)
 
     return render_template('estudio.html', user_profile=user_profile)

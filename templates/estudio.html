@@ -103,6 +103,7 @@
       </style>
       
    </head>
+   
    <body class="dashboard dashboard_1">
       <div class="full_container">
          <div class="inner_container">
@@ -272,11 +273,14 @@
                      </div>
                      <div class="modal-body">
                         <!-- Form for adding study group details -->
-                        <form id="studyGroupForm">
+                   ¡
+                           <form id="studyGroupForm" action="/estudio" method="POST">
+
                            <div class="form-group">
                               <label for="headerPhoto">Foto o póster:</label>
                               <input type="file" class="form-control-file" id="headerPhoto" accept="image/*" capture="environment">
                            </div>
+                           
                            <div class="form-group">
                               <label for="groupTitle">Título:</label>
                               <input type="text" class="form-control" id="groupTitle" placeholder="Ingrese el título" required>
