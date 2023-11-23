@@ -758,21 +758,24 @@ def podcast():
 
 # Ruta para subir un archivos mp3
 
-@app.route('/get_audio')
-def get_audio():
+@app.route('/get_audio/<int:id_podcast>')
+def get_audio(id_podcast):
     # Obtén el archivo de audio desde la base de datos utilizando el podcast_id
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT podcast FROM podcast WHERE id_podcast = 1")
+    cursor.execute("SELECT podcast FROM podcast WHERE id_podcast = %s", (id_podcast,))
     audio_data = cursor.fetchone()
 
-    # Guarda el audio en un archivo temporal
-    audio_filename = 'temp_audio.mp3'
-    with open(audio_filename, 'wb') as audio_file:
-        audio_file.write(audio_data['podcast'])
+    if audio_data:
+        # Guarda el audio en un archivo temporal
+        audio_filename = 'temp_audio.mp3'
+        with open(audio_filename, 'wb') as audio_file:
+            audio_file.write(audio_data['podcast'])
 
-    # Devuelve el archivo de audio al navegador
-    return send_file(audio_filename, as_attachment=True)
-
+        # Devuelve el archivo de audio al navegador
+        return send_file(audio_filename, as_attachment=True)
+    else:
+        # Manejar el caso donde el podcast no existe
+        return "Podcast no encontrado", 404
 
 @app.route('/uploadMp3', methods=['POST'])
 def upload_mp3():
