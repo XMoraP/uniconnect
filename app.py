@@ -6,7 +6,7 @@ import base64
 import json
 import binascii
 from datetime import datetime
-import Contact
+from Contact import loginfo, crearDirectorio
 
 
 
@@ -127,7 +127,7 @@ def dashboard():
     cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
     calendar = cur.fetchall()  
 
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
 
     return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
 
@@ -135,19 +135,19 @@ def dashboard():
 #Tables
 @app.route('/tables')
 def tables():
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
     return render_template('tables.html', user_profile=user_profile)
 
 #TablesTutor
 @app.route('/tablesTutor')
 def tablesTutor():
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
     return render_template('tablesTutor.html', user_profile=user_profile)
  
 #Asignaturas
 @app.route('/asignaturas')
 def asignaturas():
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
     return render_template('asignaturas.html', user_profile=user_profile)
 
 #Elements
@@ -186,9 +186,8 @@ def contact():
     ruta = "static/Fotos_Tutor"
 
     #Obtenemos la informacion del usuario
-    user_profile = Contact.loginfo()
-
-    Contact.crearDirectorio(ruta)
+    user_profile = loginfo(session)
+    crearDirectorio(ruta)
 
     cur = mysql.connection.cursor()
 
@@ -250,7 +249,7 @@ def contact():
 #Tutelados
 @app.route('/tutelados')
 def tutelados():
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
     return render_template('tutelados.html', user_profile=user_profile)
 
 @app.route('/profile')
@@ -667,7 +666,7 @@ def estudio():
     cursor = mysql.connection.cursor()
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
 
     return render_template('estudio.html', user_profile=user_profile)
 
@@ -675,7 +674,7 @@ def estudio():
 @app.route('/podcast')
 def podcast(): 
 
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
 
     cur = mysql.connection.cursor()
     cur.execute("SELECT name, name_user, id_podcast from podcast")
@@ -736,7 +735,7 @@ def upload_mp3():
 # Archivos disponibles
 @app.route('/archivos_disponibles', methods=['GET'])
 def mostrar_archivos():
-    user_profile = Contact.loginfo()
+    user_profile = loginfo(session)
 
     if request.method == 'GET':
 
