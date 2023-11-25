@@ -662,7 +662,29 @@ def download_file():
 # Estudio -- grupos de estudio
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
+    try:
+        ahora = datetime.now()
+        conexion = mysql.connector.connect(
+            host=app.config['MYSQL_HOST'],
+            user=app.config['MYSQL_USER'],
+            password=app.config['MYSQL_PASSWORD'],
+            database=app.config['MYSQL_DB']
+        )
+        cursor = conexion.cursor(dictionary=True)
 
+        # Obtener eventos cuya fecha ha pasado
+        cursor.execute("SELECT id FROM estudio WHERE dias < %s", (ahora,))
+        eventos_vencidos = cursor.fetchall()
+
+        # Eliminar eventos vencidos
+        for evento in eventos_vencidos:
+            cursor.execute("DELETE FROM estudio WHERE id = %s", (evento['id'],))
+        
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+    except Exception as e:
+         print(f"Error al eliminar eventos vencidos: {e}")
     if request.method == 'POST':
         # Obtener datos del formulario
         curso = request.form['groupTitle']
@@ -674,7 +696,7 @@ def estudio():
     cursor = mysql.connection.cursor()
     curso = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-            "INSERT INTO grupos_estudio (curso, asignatura, descripcion, ubicacion, dias, hora, foto_portada_url) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            "INSERT INTO estudio (curso, asignatura, descripcion, ubicacion, dias, hora, foto_portada_url) VALUES (%s, %s, %s, %s, %s, %s, %s)",
             (curso, asignatura, descripcion, ubicacion, dias, hora)
         )
     
