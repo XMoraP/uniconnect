@@ -256,7 +256,7 @@ def contact():
         if contact['nombre_apellido'] != isUser:
             contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones())
 
 
 @app.route('/pedir_tutoria', methods=['POST'])
@@ -794,6 +794,18 @@ def mostrar_archivos():
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
         return render_template('tables.html', archivos=archivos, user_profile=user_profile)
     
+def obtener_Notificaciones():
+    tu_id = session['id_user']
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))
+    return jsonify(cursor.fetchall())
+
+def num_notificaciones():
+    tu_id = session['id_user']
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT count(mensaje) AS conteo FROM Tutoria WHERE id_tutor = %s", (tu_id,))
+    return cursor.fetchone()
+
 
 
 if __name__ == '__main__':

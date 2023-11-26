@@ -70,8 +70,7 @@
                      <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                      <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
                      <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
-                     <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
-                     <span>Estudio</span></a></li>
+                     <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li><span>Estudio</span>
                   </ul>
                </div>
             </nav>
@@ -82,7 +81,8 @@
                <div class="topbar">
                   <nav class="navbar navbar-expand-lg navbar-light">
                      <div class="full">
-                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                              class="fa fa-bars"></i></button>
                         <div class="logo_section">
                            <a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                            <h4>Uniconnect</h4>
@@ -90,24 +90,67 @@
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge"></span></a></li>
-                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge"></span></a></li>
+                                 <li>
+                                    <a href="#" onclick="toggleNotificationPopup(event)">
+                                       <i class="fas fa-bell"></i>
+                                       <span class="badge" id="notificacionesBadge" style="background-color: white; color: black;">{{ longitud['conteo'] }} </span>
+                                    </a>
+                                 </li>
+                                 <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fas fa-envelope"></i><span class="badge"></span></a></li>
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
-                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
+                                    <a class="dropdown-toggle"
+                                       data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name']
+                                          }}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="/profile">Perfil</a>
-                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
+                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i
+                                             class="fas fa-sign-out-alt"></i></a>
                                     </div>
                                  </li>
+                              </ul>
                            </div>
                         </div>
                      </div>
                   </nav>
                </div>
+
+               <script>
+                   function toggleNotificationPopup(event) {
+                       var popup = document.getElementById("ventanaNotificaciones");
+                       var badge = document.getElementById("notificacionesBadge");
+
+                       // Realizar una solicitud para obtener las notificaciones
+                       fetch('/obtener_notificaciones')
+                           .then(response => response.json())
+                           .then(notificaciones => {
+                               badge.textContent = notificaciones.length;
+
+                               // Actualizar el contenido de las notificaciones
+                               var listaNotificaciones = document.querySelector(".ventana-notificaciones ul");
+                               listaNotificaciones.innerHTML = '';
+
+                               notificaciones.forEach(function(notificacion) {
+                                   var li = document.createElement('li');
+                                   li.textContent = notificacion.mensaje;
+                                   listaNotificaciones.appendChild(li);
+                               });
+
+                               // Mostrar la ventana emergente
+                               popup.style.display = "block";
+                           })
+                           .catch(error => {
+                               console.error('Error al obtener notificaciones:', error);
+                           });
+
+                       // Evitar que el evento del enlace recargue la página
+                       event.preventDefault();
+                   }
+               </script>
+
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">
@@ -201,5 +244,28 @@
       <!-- calendar file css -->     
       <script src="../static/js/semantic.min.js"></script>
       <script></script>
+
+      <div class="modal" id="notificacionesModal" tabindex="-1" role="dialog" aria-labelledby="notificacionesModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="notificacionesModalLabel">Notificaciones</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul>
+                {% for notificacion in notificaciones %}
+                  <li>{{ notificacion.mensaje }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
    </body>
 </html>

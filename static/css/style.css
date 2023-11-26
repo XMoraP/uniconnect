@@ -3783,3 +3783,43 @@ input[type="file"] {
     Notificaciones
 -------------------------------------------------------------------*/
 
+.notification-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.icon-bell {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.notification-popup {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1001;
+}
+
+.notification {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.ventana-notificaciones{
+    display: none;
+}
