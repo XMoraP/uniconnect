@@ -186,13 +186,16 @@ def price():
 @app.route('/contact')
 def contact():
     ruta = "static/Fotos_Tutor"
-
+    cont = 0
     #Obtenemos la informacion del usuario
     user_profile = loginfo(session)
+    #Creamos el directorio de imagenes
     crearDirectorio(ruta)
 
+    #Creamos la conexion a la base de datos
     cur = mysql.connection.cursor()
 
+    #Parte del codigo que destruye las imagenes
     archivos = os.listdir(ruta)
     archivos = [archivo for archivo in archivos if os.path.isfile(os.path.join(ruta, archivo))]
     cont_fotos = len(archivos)
@@ -204,11 +207,15 @@ def contact():
                 os.remove(temp_image_path)
         print("Imagenes borradas")
 
+
+    #Codigo para obetener los datos de cada tutor
     cur.execute("SELECT * FROM vista_ventana_tutores")
     contacts = cur.fetchall()
     cur.close()
+
+    #Parte del codigo que tranforma las imagenes para verse en el html
     contacts_list = []
-    cont = 0
+    isUser = session['name'] + "" + session['last_name']
     for result in contacts:
         id_user = result['id_user']
         nombre_apellido = result['nombre_apellido']
@@ -245,7 +252,9 @@ def contact():
             'imagen': image_base64
         }
 
-        contacts_list.append(contact)
+        #Para que no salgas en la lista de tutores si estas en tu sesion
+        if contact['nombre_apellido'] != isUser:
+            contacts_list.append(contact)
 
     return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
 
