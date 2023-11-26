@@ -253,13 +253,13 @@ def contact():
 @app.route('/pedir_tutoria', methods=['POST'])
 def pedir_tutoria():
     # Obtener el ID del tutor desde el formulario
-    msg = f"El alumno {session['name']}-{session['last_name']} solicita una Tutoria"
-    cur = mysql.connection.cursor()
-
-    cur.execute("INSERT IGNORE INTO Tutoria(id_user, id_tutor, mensaje) VALUES(%s, %s, %s)", (session['id_user'], request.form.get('tutor_id'), msg,))
-    mysql.connection.commit()
-    cur.close()
-
+    id_tutor = request.form.get('tutor_id')
+    if id_tutor != session['id_user']:
+        msg = f"El alumno {session['name']}-{session['last_name']} solicita una Tutoria"
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT IGNORE INTO Tutoria(id_user, id_tutor, mensaje) VALUES(%s, %s, %s)", (session['id_user'], id_tutor, msg))
+        mysql.connection.commit()
+        cur.close()
     return redirect(url_for('contact'))
 
 
