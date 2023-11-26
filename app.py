@@ -677,29 +677,9 @@ def download_file():
 # Estudio -- grupos de estudio
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
-    try:
-        ahora = datetime.now()
-        conexion = mysql.connector.connect(
-            host=app.config['MYSQL_HOST'],
-            user=app.config['MYSQL_USER'],
-            password=app.config['MYSQL_PASSWORD'],
-            database=app.config['MYSQL_DB']
-        )
-        cursor = conexion.cursor(dictionary=True)
-
-        # Obtener eventos cuya fecha ha pasado
-        cursor.execute("SELECT id FROM estudio WHERE dias < %s", (ahora,))
-        eventos_vencidos = cursor.fetchall()
-
-        # Eliminar eventos vencidos
-        for evento in eventos_vencidos:
-            cursor.execute("DELETE FROM estudio WHERE id = %s", (evento['id'],))
-        
-        conexion.commit()
-        cursor.close()
-        conexion.close()
-    except Exception as e:
-         print(f"Error al eliminar eventos vencidos: {e}")
+   
+    cursor = mysql.connection.cursor()
+   
     if request.method == 'POST':
         # Obtener datos del formulario
         curso = request.form['groupTitle']
@@ -708,20 +688,25 @@ def estudio():
         ubicacion = request.form['location']
         dias = request.form['days']
         hora = request.form['time']
-    cursor = mysql.connection.cursor()
-    curso = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(
-            "INSERT INTO estudio (curso, asignatura, descripcion, ubicacion, dias, hora, foto_portada_url) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-            (curso, asignatura, descripcion, ubicacion, dias, hora)
+        fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "SELECT * FROM users WHERE curso = %s AND asignatura = %s AND descripcion = %s AND ubicacion = %s AND dias = %s AND hora = %s AND CONCAT(dias, ' ', hora) < %s",
+            (curso, asignatura, descripcion, ubicacion, dias, hora, fecha_actual)
         )
-    
-    mysql.connection.commit()
+        mysql.connection.commit()
+        
+ 
+        eventos_actuales = cursor.fetchall()
 
     cursor.close()
     
     user_profile = loginfo(session)
 
-    return render_template('estudio.html', user_profile=user_profile)
+
+    return render_template('estudio.html', user_profile=user_profile,  eventos_actuales= eventos_actuales )
+
 
 # Podcast
 @app.route('/podcast')
