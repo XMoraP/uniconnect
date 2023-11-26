@@ -210,6 +210,7 @@ def contact():
     contacts_list = []
     cont = 0
     for result in contacts:
+        id_user = result['id_user']
         nombre_apellido = result['nombre_apellido']
         email = result['email']
         asignaturas_tutor = result['asignaturas_tutor']
@@ -237,6 +238,7 @@ def contact():
             image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
 
         contact = {
+            'id_tutor': id_user,
             'nombre_apellido': nombre_apellido,
             'email': email,
             'asignaturas_tutor': asignaturas_tutor,
@@ -246,6 +248,19 @@ def contact():
         contacts_list.append(contact)
 
     return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
+
+
+@app.route('/pedir_tutoria', methods=['POST'])
+def pedir_tutoria():
+    # Obtener el ID del tutor desde el formulario
+    msg = f"El alumno {session['name']}-{session['last_name']} solicita una Tutoria"
+    cur = mysql.connection.cursor()
+
+    cur.execute("INSERT IGNORE INTO Tutoria(id_user, id_tutor, mensaje) VALUES(%s, %s, %s)", (session['id_user'], request.form.get('tutor_id'), msg,))
+    mysql.connection.commit()
+    cur.close()
+
+    return redirect(url_for('contact'))
 
 
 #Tutelados
