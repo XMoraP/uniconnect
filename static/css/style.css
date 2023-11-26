@@ -3820,6 +3820,8 @@ input[type="file"] {
     border-bottom: 1px solid #ddd;
 }
 
-.ventana-notificaciones{
-    display: none;
+.notification-popup h3{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    top: -25px
 }

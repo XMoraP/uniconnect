@@ -256,7 +256,7 @@ def contact():
         if contact['nombre_apellido'] != isUser:
             contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones())
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
 @app.route('/pedir_tutoria', methods=['POST'])
@@ -798,7 +798,9 @@ def obtener_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))
-    return jsonify(cursor.fetchall())
+    notificaciones = cursor.fetchall()
+    print("estoy en obtener_Notificaciones")
+    return notificaciones
 
 def num_notificaciones():
     tu_id = session['id_user']
