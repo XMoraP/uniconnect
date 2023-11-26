@@ -794,7 +794,7 @@ def mostrar_archivos():
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
         return render_template('tables.html', archivos=archivos, user_profile=user_profile)
     
-def obtener_Notificaciones():
+def obtener_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))

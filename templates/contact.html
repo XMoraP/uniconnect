@@ -117,38 +117,22 @@
                      </div>
                   </nav>
                </div>
+               <div class="notification-popup" id="ventanaNotificaciones">
+                        <h3><br>Notificaciones</h3>
+                        {% for notificacion in notificaciones %}
+                           <div class="notification">{{ notificacion.mensaje }}</div>
+                        {% endfor %}
+               </div>
 
                <script>
-                   function toggleNotificationPopup(event) {
-                       var popup = document.getElementById("ventanaNotificaciones");
-                       var badge = document.getElementById("notificacionesBadge");
-
-                       // Realizar una solicitud para obtener las notificaciones
-                       fetch('/obtener_notificaciones')
-                           .then(response => response.json())
-                           .then(notificaciones => {
-                               badge.textContent = notificaciones.length;
-
-                               // Actualizar el contenido de las notificaciones
-                               var listaNotificaciones = document.querySelector(".ventana-notificaciones ul");
-                               listaNotificaciones.innerHTML = '';
-
-                               notificaciones.forEach(function(notificacion) {
-                                   var li = document.createElement('li');
-                                   li.textContent = notificacion.mensaje;
-                                   listaNotificaciones.appendChild(li);
-                               });
-
-                               // Mostrar la ventana emergente
-                               popup.style.display = "block";
-                           })
-                           .catch(error => {
-                               console.error('Error al obtener notificaciones:', error);
-                           });
-
-                       // Evitar que el evento del enlace recargue la página
-                       event.preventDefault();
-                   }
+                  function toggleNotificationPopup() {
+                     var popup = document.getElementById("ventanaNotificaciones");
+                     if (popup.style.display === "block") {
+                        popup.style.display = "none";
+                     } else {
+                        popup.style.display = "block";
+                     }
+                  }
                </script>
 
                <!-- end topbar -->
@@ -245,27 +229,5 @@
       <script src="../static/js/semantic.min.js"></script>
       <script></script>
 
-      <div class="modal" id="notificacionesModal" tabindex="-1" role="dialog" aria-labelledby="notificacionesModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="notificacionesModalLabel">Notificaciones</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <ul>
-                {% for notificacion in notificaciones %}
-                  <li>{{ notificacion.mensaje }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
    </body>
 </html>
