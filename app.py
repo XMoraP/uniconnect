@@ -129,20 +129,20 @@ def dashboard():
 
     user_profile = loginfo(session)
 
-    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
 #Tables
 @app.route('/tables')
 def tables():
     user_profile = loginfo(session)
-    return render_template('tables.html', user_profile=user_profile)
+    return render_template('tables.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 #TablesTutor
 @app.route('/tablesTutor')
 def tablesTutor():
     user_profile = loginfo(session)
-    return render_template('tablesTutor.html', user_profile=user_profile)
+    return render_template('tablesTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -294,7 +294,7 @@ def profile():
     mensaje = session.pop('mensaje', None)
     
 
-    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Perfil Tutor
 @app.route('/profileTutor', methods=['GET'] )
@@ -311,7 +311,7 @@ def profileTutor():
     }
     mensaje = session.pop('mensaje', None)
 
-    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje)
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Dashboard Tutor
 @app.route('/dashboardTutor')
@@ -334,7 +334,7 @@ def dashboardTutor():
         }
     mensaje1 = session.pop('mensaje1', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -743,7 +743,7 @@ def podcast():
         }
         podcasts_list.append(podcast_info)
 
-    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list)
+    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Ruta para subir un archivos mp3
 
