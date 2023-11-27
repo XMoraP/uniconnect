@@ -3813,11 +3813,17 @@ input[type="file"] {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 1001;
+    max-width: 400px;
 }
 
 .notification {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    border: 1px solid #ccc;
+    margin-bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .notification-popup h3{

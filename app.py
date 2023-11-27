@@ -806,7 +806,11 @@ def num_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT count(mensaje) AS conteo FROM Tutoria WHERE id_tutor = %s", (tu_id,))
-    return cursor.fetchone()
+    num = cursor.fetchone()['conteo']
+    if(num > 9):
+        return "+9"
+    else:
+        return num
 
 
 
