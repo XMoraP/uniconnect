@@ -7,8 +7,9 @@ import json
 import binascii
 from datetime import datetime
 from Contact import loginfo, crearDirectorio
+import openai
 
-
+openai.api_key = "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"
 
 
 app = Flask(__name__, template_folder="templates")
@@ -812,6 +813,33 @@ def num_notificaciones():
     else:
         return num
 
+#CHATBOT
+@app.route("/chatbot")
+def chatbot():
+    user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status': session['status']
+           
+        }
+    return render_template('chatbot.html', user_profile=user_profile)
+
+
+@app.route("/get", methods=["GET", "POST"])
+def chat():
+    msg = request.form["msg"]
+    input = msg
+    chat_messages = [{'role': 'system', 'content': 'You are a helpful assistant.'}, {'role': 'user', 'content': input}]
+    return get_openai_response(chat_messages)
+
+def get_openai_response(messages):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        max_tokens=100,
+    )
+
+    return response['choices'][0]['message']['content']
 
 
 if __name__ == '__main__':

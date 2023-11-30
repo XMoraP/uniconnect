@@ -77,3 +77,58 @@
             document.getElementById('seek').max = song.duration;
             document.getElementById('seek').value = curtime;
         })
+
+/* GRABAR*/
+document.addEventListener('DOMContentLoaded', function() {
+    const addPodcast = document.getElementById('addPodcastModal');
+    const startRecordingBtn = document.getElementById('startRecording');
+    const voiceRecordingModal = document.getElementById('voiceRecordingModal');
+
+    startRecordingBtn.addEventListener('click', function() {
+        $('#addPodcast').modal('hide'); 
+        $('#voiceRecordingModal').modal('show'); // Mostrar el modal de grabación de voz
+        initRecorder(); // Iniciar la grabación de voz
+    });
+
+    function initRecorder() {
+        let mediaRecorder;
+        let chunks = [];
+        const audioElement = document.getElementById('audioElement');
+        const startRecordingBtn = document.getElementById('startRecordingBtn');
+        const stopRecordingBtn = document.getElementById('stopRecordingBtn');
+
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function(stream) {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = function(e) {
+                    chunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = function() {
+                    const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+                    chunks = [];
+                    const audioURL = window.URL.createObjectURL(blob);
+                    audioElement.src = audioURL;
+                };
+
+                startRecordingBtn.addEventListener('click', function() {
+                    mediaRecorder.start();
+                    startRecordingBtn.disabled = true;
+                    stopRecordingBtn.disabled = false;
+                });
+
+                stopRecordingBtn.addEventListener('click', function() {
+                    mediaRecorder.stop();
+                    startRecordingBtn.disabled = false;
+                    stopRecordingBtn.disabled = true;
+                });
+            })
+            .catch(function(err) {
+                console.error('Error al obtener el acceso al micrófono:', err);
+            });
+    }
+});
+
+
+        
+

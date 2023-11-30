@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="e">
+<html lang="es">
 
 <head>
     <!-- basic -->
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Asignaturas</title>
+    <title>Chatbot</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -37,105 +37,24 @@
     <link rel="stylesheet" href="../static/js/semantic.min.css" />
     <!-- fancy box js -->
     <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="../static/js/semantic.min.css" />
+    <!--Alerts-->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
+
       <![endif]-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-
-    <style>
-        body {
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .btn-add-podcast {
-            margin-top: 30px;
-            /* Puedes ajustar el valor según sea necesario */
-        }
-
-        .card {
-            border: 2px solid #007bff;
-            border-radius: 10px;
-        }
-
-        .card-img-top {
-            border-radius: 50%;
-            margin: auto;
-            display: block;
-            width: 100px;
-            height: 100px;
-        }
-
-        .card-body {
-            text-align: center;
-        }
-
-        .btn-primary {
-            margin-top: 50px;
-        }
-
-        #content .container .row .col-md-4 {
-            margin-top: 80px;
-            /* Puedes ajustar el valor según sea necesario */
-
-        }
-
-        .fa-play,
-        .fa-volume-up,
-        .fa-pause,
-        .fa-fast-forward,
-        .fa-fast-backward,
-        .fa-stop,
-        .fa-volume-up a {
-            color: white;
-        }
-
-        .fa-play,
-        .fa-volume-up,
-        .fa-pause,
-        .fa-fast-forward,
-        .fa-fast-backward,
-        .fa-stop,
-        .fa-volume-up a:hover {
-            color: #1de2de;
-        }
-
-        .image_container {
-            text-align: right;
-            margin-top: -130px;
-        }
-
-        .image_container img {
-            width: 150px;
-            height: auto;
-            border-radius: 5px;
-
-        }
-
-        .playback_controls button {
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            background-color: #007bff;
-            border-color: white;
-        }
-
-        .volume_controls button {
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            background-color: #007bff;
-            border-color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/chatbot.css">
 </head>
 
-<body class=" tables">
+<body class="dashboard dashboard_1">
     <div class="full_container">
         <div class="inner_container">
             <!-- Sidebar  -->
@@ -143,7 +62,7 @@
                 <div class="sidebar_blog_1">
                     <div class="sidebar-header">
                         <div class="logo_section">
-                            <a href="/tables"><img class="logo_icon img-responsive"
+                            <a href="/dashboard"><img class="logo_icon img-responsive"
                                     src="../static/images/logoUniConnect.png" alt="#" /></a>
                         </div>
                     </div>
@@ -153,7 +72,7 @@
                             <div class="user_img"><img class="img-responsive" src="/cargar_imagen" alt="#" /></div>
                             <div class="user_info">
                                 <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
-                                <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
+                                <p><span class="online_animation"></span> {{ user_profile['status'] }}</p>
                             </div>
                         </div>
                     </div>
@@ -167,12 +86,14 @@
                         <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
                         <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                         <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i>
-                                <span>Perfil</span></a></li>
+                                <span>Perfil</span></a>
+                        </li>
                         <li><a href="/estudio"><i class="fas fa-graduation-cap"
                                     style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i>
                                 <span>Estudio</span></a></li>
                         <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a>
                         </li>
+                        <li><a href="/chatbot"><i class="fas fa-comment blue1_color"></i> <span>Chatbot</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -227,104 +148,51 @@
                     <div class="notification">{{ notificacion.mensaje }}</div>
                     {% endfor %}
                 </div>
-                <div class="midde_cont">
-                    <div class="container-fluid">
-                        <!--div class="row"-->
-                        <!---div class="col-md-12"--->
-                        <div class="page_title">
-                            <h2>Podcasts</h2>
-                        </div>
-                        <!--/div--->
-                        <!-- Button to open the modal -->
-                        <div class="col-md-4 mb-3">
-                            <button class="btn btn-success btn-add-podcast" data-toggle="modal"
-                                data-target="#addPodcastModal">Añadir Podcast</button>
-                        </div>
-                        <!--/div--->
-                    </div>
-                </div>
+                <!-- end topbar -->
+                <!-- dashboard inner -->
 
-                <div class="container-fluid">
-                    <div class="row">
-                        {% for podcast in podcasts %}
-                        <div class="col-sm-4 mb-3">
-                            <div class="card" data-podcast-id="{{ podcast.id_podcast }}">
-                                <img src="../static/images/podcastLogo.png" class="card-img-top"
-                                    alt="Imagen del Estudiante">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ podcast.nombre_usuario }}</h5>
-                                    <p class="card-text">{{ podcast.nombre_podcast }}</p>
-                                    <audio controls></audio>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- Modal de añadir podcast -->
-                    <div class="modal fade" id="addPodcastModal" tabindex="-1" role="dialog"
-                        aria-labelledby="addPodcastModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addPodcastModalLabel">Añadir Podcast</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Formulario de añadir podcast -->
-                                    <form action="/uploadMp3" method="post" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label for="podcastName">Nombre del Podcast</label>
-                                            <input type="text" class="form-control" id="podcastName"
-                                                placeholder="Ingrese el nombre del podcast" name="podcastName">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="podcastFile">Archivo MP3</label>
-                                            <input type="file" class="form-control-file" id="podcastFile"
-                                                name="podcastFile">
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-success" id="startRecording">Iniciar
-                                                Grabación</button>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Subir Podcast</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal para la grabación de voz -->
-                    <div class="modal fade" id="voiceRecordingModal" tabindex="-1" role="dialog"
-                        aria-labelledby="voiceRecordingModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="voiceRecordingModalLabel">Grabación de Voz</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Contenedor para la grabación de voz -->
-                                    <div id="audioRecorder">
-                                        <button id="startRecordingBtn" class="btn btn-primary">Comenzar
-                                            Grabación</button>
-                                        <button id="stopRecordingBtn" class="btn btn-danger btn-primary" disabled>Detener
-                                            Grabación</button>
-                                        <audio id="audioElement" controls></audio>
+                <div class="row justify-content-center h-100">
+                    <div class="col-md-8 col-xl-6 chat">
+                        <div class="card">
+                            <div class="card-header msg_head">
+                                <div class="d-flex bd-highlight">
+                                    <div class="img_cont">
+                                        <img src="../static/images/logoUniConnect.png" class="rounded-circle user_img">
+                                        <span class="online_icon"></span>
+                                    </div>
+                                    <div class="user_info">
+                                        <span>ChatBot Uniconnect</span>
+                                        <p>Pregúntame algo!</p>
                                     </div>
                                 </div>
                             </div>
+                            <div id="messageFormeight" class="card-body msg_card_body">
+
+
+                            </div>
+                            <div class="card-footer">
+                                <form id="messageArea" class="input-group">
+                                    <input type="text" id="text" name="msg" placeholder="Escribe..." autocomplete="off"
+                                        class="form-control type_msg" required />
+                                    <div class="input-group-append">
+                                        <button type="submit" id="send" class="input-group-text send_btn"><i
+                                                class="fas fa-location-arrow"></i></button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- end user profile section -->
+
             </div>
         </div>
     </div>
+
+
     <!-- jQuery -->
+    <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/popper.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <!-- wow animation -->
@@ -343,20 +211,46 @@
     <script>
         var ps = new PerfectScrollbar('#sidebar');
     </script>
-    <!-- fancy box js -->
-    <script src="../static/js/jquery-3.3.1.min.js"></script>
-    <script src="../static/js/jquery.fancybox.min.js"></script>
     <!-- custom js -->
     <script src="../static/js/custom.js"></script>
     <!-- calendar file css -->
     <script src="../static/js/semantic.min.js"></script>
-    <!--podcast-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!--SCRIPT-->
-    <script src="../static/js/podcast.js"></script>
+    <!--Alerts-->
+    <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
+    <!--chatbot-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $("#messageArea").on("submit", function (event) {
+                const date = new Date();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                const str_time = hour + ":" + minute;
+                var rawText = $("#text").val();
+
+                var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + rawText + '<span class="msg_time_send">' + str_time + '</span></div><div class="img_cont_msg"><img src="/cargar_imagen" class="rounded-circle user_img_msg"></div></div>';
+
+                $("#text").val("");
+                $("#messageFormeight").append(userHtml);
+
+                $.ajax({
+                    data: {
+                        msg: rawText,
+                    },
+                    type: "POST",
+                    url: "/get",
+                }).done(function (data) {
+                    var botHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="../static/images/logoUniConnect.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + data + '<span class="msg_time">' + str_time + '</span></div></div>';
+                    $("#messageFormeight").append($.parseHTML(botHtml));
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>
