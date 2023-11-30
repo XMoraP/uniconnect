@@ -70,8 +70,7 @@
                      <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                      <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
                      <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
-                     <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
-                     <span>Estudio</span></a></li>
+                     <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li><span>Estudio</span>
                   </ul>
                </div>
             </nav>
@@ -82,7 +81,8 @@
                <div class="topbar">
                   <nav class="navbar navbar-expand-lg navbar-light">
                      <div class="full">
-                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                              class="fa fa-bars"></i></button>
                         <div class="logo_section">
                            <a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
                            <h4>Uniconnect</h4>
@@ -90,23 +90,34 @@
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge"></span></a></li>
-                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge"></span></a></li>
+                                 <li><a class = "boton_notificacion_bell" href="#" onclick="toggleNotificationPopup(event)">
+                                      <i class="fas fa-bell"></i>
+                                      <span class="badge" id="notificacionesBadge" style="background-color: white; color: black;">{{ longitud }} </span>
+                                 </a></li>
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
-                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
+                                    <a class="dropdown-toggle"
+                                       data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name']
+                                          }}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="/profile">Perfil</a>
-                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
+                                       <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i
+                                             class="fas fa-sign-out-alt"></i></a>
                                     </div>
                                  </li>
+                              </ul>
                            </div>
                         </div>
                      </div>
                   </nav>
+               </div>
+               <div class="notification-popup" id="ventanaNotificaciones">
+                        <h3><br>Notificaciones</h3>
+                        {% for notificacion in notificaciones %}
+                           <div class="notification">{{ notificacion.mensaje }}</div>
+                        {% endfor %}
                </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
@@ -135,14 +146,15 @@
                                        <h3>Lista de Tutores Registrados</h3>
                                        <div class="row">
                                           {% for contact in contacts %}
-                                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30">
+                                             <form action="/pedir_tutoria" method="POST" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30 contact_form">
                                                 <div class="contact_blog">
                                                    <div class="contact_inner">
                                                       <div class="left">
-                                                          <h4>{{ contact.nombre_apellido }}</h4>
+                                                         <h4>{{ contact.nombre_apellido }}</h4>
                                                          <p><strong>Contact: </strong>{{ contact.email }}</p>
                                                          <p>{{ contact.asignaturas_tutor }}</p>
-                                                         <button class = "boton_pedir_tutoria">Pedir Tutoria</button>
+                                                         <button type="submit" class="boton_pedir_tutoria">Pedir Tutoría</button>
+                                                         <input type="hidden" name="tutor_id" value="{{ contact.id_tutor }}">
                                                          <div class="right">
                                                             <div class="rounded-container">
                                                                <img src="{{contact.imagen}}" alt="Imagen de usuario" class="rounded-image">
@@ -151,7 +163,7 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                             </div>
+                                             </form>
                                           {% endfor %}
                                        </div>
                                     {% endblock %}
@@ -200,5 +212,6 @@
       <!-- calendar file css -->     
       <script src="../static/js/semantic.min.js"></script>
       <script></script>
+
    </body>
 </html>

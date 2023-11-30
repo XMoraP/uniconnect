@@ -129,20 +129,20 @@ def dashboard():
 
     user_profile = loginfo(session)
 
-    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar)
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
 #Tables
 @app.route('/tables')
 def tables():
     user_profile = loginfo(session)
-    return render_template('tables.html', user_profile=user_profile)
+    return render_template('tables.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 #TablesTutor
 @app.route('/tablesTutor')
 def tablesTutor():
     user_profile = loginfo(session)
-    return render_template('tablesTutor.html', user_profile=user_profile)
+    return render_template('tablesTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -154,6 +154,8 @@ def asignaturas():
 @app.route('/general_elements')
 def general_elements():
     return render_template('general_elements.html')
+
+
 
 @app.route('/media_gallery')
 def media_gallery():
@@ -184,13 +186,16 @@ def price():
 @app.route('/contact')
 def contact():
     ruta = "static/Fotos_Tutor"
-
+    cont = 0
     #Obtenemos la informacion del usuario
     user_profile = loginfo(session)
+    #Creamos el directorio de imagenes
     crearDirectorio(ruta)
 
+    #Creamos la conexion a la base de datos
     cur = mysql.connection.cursor()
 
+    #Parte del codigo que destruye las imagenes
     archivos = os.listdir(ruta)
     archivos = [archivo for archivo in archivos if os.path.isfile(os.path.join(ruta, archivo))]
     cont_fotos = len(archivos)
@@ -202,12 +207,17 @@ def contact():
                 os.remove(temp_image_path)
         print("Imagenes borradas")
 
+
+    #Codigo para obetener los datos de cada tutor
     cur.execute("SELECT * FROM vista_ventana_tutores")
     contacts = cur.fetchall()
     cur.close()
+
+    #Parte del codigo que tranforma las imagenes para verse en el html
     contacts_list = []
-    cont = 0
+    isUser = session['name'] + "" + session['last_name']
     for result in contacts:
+        id_user = result['id_user']
         nombre_apellido = result['nombre_apellido']
         email = result['email']
         asignaturas_tutor = result['asignaturas_tutor']
@@ -235,15 +245,31 @@ def contact():
             image_base64 = "data:image/jpeg;base64," + base64.b64encode(open('static/images/userPhoto.png', 'rb').read()).decode('utf-8')
 
         contact = {
+            'id_tutor': id_user,
             'nombre_apellido': nombre_apellido,
             'email': email,
             'asignaturas_tutor': asignaturas_tutor,
             'imagen': image_base64
         }
 
-        contacts_list.append(contact)
+        #Para que no salgas en la lista de tutores si estas en tu sesion
+        if contact['nombre_apellido'] != isUser:
+            contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile)
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
+@app.route('/pedir_tutoria', methods=['POST'])
+def pedir_tutoria():
+    # Obtener el ID del tutor desde el formulario
+    id_tutor = request.form.get('tutor_id')
+    if id_tutor != session['id_user']:
+        msg = f"El alumno {session['name']}-{session['last_name']} solicita una Tutoria"
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT IGNORE INTO Tutoria(id_user, id_tutor, mensaje) VALUES(%s, %s, %s)", (session['id_user'], id_tutor, msg))
+        mysql.connection.commit()
+        cur.close()
+    return redirect(url_for('contact'))
 
 
 #Tutelados
@@ -268,7 +294,7 @@ def profile():
     mensaje = session.pop('mensaje', None)
     
 
-    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje)
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Perfil Tutor
 @app.route('/profileTutor', methods=['GET'] )
@@ -285,7 +311,7 @@ def profileTutor():
     }
     mensaje = session.pop('mensaje', None)
 
-    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje)
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Dashboard Tutor
 @app.route('/dashboardTutor')
@@ -308,7 +334,7 @@ def dashboardTutor():
         }
     mensaje1 = session.pop('mensaje1', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar)
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -658,17 +684,38 @@ def download_file():
     )
 
 # Estudio -- grupos de estudio
-@app.route('/estudio')
+@app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
-
-    id_user = session['id_user']
-    
+   
     cursor = mysql.connection.cursor()
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   
+    if request.method == 'POST':
+        # Obtener datos del formulario
+        curso = request.form['groupTitle']
+        asignatura = request.form['subject']
+        descripcion = request.form['description']
+        ubicacion = request.form['location']
+        dias = request.form['days']
+        hora = request.form['time']
+        fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "SELECT * FROM users WHERE curso = %s AND asignatura = %s AND descripcion = %s AND ubicacion = %s AND dias = %s AND hora = %s AND CONCAT(dias, ' ', hora) < %s",
+            (curso, asignatura, descripcion, ubicacion, dias, hora, fecha_actual)
+        )
+        mysql.connection.commit()
+        
+ 
+        eventos_actuales = cursor.fetchall()
+
+    cursor.close()
+    
     user_profile = loginfo(session)
 
-    return render_template('estudio.html', user_profile=user_profile)
+
+    return render_template('estudio.html', user_profile=user_profile,  eventos_actuales= eventos_actuales )
+
 
 # Podcast
 @app.route('/podcast')
@@ -696,7 +743,7 @@ def podcast():
         }
         podcasts_list.append(podcast_info)
 
-    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list)
+    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Ruta para subir un archivos mp3
 
@@ -747,6 +794,24 @@ def mostrar_archivos():
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
         return render_template('tables.html', archivos=archivos, user_profile=user_profile)
     
+def obtener_notificaciones():
+    tu_id = session['id_user']
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))
+    notificaciones = cursor.fetchall()
+    print("estoy en obtener_Notificaciones")
+    return notificaciones
+
+def num_notificaciones():
+    tu_id = session['id_user']
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT count(mensaje) AS conteo FROM Tutoria WHERE id_tutor = %s", (tu_id,))
+    num = cursor.fetchone()['conteo']
+    if(num > 9):
+        return "+9"
+    else:
+        return num
+
 
 
 if __name__ == '__main__':

@@ -268,3 +268,11 @@ function initMap() {
     icon: image
   });
 }
+function toggleNotificationPopup() {
+  var popup = document.getElementById("ventanaNotificaciones");
+  if (popup.style.display === "block") {
+    popup.style.display = "none";
+  } else {
+    popup.style.display = "block";
+  }
+}
