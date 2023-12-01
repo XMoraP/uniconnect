@@ -51,7 +51,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-        }   
+        }
 
         .btn-add-podcast {
             margin-top: 30px;
@@ -132,7 +132,6 @@
             background-color: #007bff;
             border-color: white;
         }
-
     </style>
 </head>
 
@@ -151,8 +150,7 @@
                     <div class="sidebar_user_info">
                         <div class="icon_setting"></div>
                         <div class="user_profle_side">
-                            <div class="user_img"><img class="img-responsive" src="/cargar_imagen"
-                                    alt="#" /></div>
+                            <div class="user_img"><img class="img-responsive" src="/cargar_imagen" alt="#" /></div>
                             <div class="user_info">
                                 <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
                                 <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
@@ -174,6 +172,7 @@
                                     style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i>
                                 <span>Estudio</span></a></li>
                         <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a>
+                            <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
                         </li>
                     </ul>
                 </div>
@@ -183,47 +182,56 @@
             <div id="content">
                 <!-- topbar -->
                 <div class="topbar">
-                   <nav class="navbar navbar-expand-lg navbar-light">
-                      <div class="full">
-                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                         <div class="logo_section">
-                            <a href="/dashboard"><img class="img-responsive" src="../static/images/logoUniConnect.png" alt="#" /></a>
-                            <h4>Uniconnect</h4>
-                         </div>
-                         <div class="right_topbar">
-                            <div class="icon_info">
-                               <ul>
-                                  <li><a class = "boton_notificacion_bell" href="#" onclick="toggleNotificationPopup(event)">
-                                     <i class="fas fa-bell"></i>
-                                     <span class="badge" id="notificacionesBadge" style="background-color: white; color: black;">{{ longitud }} </span>
-                                  </a></li>
-                               </ul>
-                               <ul class="user_profile_dd">
-                                  <li>
-                                     <a class="dropdown-toggle"
-                                        data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
-                                        <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name']
-                                           }}</span></a>
-                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/profile">Perfil</a>
-                                        <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
-                                     </div>
-                                  </li>
-                               </ul>
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                                    class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="/dashboard"><img class="img-responsive"
+                                        src="../static/images/logoUniConnect.png" alt="#" /></a>
+                                <h4>Uniconnect</h4>
                             </div>
-                         </div>
-                      </div>
-                   </nav>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    <ul>
+                                        <li><a class="boton_notificacion_bell" href="#"
+                                                onclick="toggleNotificationPopup(event)">
+                                                <i class="fas fa-bell"></i>
+                                                <span class="badge" id="notificacionesBadge"
+                                                    style="background-color: white; color: black;">{{ longitud }}
+                                                </span>
+                                            </a></li>
+                                    </ul>
+                                    <ul class="user_profile_dd">
+                                        <li>
+                                            <a class="dropdown-toggle"
+                                                data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                                <span class="name_user">{{ user_profile['name'] }} {{
+                                                    user_profile['last_name']
+                                                    }}</span></a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="/profile">Perfil</a>
+                                                <a class="dropdown-item" href="/salir"
+                                                    formaction="/salir"><span>Salir</span> <i
+                                                        class="fas fa-sign-out-alt"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
                 <div class="notification-popup" id="ventanaNotificaciones">
-                   <h3><br>Notificaciones</h3>
-                   {% for notificacion in notificaciones %}
-                      <div class="notification">{{ notificacion.mensaje }}</div>
-                   {% endfor %}
+                    <h3><br>Notificaciones</h3>
+                    {% for notificacion in notificaciones %}
+                    <div class="notification">{{ notificacion.mensaje }}</div>
+                    {% endfor %}
                 </div>
                 <div class="midde_cont">
                     <div class="container-fluid">
                         <!--div class="row"-->
+<<<<<<< HEAD
                             <!---div class="col-md-12"--->
                                 <div class="page_title">
                                     <h2>Podcasts</h2>
@@ -234,16 +242,29 @@
                                 <button class="btn btn-success btn-add-podcast" data-toggle="modal" data-target="#addPodcastModal">Subir Audio</button>
                                 <button class="btn btn-success btn-add-podcast" data-toggle="modal" data-target="#recordPodcastModal">Grabar Podcast</button>
                             </div>
+=======
+                        <!---div class="col-md-12"--->
+                        <div class="page_title">
+                            <h2>Podcasts</h2>
+                        </div>
+                        <!--/div--->
+                        <!-- Button to open the modal -->
+                        <div class="col-md-4 mb-3">
+                            <button class="btn btn-success btn-add-podcast" data-toggle="modal"
+                                data-target="#addPodcastModal">Añadir Podcast</button>
+                        </div>
+>>>>>>> refs/remotes/origin/main
                         <!--/div--->
                     </div>
                 </div>
-                
-            <div class="container-fluid">    
-                <div class="row">
-                    {% for podcast in podcasts %}
+
+                <div class="container-fluid">
+                    <div class="row">
+                        {% for podcast in podcasts %}
                         <div class="col-sm-4 mb-3">
                             <div class="card" data-podcast-id="{{ podcast.id_podcast }}">
-                                <img src="../static/images/podcastLogo.png" class="card-img-top" alt="Imagen del Estudiante">
+                                <img src="../static/images/podcastLogo.png" class="card-img-top"
+                                    alt="Imagen del Estudiante">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ podcast.nombre_usuario }}</h5>
                                     <p class="card-text">{{ podcast.nombre_podcast }}</p>
@@ -252,8 +273,8 @@
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
 
                     <!-- Modal de añadir podcast -->
                     <div class="modal fade" id="addPodcastModal" tabindex="-1" role="dialog"
@@ -277,10 +298,19 @@
                                             <input type="text" class="form-control" id="description"
                                                     placeholder="Ingrese la descripción del podcast" name="description" required--->
                                         </div>
-        
+
                                         <div class="form-group">
                                             <label for="podcastFile">Archivo MP3</label>
+<<<<<<< HEAD
                                             <input type="file" class="form-control-file" id="podcastFile" name="podcastFile" required>
+=======
+                                            <input type="file" class="form-control-file" id="podcastFile"
+                                                name="podcastFile">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success" id="startRecording">Iniciar
+                                                Grabación</button>
+>>>>>>> refs/remotes/origin/main
                                         </div>
                                         <button type="submit" class="btn btn-primary">Subir Podcast</button>
                                     </form>
@@ -288,6 +318,7 @@
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <!-- Modal para grabar un podcast -->
                     <div class="modal fade" id="recordPodcastModal" tabindex="-1" role="dialog"
                         aria-labelledby="addPodcastModalLabel" aria-hidden="true">
@@ -295,11 +326,21 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="addPodcastModalLabel">Grabar Podcast</h5>
+=======
+                    <!-- Modal para la grabación de voz -->
+                    <div class="modal fade" id="voiceRecordingModal" tabindex="-1" role="dialog"
+                        aria-labelledby="voiceRecordingModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="voiceRecordingModalLabel">Grabación de Voz</h5>
+>>>>>>> refs/remotes/origin/main
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
+<<<<<<< HEAD
                                     <div class="row">
                                         <div class="col mb-3">
                                         <button id="startRecord" class="btn btn-primary">Iniciar Grabación</button>
@@ -322,6 +363,16 @@
                                                 placeholder="Ingrese la descripción del podcast" name="description" required>
                                         <button type="submit" class="btn btn-primary">Guardar Descripción</button>
                                     </form--->
+=======
+                                    <!-- Contenedor para la grabación de voz -->
+                                    <div id="audioRecorder">
+                                        <button id="startRecordingBtn" class="btn btn-primary">Comenzar
+                                            Grabación</button>
+                                        <button id="stopRecordingBtn" class="btn btn-danger btn-primary" disabled>Detener
+                                            Grabación</button>
+                                        <audio id="audioElement" controls></audio>
+                                    </div>
+>>>>>>> refs/remotes/origin/main
                                 </div>
                             </div>
                         </div>
