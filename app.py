@@ -724,7 +724,7 @@ def podcast():
     user_profile = loginfo(session)
 
     cur = mysql.connection.cursor()
-    cur.execute("SELECT name, name_user, id_podcast from podcast")
+    cur.execute("SELECT name, name_user, description, id_podcast from podcast")
     podcasts_data = cur.fetchall()
     cur.close()
  
@@ -732,6 +732,7 @@ def podcast():
     for podcast in podcasts_data:
         nombre_podcast = podcast['name']
         nombre_usuario = podcast['name_user']
+        description = podcast['description']
         id_podcast = podcast['id_podcast']
 
         
@@ -765,7 +766,6 @@ def get_audio(id_podcast):
     else:
         # Manejar el caso donde el podcast no existe
         return "Podcast no encontrado", 404
-
 @app.route('/uploadMp3', methods=['POST'])
 def upload_mp3():
     name_user = session['name']
@@ -774,6 +774,7 @@ def upload_mp3():
     podcast_data = podcast.read()
 
     name = request.form['podcastName']
+    #description = request.form['description']
 
     query = "INSERT INTO podcast (name, name_user, podcast) VALUES (%s,%s,%s)"
     cursor = mysql.connection.cursor()
@@ -781,6 +782,33 @@ def upload_mp3():
     mysql.connection.commit()
 
     return redirect(url_for('podcast'))
+
+@app.route('/subir_audio', methods=['POST'])
+def subir_audio():
+    name_user = session.get('name')
+
+    if 'audio' not in request.files:
+        return "No se encontró el archivo de audio."
+
+    audio = request.files['audio']
+
+    # Lee el contenido del archivo como bytes
+    audio_content = audio.read()
+
+    # Genera un nombre único para el archivo de audio
+    audio_filename = f"{name_user}_{datetime.now().strftime('%Y%m%d%H%M%S')}.wav"
+
+    # Obtén la descripción del formulario
+    description = request.form.get('descripcion')
+
+    # Guarda la información del audio en la base de datos
+    insert_query = "INSERT INTO podcast (name_user, name, podcast) VALUES (%s, %s, %s)"
+    values = (name_user, audio_filename, audio_content)
+    cursor = mysql.connection.cursor()
+    cursor.execute(insert_query, values)
+    mysql.connection.commit()
+
+    return "Audio subido exitosamente."
 
 # Archivos disponibles
 @app.route('/archivos_disponibles', methods=['GET'])
