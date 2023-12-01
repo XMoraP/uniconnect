@@ -9,7 +9,7 @@ from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
 
-openai.api_key = "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"
+#openai.api_key = ""
 
 
 app = Flask(__name__, template_folder="templates")
