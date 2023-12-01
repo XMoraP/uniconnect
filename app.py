@@ -804,7 +804,7 @@ def subir_audio():
 
     # Guarda la información del audio en la base de datos
     insert_query = "INSERT INTO podcast (name_user, name, podcast) VALUES (%s, %s, %s)"
-    values = (name_user, audio_filename, audio_content)
+    values = (name_user, audio_filename, audio_content,)
     cursor = mysql.connection.cursor()
     cursor.execute(insert_query, values)
     mysql.connection.commit()
