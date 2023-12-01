@@ -689,6 +689,34 @@ def download_file():
 def estudio():
    
     cursor = mysql.connection.cursor()
+        cursor = mysql.connection.cursor()
+    
+
+    # Limpiar eventos pasados ant
+    # es de realizar cualquier operación en la base de datos
+    if request.method == 'GET':
+        current_datetime = datetime.now()
+        cursor.execute(
+            """SELECT *
+               FROM studio  
+               WHERE dias >= %s AND hora >= %s""",
+            (current_datetime.date(), current_datetime.time())
+        )
+        eventos = cursor.fetchall()
+
+
+          # Eliminar eventos pasados de la base de datos
+        for evento in eventos:
+            evento_datetime = datetime.combine(evento['dias'], evento['hora'])
+            if evento_datetime < current_datetime:
+                cursor.execute(
+                    """DELETE FROM studio
+                       WHERE id = %s""",
+                    (evento['id'],)
+                )
+                mysql.connection.commit()
+
+        return render_template('estudio.html', eventos=eventos)
    
     if request.method == 'POST':
         # Obtener datos del formulario
