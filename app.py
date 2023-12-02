@@ -8,23 +8,25 @@ import binascii
 from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
+from dotenv import load_dotenv
 
-#openai.api_key = ""
+load_dotenv()
 
+openai.api_key = os.getenv("API_KEY_IA") 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
-app.secret_key = '12345'
+app.secret_key = os.getenv("APP_SECRET_KEY")
 
 app.config['UPLOAD_FOLDER'] = './files'
 ALLOWED_EXTENSIONS= {'pdf', 'txt'}
+
 # Configuración de la base de datos
-app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com'  # Cambia esto si tu servidor MySQL no está en localhost
-app.config['MYSQL_USER'] = 'XMoraP'
-app.config['MYSQL_PASSWORD'] = '12345678u$'
-app.config['MYSQL_DB'] = 'uniconnect'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-app.config['MYSQL_SSL_CA'] = './DigiCertGlobalRootCA.crt.pem'
+app.config['MYSQL_HOST'] = os.getenv("DB_HOST")  
+app.config['MYSQL_USER'] = os.getenv("DB_USER")
+app.config['MYSQL_PASSWORD'] = os.getenv("DB_PASSWORD")
+app.config['MYSQL_DB'] = os.getenv("DB")
+app.config['MYSQL_CURSORCLASS'] = os.getenv("CURSOSRCLASS")
 
 mysql = MySQL(app)
 
@@ -531,8 +533,10 @@ def altaTutor():
         result = cur.fetchone()
 
         if result['contrasenna'] == contrasenna:
+                id_tutor = session["id_user"]
                 cursor = mysql.connection.cursor()
                 cursor.execute("UPDATE user SET status = 'Tutor' WHERE contrasenna = %s", [contrasenna])
+                cursor.execute("INSERT INTO tutor (id_tutor) VALUES(%s)", [id_tutor])
                 result = cursor.fetchone()
                 mysql.connection.commit()
 
@@ -747,6 +751,37 @@ def podcast():
 
     return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
+# PodcastTutor
+@app.route('/podcastTutor')
+def podcastTutor(): 
+
+    user_profile = loginfo(session)
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT name, name_user, description, id_podcast from podcast")
+    podcasts_data = cur.fetchall()
+    cur.close()
+ 
+    podcasts_list = []
+    for podcast in podcasts_data:
+        nombre_podcast = podcast['name']
+        nombre_usuario = podcast['name_user']
+        description = podcast['description']
+        id_podcast = podcast['id_podcast']
+
+        
+        podcast_info = {
+            'nombre_podcast': nombre_podcast,
+            'nombre_usuario': nombre_usuario,
+            'id_podcast': id_podcast
+            # Puedes agregar más campos del podcast si los necesitas
+        }
+        podcasts_list.append(podcast_info)
+
+    return render_template('podcastTutor.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
+
 # Ruta para subir un archivos mp3
 
 @app.route('/get_audio/<int:id_podcast>')
@@ -851,6 +886,16 @@ def chatbot():
            
         }
     return render_template('chatbot.html', user_profile=user_profile)
+
+@app.route("/chatbotTutor")
+def chatbotTutor():
+    user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status': session['status']
+           
+        }
+    return render_template('chatbotTutor.html', user_profile=user_profile)
 
 
 @app.route("/get", methods=["GET", "POST"])
