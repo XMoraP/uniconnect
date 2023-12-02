@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify
 from flask_mysqldb import MySQL, MySQLdb
-import os
+from datetime import datetime
 import io
 import base64
 import json
@@ -8,9 +8,9 @@ import binascii
 from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
+import os
 
 openai.api_key = "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"
-
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -684,38 +684,57 @@ def download_file():
         as_attachment=True
     )
 
-# Estudio -- grupos de estudio
+
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
-   
-    cursor = mysql.connection.cursor()
-   
-    if request.method == 'POST':
-        # Obtener datos del formulario
-        curso = request.form['groupTitle']
-        asignatura = request.form['subject']
-        descripcion = request.form['description']
-        ubicacion = request.form['location']
-        dias = request.form['days']
-        hora = request.form['time']
-        fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
+    }
 
+    # Fetch events from the 'studio' table
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM studio')
+    events = cursor.fetchall()
+    cursor.close()
+
+    if request.method == 'POST':
+        # Access form data directly from request.form
+        curso = request.form['curso']
+        asignatura = request.form['asignatura']
+        descripcion = request.form['descripcion']
+        ubicacion = request.form['ubicacion']
+        dias = request.form['dias']
+        hora = request.form['hora']
+
+        # Validate form data
+        if not all([curso, asignatura, descripcion, ubicacion, dias, hora]):
+            # Handle form validation error
+            error_message = 'Please fill in all required fields.'
+            return render_template('estudio.html', user_profile=user_profile, error=error_message)
+
+        # Insert the event into the 'studio' table
         cursor = mysql.connection.cursor()
+
+        # Assuming you have a column 'photo_url' in your 'studio' table
+        photo_url = '/static/images/event_default_photo.png'  # Default photo URL
+
         cursor.execute(
-            "SELECT * FROM users WHERE curso = %s AND asignatura = %s AND descripcion = %s AND ubicacion = %s AND dias = %s AND hora = %s AND CONCAT(dias, ' ', hora) < %s",
-            (curso, asignatura, descripcion, ubicacion, dias, hora, fecha_actual)
+            'INSERT INTO studio (curso, asignatura, descripcion, ubicacion, dias, hora, photo_url) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+            (curso, asignatura, descripcion, ubicacion, dias, hora, photo_url)
         )
         mysql.connection.commit()
-        
- 
-        eventos_actuales = cursor.fetchall()
+        cursor.close()
 
-    cursor.close()
-    
-    user_profile = loginfo(session)
+        # Redirect to the same page after the event is created
+        return redirect(url_for('estudio'))
 
-
-    return render_template('estudio.html', user_profile=user_profile,  eventos_actuales= eventos_actuales )
+    return render_template('estudio.html', user_profile=user_profile, events=events)
 
 
 # Podcast
@@ -748,7 +767,6 @@ def podcast():
     return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 # Ruta para subir un archivos mp3
-
 @app.route('/get_audio/<int:id_podcast>')
 def get_audio(id_podcast):
     # Obtén el archivo de audio desde la base de datos utilizando el podcast_id
@@ -897,4 +915,4 @@ def ask_assistant():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
