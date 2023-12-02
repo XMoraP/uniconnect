@@ -935,6 +935,13 @@ def get_openai_response(messages):
 
     return response['choices'][0]['message']['content']
 
+@app.route("/get_welcome_message", methods=["POST"])
+def get_welcome_message():
+    user_name = session.get('name', 'Usuario')
+    welcome_message = f"Bienvenido, {user_name} ¿En qué puedo ayudarte?"
+    return welcome_message
+
+
 #JARVIS
 @app.route("/jarvis")
 def jarvis():

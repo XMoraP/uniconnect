@@ -243,6 +243,18 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/get_welcome_message",
+            }).done(function (data) {
+                var welcomeHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="../static/images/logoUniConnect.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + data + '</div></div>';
+                $("#messageFormeight").append($.parseHTML(welcomeHtml));
+            });
+        });
+    </script>
+    
 </body>
 
 </html>
