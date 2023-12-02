@@ -3102,9 +3102,9 @@ ul.labels-category li p {
 .contact_blog {
     float: left;
     width: 100%;
-    border: solid #ddd 1px;
-    border-radius: 3px;
-    padding: 30px;
+    border: solid blue 3px;
+    border-radius: 10px;
+    padding: 50px;
 }
 
 .contact_blog h4.brief {
@@ -3491,12 +3491,15 @@ table.projects tr td:first-child {
 }
 
 .boton_pedir_tutoria{
-    height: 20px;
-    width: 150px;
+    height: 40px;
+    width: 180px;
     position: absolute;
-    bottom: 50px;
-    left: 50%;
+    bottom: 40px;
+    left: 40%;
     transform: translateX(-50%);
+    background-color: #0dcaf0;
+    color: white;
+    border-radius: 10px;
 }
 
 

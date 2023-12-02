@@ -8,6 +8,7 @@ import binascii
 from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
+import os
 
 #openai.api_key = ""
 
