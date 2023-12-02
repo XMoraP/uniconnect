@@ -704,44 +704,117 @@ def estudio():
         'role': 'Estudiante',
     }
 
-    # Fetch events from the 'studio' table
+    # Obtener los datos del formulario
+    titulo = request.form['groupTitle']
+    asignatura = request.form['subject']
+    descripcion = request.form['description']
+    ubicacion = request.form['location']
+    dias = request.form['days']
+    hora = request.form['time']
+
+    # Obtener el archivo de imagen
+    # photo = request.files['photo']
+    #photo_data = photo.read()
+
+    # Guardar la información del grupo en la base de datos
+    query = "INSERT INTO studio (titulo, asignatura, descripcion, ubicacion, dias, hora, photo_url) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    values = (titulo, asignatura, descripcion, ubicacion, dias, hora,)
     cursor = mysql.connection.cursor()
+    cursor.execute(query, values)
+    mysql.connection.commit()
+
+    # Fetch events from the 'studio' table
     cursor.execute('SELECT * FROM studio')
-    events = cursor.fetchall()
+    groups = cursor.fetchall()
     cursor.close()
 
-    if request.method == 'POST':
-        # Access form data directly from request.form
-        curso = request.form['curso']
-        asignatura = request.form['asignatura']
-        descripcion = request.form['descripcion']
-        ubicacion = request.form['ubicacion']
-        dias = request.form['dias']
-        hora = request.form['hora']
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group['titulo']
+        asignatura = group['asignatura']
+        descripcion = group['descripcion']
+        ubicacion = group['ubicacion']
+        dias = group['dias']
+        hora = group['hora']
+        photo_url = group['photo_url']
+        id = group['id']
 
-        # Validate form data
-        if not all([curso, asignatura, descripcion, ubicacion, dias, hora]):
-            # Handle form validation error
-            error_message = 'Please fill in all required fields.'
-            return render_template('estudio.html', user_profile=user_profile, error=error_message)
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+            'id': id
+        }
+        groups_list.append(group_info)
 
-        # Insert the event into the 'studio' table
-        cursor = mysql.connection.cursor()
 
-        # Assuming you have a column 'photo_url' in your 'studio' table
-        photo_url = '/static/images/event_default_photo.png'  # Default photo URL
+    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
-        cursor.execute(
-            'INSERT INTO studio (curso, asignatura, descripcion, ubicacion, dias, hora, photo_url) VALUES (%s, %s, %s, %s, %s, %s, %s)',
-            (curso, asignatura, descripcion, ubicacion, dias, hora, photo_url)
-        )
-        mysql.connection.commit()
-        cursor.close()
+@app.route('/estudioTutor', methods=['GET', 'POST'])
+def estudioTutor():
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
+    }
 
-        # Redirect to the same page after the event is created
-        return redirect(url_for('estudio'))
+    # Obtener los datos del formulario
+    titulo = request.form['groupTitle']
+    asignatura = request.form['subject']
+    descripcion = request.form['description']
+    ubicacion = request.form['location']
+    dias = request.form['days']
+    hora = request.form['time']
 
-    return render_template('estudio.html', user_profile=user_profile, events=events)
+    # Obtener el archivo de imagen
+    # photo = request.files['photo']
+    #photo_data = photo.read()
+
+    # Guardar la información del grupo en la base de datos
+    query = "INSERT INTO studio (titulo, asignatura, descripcion, ubicacion, dias, hora, photo_url) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    values = (titulo, asignatura, descripcion, ubicacion, dias, hora,)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, values)
+    mysql.connection.commit()
+
+    # Fetch events from the 'studio' table
+    cursor.execute('SELECT * FROM studio')
+    groups = cursor.fetchall()
+    cursor.close()
+
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group['titulo']
+        asignatura = group['asignatura']
+        descripcion = group['descripcion']
+        ubicacion = group['ubicacion']
+        dias = group['dias']
+        hora = group['hora']
+        id = group['id']
+
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+            'id': id
+        }
+        groups_list.append(group_info)
+
+
+    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
 
 
 # Podcast
