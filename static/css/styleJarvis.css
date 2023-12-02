@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
+
+
+
+.main {
+  min-height: 80vh;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.main .image-container {
+  padding: 10px;
+  background-color: white;
+}
+
+.main .image-container .image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main .image-container .image img {
+  width: 500px;
+  align-items: center;
+}
+
+.main .image-container h1 {
+  color: #0023d4;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.main .image-container p {
+  color: #324042;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main .input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12vw;
+  height: 80px;
+  border-radius: 20px;
+  background: #0971b8;
+  position: relative;
+}
+
+.main .input .talk,
+.main .input .stop {
+  background: transparent;
+  outline: none;
+  border: none;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  border-radius: 20px;
+  margin: 0 15px; 
+}
+
+.main .input .talk {
+  left: 0;
+}
+
+.main .input .stop {
+  right: 0;
+}
+
+.main .input .talk i,
+.main .input .stop i {
+  font-size: 30px;
+  color: #f3f3f4;
+}
+
+.jarvis {
+  background-color: white; 
+  
+}
+
+.texto {
+  font-size: 25px;;
+}
+
+/* Estilos cuando el botón es presionado */
+/* Estilos cuando el botón es presionado */
+.talk:active,
+.stop:active {
+    
+    transform: translateY(2px); /* Mueve el botón hacia abajo */
+}
+
+/* Estilos al pasar el mouse sobre el botón */
+.talk:hover {  
+    box-shadow: 5px 5px 5px rgb(6, 222, 6);
+}
+
+.stop:hover {  
+  box-shadow: 5px 5px 5px rgb(231, 17, 17); /* Agrega sombra al botón */
+}
+
+@keyframes shimmer {
+  0% {
+    color: #0023d4; /* Color inicial del texto */
+    text-shadow: none; /* Sin sombra al inicio */
+  }
+  50% {
+    color: #4de1ff; /* Cambia el color a un tono más brillante */
+    text-shadow: 0 0 3px #4de1ff, 0 0 1px #4de1ff; /* Sombra para el brillo */
+  }
+  100% {
+    color: #0023d4; /* Regresa al color inicial */
+    text-shadow: none; /* Sin sombra al final */
+  }
+}
+
+.shimmer-effect {
+  animation: shimmer 8s infinite; /* Aplica la animación de brillo */
+}
+
+
+
+
+
+

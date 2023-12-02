@@ -9,7 +9,7 @@ from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
 
-#openai.api_key = ""
+openai.api_key = "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"
 
 
 app = Flask(__name__, template_folder="templates")
@@ -868,6 +868,32 @@ def get_openai_response(messages):
     )
 
     return response['choices'][0]['message']['content']
+
+#JARVIS
+@app.route("/jarvis")
+def jarvis():
+    user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status': session['status']
+           
+        }
+    return render_template('jarvis.html', user_profile=user_profile)
+
+@app.route('/ask', methods=['POST'])
+def ask_assistant():
+    data = request.json
+    user_input = data.get('input')
+
+
+    # Lógica para procesar 'user_input' y enviar la solicitud a la API de OpenAI
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=user_input,
+        max_tokens=100
+    )
+
+    return jsonify({'response': response['choices'][0]['text']})
 
 
 if __name__ == '__main__':
