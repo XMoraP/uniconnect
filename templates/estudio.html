@@ -1,108 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Grupos de estudio</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- site icon -->
-      <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
-      <!-- Include flaticon CSS -->
-      <link rel="stylesheet" href="../static/fonts/flaticon.css">
-      <!-- Include Font Awesome CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="./static/css/bootstrap.min.css">
-      <!-- site css -->
-      <link rel="stylesheet" href="./static/css/style.css">
-      <!-- responsive css -->
-      <link rel="stylesheet" href="./static/css/responsive.css">
-      <!-- color css -->
-      <link rel="stylesheet" href="./static/css/color_2.css">
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="./static/css/bootstrap-select.css">
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="./static/css/perfect-scrollbar.css">
-      <!-- custom css -->
-      <link rel="stylesheet" href="./static/css/custom.css">
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="./static/css/semantic.min.css">
-      <!-- fancy box js -->
-      <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
-      <!-- fullcalendar -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-      <style>
-         /* Custom styles for the "Formar Grupo" button */
-         .btn-warning {
-            background-color: #ffc107; /* Button background color */
-            color: #212529; /* Button text color */
-            border: 1px solid #ffc107; /* Button border color */
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Title and favicon -->
+    <title>Grupos de estudio</title>
+    <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../static/fonts/flaticon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="./static/css/responsive.css">
+    <link rel="stylesheet" href="./static/css/color_2.css">
+    <link rel="stylesheet" href="./static/css/bootstrap-select.css">
+    <link rel="stylesheet" href="./static/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="./static/css/custom.css">
+    <link rel="stylesheet" href="./static/css/semantic.min.css">
+    <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Custom styles -->
+    <style>
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+            border: 1px solid #ffc107;
             padding: auto;
             margin: 20px;
-         }
+        }
 
-         /* Optional: Add hover effect for the button */
-         .btn-warning:hover {
-            background-color: #e0a800; /* Hover background color */
-            border: 1px solid #e0a800; /* Hover border color */
-            color: #212529; /* Hover text color */
-         }
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border: 1px solid #e0a800;
+            color: #212529;
+        }
 
-         /* Custom styles for the modal container */
-         #exampleModalCenter {
-            background-color: whitesmoke; /* Background color */
+        #exampleModalCenter {
+            background-color: whitesmoke;
             padding: auto;
             margin: auto;
-         }
+        }
 
-         /* Custom styles for the modal header */
-         #exampleModalCenter .modal-header {
-            background-color: #007bff; /* Header background color */
-            color: #fff; /* Header text color */
-         }
+        #exampleModalCenter .modal-header {
+            background-color: #007bff;
+            color: #fff;
+        }
 
-         /* Custom styles for the modal body */
-         #exampleModalCenter .modal-body {
-            background-color: #ffffff; /* Body background color */
-            color: #000000; /* Body text color */
-         }
+        #exampleModalCenter .modal-body {
+            background-color: #ffffff;
+            color: #000000;
+        }
 
-         /* Custom styles for the form within the modal */
-         #studyGroupForm {
-            margin-bottom: 0; /* Remove default margin */
-         }
+        #studyGroupForm {
+            margin-bottom: 0;
+        }
 
-         /* Custom styles for form inputs */
-         #studyGroupForm input,
-         #studyGroupForm textarea {
-            margin-bottom: 10px; /* Add spacing between form elements */
-         }
+        #studyGroupForm input,
+        #studyGroupForm textarea {
+            margin-bottom: 10px;
+        }
 
-         /* Custom styles for the "Crear Grupo" button */
-         #createGroupBtn {
-            background-color: #28a745; /* Button background color */
-            color: #fff; /* Button text color */
-            border: 1px solid #28a745; /* Button border color */
-         }
+        #createGroupBtn {
+            background-color: #28a745;
+            color: #fff;
+            border: 1px solid #28a745;
+        }
 
-         /* Optional: Add hover effect for the button */
-         #createGroupBtn:hover {
-            background-color: #218838; /* Hover background color */
-            border: 1px solid #218838; /* Hover border color */
-         }
+        #createGroupBtn:hover {
+            background-color: #218838;
+            border: 1px solid #218838;
+        }
+    </style>
 
-      </style>
-      
-   </head>
+</head>
    
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -177,17 +154,14 @@
                   </nav>
                </div>
                <!-- end topbar -->
-
-               <!-- dashboard inner -->
-               <div class="midde_cont">
                   
-                <!-- dashboard inner -->
+               <!-- Dashboard inner -->
                <div class="midde_cont">
+
                   <div class="container-fluid">
                      <div class="page_title">
                         <h2>Grupos de Estudio</h2>
                         <div class="col-md-2">
-                           <!-- Button to open the modal -->
                            <div class="text-right mt-3">
                               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">Formar Grupo</button>
                            </div>
@@ -197,64 +171,25 @@
 
                   <div class="container-fluid">
                      <div class="row">
-                        <!-- Study group card 1 -->
-                        <div class="col-md-4 mb-4">
-                           <div class="card">
-                              <img class="card-img-top" src="/static/images/DrawKit Vector Illustration Team Work (6).png" alt="Study Group Header">
-                              <div class="card-body">
-                                 <h5 class="card-title">Curso:Repaso de Prolog</h5>
-                                 <p class="card-text">Asignatura: Inteligencia Artificial</p>
-                                 <p class="card-text">Resumen: Vamos a repasar el temario de prolog de cara al examen</p>
-                                 <p class="card-text">Dónde: En la pecera</p>
-                                 <p class="card-text">Qué día: Viernes y lunes</p>
-                                 <p class="card-text">A qué hora: 14.30</p>
-                                 <button type="button" class="btn btn-success">¡Me uno!</button>
-                              </div>
-                           </div>
-                        </div>
+                        <!-- Study group cards -->
+                        <div id="gridContainer">
 
-                        <!-- Study group card 2 -->
-                        <div class="col-md-4 mb-4">
-                           <div class="card">
-                              <img class="card-img-top" src="/static/images/DrawKit Vector Illustration Team Work (6).png" alt="Study Group Header">
-                              <div class="card-body">
-                                 <h5 class="card-title">Curso:Curso TDD</h5>
-                                 <p class="card-text">Asignatura: Inteligencia del software</p>
-                                 <p class="card-text">Resumen: Vamos a realizar tdd</p>
-                                 <p class="card-text">Dónde: En la pecera</p>
-                                 <p class="card-text">Qué día: Martes </p>
-                                 <p class="card-text">A qué hora: 14.30</p>
-                                 <button type="button" class="btn btn-success">¡Me uno!</button>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                           <div class="card">
-                              <img class="card-img-top" src="/static/images/DrawKit Vector Illustration Team Work (6).png" alt="Study Group Header">
-                              <div class="card-body">
-                                 <h5 class="card-title">Curso: Curso cloud</h5>
-                                 <p class="card-text">Asignatura: Optativa </p>
-                                 <p class="card-text">Resumen: Saber realimente lo que es </p>
-                                 <p class="card-text">Dónde: Sla 1.5.5.</p>
-                                 <p class="card-text">Qué día: Miércoles </p>
-                                 <p class="card-text">A qué hora: 16.00</p>
-                                 <button type="button" class="btn btn-success">¡Me uno!</button>
-                              </div>
-                           </div>
+
                         </div>
                      </div>
                   </div>
+                  
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
                         <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                      </div>
                   </div>
-               </div>
-               <!-- end dashboard inner -->
 
                </div>
+               <!-- end middle content -->
             </div>
+            <!-- end content -->
 
             <!-- model popup -->
             <!-- Modal for adding containers -->
@@ -269,7 +204,6 @@
                      </div>
                      <div class="modal-body">
                         <!-- Form for adding study group details -->
-                   ¡
                            <form id="studyGroupForm" action="/estudio" method="POST">
 
                            <div class="form-group">
@@ -295,12 +229,13 @@
                            </div>
                            <div class="form-group">
                               <label for="days">Días:</label>
-                              <input type="text" class="form-control" id="days" placeholder="Ingrese los días" required>
+                              <input type="datetime-local" class="form-control" id="days" required>
                            </div>
                            <div class="form-group">
-                              <label for="time">Hora:</label>
-                              <input type="text" class="form-control" id="time" placeholder="Ingrese la hora" required>
+                                 <label for="time">Hora:</label>
+                                 <input type="time" class="form-control" id="time" required>
                            </div>
+                          
                            <!-- Add the "Crear Grupo" button with the proper ID -->
                            <button type="button" class="btn btn-primary" id="createGroupBtn">Crear Grupo</button>
                         </form>
@@ -311,13 +246,15 @@
                      </div>
                   </div>
                </div>
-                </div>
-                   
-
-
-            
+            </div>
+            <!-- end model popup -->
          </div>
       </div>
+
+      <!-- jQuery and Bootstrap scripts -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <!-- jQuery -->
       <script src="./static/js/jquery.min.js"></script>
       <script src="./static/js/popper.min.js"></script>
@@ -359,57 +296,59 @@
          $(document).ready(function () {
             // Event listener for the "Crear Grupo" button
             $('#createGroupBtn').click(function () {
-               // Get values from the form
-               var title = $('#groupTitle').val();
-               var subject = $('#subject').val();
-               var description = $('#description').val();
-               var location = $('#location').val();
-               var days = $('#days').val();
-               var time = $('#time').val();
-               var headerPhoto = $('#headerPhoto')[0].files[0]; // Get the selected file
+               // Check form validation
+               if ($('#studyGroupForm')[0].checkValidity()) {
+                     // Get values from the form
+                     var title = $('#groupTitle').val();
+                     var subject = $('#subject').val();
+                     var description = $('#description').val();
+                     var location = $('#location').val();
 
-               // Check if the user has uploaded a photo
-               if (headerPhoto) {
-                  // Handle the photo upload
-                  // You may want to use FormData to send the file to the server
-                  // For now, we'll just assume the file is uploaded and set a placeholder URL
-                  var photoURL = '/static/images/DrawKit Vector Illustration Team Work (2).png'; // Replace with your default photo URL
-               } else {
-                  // Use a default photo URL if the user didn't upload one
-                  var photoURL = '/static/images/DrawKit Vector Illustration Team Work (2).png'; // Replace with your default photo URL
-               }
+                     // Format date and time before sending to the server
+                     var days = new Date($('#days').val()).toISOString().slice(0, 10);
+                     var time = $('#time').val();
 
-               // Create a new container with the user-provided information and the photo URL
-               var newContainer = `
-                  <div class="col-md-4 mb-4">
-                     <div class="card">
-                        <img class="card-img-top" src="${photoURL}" alt="Group Header">
-                        <div class="card-body">
-                           <h5 class="card-title">${title}</h5>
-                           <p class="card-text">Asignatura: ${subject}</p>
-                           <p class="card-text">Resumen: ${description}</p>
-                           <p class="card-text">Dónde: ${location}</p>
-                           <p class="card-text">Qué día: ${days}</p>
-                           <p class="card-text">A qué hora: ${time}</p>
-                           <button type="button" class="btn btn-success">¡Me uno!</button>
+                     // Check if the user has uploaded a photo
+                     var headerPhoto = $('#headerPhoto').val();
+                     var photoURL = headerPhoto ? headerPhoto : '/static/images/event_default_photo.png'; // Default photo
+
+                     // Create a new container with a unique identifier based on the current timestamp
+                     var timestamp = Date.now();
+                     // Create a new container with the user-provided information and the photo URL
+                     var newContainer = `
+                        <div class="col-md-4 mb-4" id="eventContainer${timestamp}">
+                           <div class="card">
+                                 <img class="card-img-top" src="${photoURL}" alt="Group Header">
+                                 <div class="card-body">
+                                    <h5 class="card-title">${title}</h5>
+                                    <p class="card-text">Asignatura: ${subject}</p>
+                                    <p class="card-text">Resumen: ${description}</p>
+                                    <p class="card-text">Dónde: ${location}</p>
+                                    <p class="card-text">Qué día: ${days}</p>
+                                    <p class="card-text">A qué hora: ${time}</p>
+                                    <button type="button" class="btn btn-success">¡Me uno!</button>
+                                 </div>
+                           </div>
                         </div>
-                     </div>
-                  </div>
-               `;
+                     `;
 
-               // Append the new container to the grid
-               $('#gridContainer').append(newContainer);
+                     // Append the new container to the grid
+                     $('#gridContainer').append(newContainer);
 
-               // Close the modal
-               $('#exampleModalCenter').modal('hide');
+                     // Close the modal
+                     $('#exampleModalCenter').modal('hide');
 
-               // Reset the form
-               $('#studyGroupForm')[0].reset();
+                     // Reset the form
+                     $('#studyGroupForm')[0].reset();
+               } else {
+                     // Handle invalid form
+                     alert('Please fill in all required fields.');
+               }
             });
          });
 
-       </script>
-                  
+      </script>
+          
 
    </body>
 </html>
