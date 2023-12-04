@@ -702,7 +702,7 @@ def estudio():
     study_groups = cur.fetchall()
     cur.close()
 
-    return render_template('estudio.html', study_groups=study_groups)
+    return render_template('estudio.html', user_profile=user_profile, study_groups=study_groups)
 
 
 @app.route('/estudioTutor')
@@ -717,7 +717,7 @@ def estudioTutor():
     study_groups = cur.fetchall()
     cur.close()
 
-    return render_template('estudioTutor.html', study_groups=study_groups)
+    return render_template('estudioTutor.html', user_profile=user_profile, study_groups=study_groups)
 
 
 

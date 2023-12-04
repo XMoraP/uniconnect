@@ -9,10 +9,10 @@
 
     <!-- Title and favicon -->
     <title>Grupos de estudio</title>
-    <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
+    <link rel="icon" href="./static/images/logoUniConnect.png" type="image/png">
 
     <!-- CSS files -->
-    <link rel="stylesheet" href="../static/fonts/flaticon.css">
+    <link rel="stylesheet" href="./static/fonts/flaticon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/css/style.css">
@@ -25,59 +25,6 @@
     <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- Custom styles -->
-    <!--style>
-        .btn-warning {
-            background-color: #ffc107;
-            color: #212529;
-            border: 1px solid #ffc107;
-            padding: auto;
-            margin: 20px;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            border: 1px solid #e0a800;
-            color: #212529;
-        }
-
-        #exampleModalCenter {
-            background-color: whitesmoke;
-            padding: auto;
-            margin: auto;
-        }
-
-        #exampleModalCenter .modal-header {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        #exampleModalCenter .modal-body {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        #studyGroupForm {
-            margin-bottom: 0;
-        }
-
-        #studyGroupForm input,
-        #studyGroupForm textarea {
-            margin-bottom: 10px;
-        }
-
-        #createGroupBtn {
-            background-color: #28a745;
-            color: #fff;
-            border: 1px solid #28a745;
-        }
-
-        #createGroupBtn:hover {
-            background-color: #218838;
-            border: 1px solid #218838;
-        }
-    </style-->
 
 </head>
    
@@ -95,10 +42,10 @@
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
                         <div class="user_img"><img class="img-responsive" src="/cargar_imagen" alt="#" /></div>
-                        <!--div class="user_info">
+                        <div class="user_info">
                            <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
                            <p><span class="online_animation"></span> {{ user_profile['status'] }} </p>
-                        </div-->
+                        </div>
                      </div>
                   </div>
                </div>
@@ -139,7 +86,7 @@
                               <ul class="user_profile_dd">
                                  <li>
                                     <a class="dropdown-toggle" data-toggle="dropdown">
-                                       <!--span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a-->
+                                       <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name'] }}</span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="/profile">Perfil</a>
                                        <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i class="fas fa-sign-out-alt"></i></a>
@@ -216,8 +163,6 @@
                               <div class="modal-body">
                                     <!-- Form for study group information -->
                                     <form id="studyGroupForm">
-                                       <!-- Add a CSRF token for security -->
-                                       <!--input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"-->
 
                                        <div class="form-group">
                                           <label for="title">Titulo:</label>
