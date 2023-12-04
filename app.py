@@ -690,67 +690,64 @@ def download_file():
     )
 
 
-@app.route('/estudio', methods=['GET', 'POST'])
+@app.route('/estudio')
 def estudio():
 
     # Obtener el perfil del usuario
     user_profile = loginfo(session)
 
-    if request.method == 'POST':
-        # Get data from the form
-        titulo = request.form['titulo']
-        asignatura = request.form['asignatura']
-        descripcion = request.form['descripcion']
-        ubicacion = request.form['ubicacion']
-        dias = request.form['dias']
-        hora = request.form['hora']
-
-        # Insert data into the study_groups table
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO study_groups (titulo, asignatura, descripcion, ubicacion, dias, hora) VALUES (%s, %s, %s, %s, %s, %s)",
-                    (titulo, asignatura, descripcion, ubicacion, dias, hora))
-        mysql.connection.commit()
-        cur.close()
-
-    # Fetch study groups from the database
+    # Retrieve all data from the 'study_groups' table
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM study_groups")
     study_groups = cur.fetchall()
     cur.close()
 
-    return render_template('estudio.html', user_profile=user_profile, study_groups=study_groups)
+    return render_template('estudio.html', study_groups=study_groups)
 
 
-@app.route('/estudioTutor', methods=['GET', 'POST'])
+@app.route('/estudioTutor')
 def estudioTutor():
 
     # Obtener el perfil del usuario
     user_profile = loginfo(session)
 
-    if request.method == 'POST':
-        # Get data from the form
-        titulo = request.form['titulo']
-        asignatura = request.form['asignatura']
-        descripcion = request.form['descripcion']
-        ubicacion = request.form['ubicacion']
-        dias = request.form['dias']
-        hora = request.form['hora']
-
-        # Insert data into the study_groups table
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO study_groups (titulo, asignatura, descripcion, ubicacion, dias, hora) VALUES (%s, %s, %s, %s, %s, %s)",
-                    (titulo, asignatura, descripcion, ubicacion, dias, hora))
-        mysql.connection.commit()
-        cur.close()
-
-    # Fetch study groups from the database
+    # Retrieve all data from the 'study_groups' table
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM study_groups")
     study_groups = cur.fetchall()
     cur.close()
 
-    return render_template('estudioTutor.html', user_profile=user_profile, study_groups=study_groups)
+    return render_template('estudioTutor.html', study_groups=study_groups)
 
+
+
+@app.route('/create_study_group', methods=['POST'])
+def create_study_group():
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract data
+        title = data['title']
+        subject = data['subject']
+        description = data['description']
+        location = data['location']
+        days = data['days']
+        time = data['time']
+
+        name_user = session['name']
+
+        # Insert data into the database
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                    (title, subject, description, location, days, time, name_user))
+        mysql.connection.commit()
+        cur.close()
+
+        return jsonify({'message': 'Study group created successfully'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 # Podcast
@@ -832,6 +829,7 @@ def get_audio(id_podcast):
     else:
         # Manejar el caso donde el podcast no existe
         return "Podcast no encontrado", 404
+    
 @app.route('/uploadMp3', methods=['POST'])
 def upload_mp3():
     name_user = session['name']

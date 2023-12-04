@@ -163,70 +163,100 @@
 
                      <div class="col-md-4 mb-3">
                         <!-- Button to trigger modal -->
-                        <button type="button" class="btn btn-primary" id="createGroupBtn" data-toggle="modal" data-target="#createStudyGroupModal">
+                        <!-- Button to trigger the modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
                            Create Study Group
-                        </button>                     
+                        </button>                
                      </div>
 
-                     <!-- Modal -->
-                     <div class="modal fade" id="createStudyGroupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <!-- Display created study groups as containers -->
+                     <!-- Add this block to display the study groups data -->
+                     <div>
+                        <h2>Study Groups</h2>
+                        <table class="table">
+                        <thead>
+                           <tr>
+                              <th>Title</th>
+                              <th>Subject</th>
+                              <th>Description</th>
+                              <th>Location</th>
+                              <th>Days</th>
+                              <th>Time</th>
+                              <!-- Add any additional columns you may have -->
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for group in study_groups %}
+                              <tr>
+                              <td>{{ group.title }}</td>
+                              <td>{{ group.subject }}</td>
+                              <td>{{ group.description }}</td>
+                              <td>{{ group.location }}</td>
+                              <td>{{ group.days }}</td>
+                              <td>{{ group.time }}</td>
+                              <!-- Add any additional columns you may have -->
+                              </tr>
+                           {% endfor %}
+                        </tbody>
+                        </table>
+                     </div>
+ 
+
+                     <!-- Modal de crear grupo -->
+                     <div class="modal fade" id="createStudyGroupModal" tabindex="-1" role="dialog" 
+                        aria-labelledby="createStudyGroupModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Create Study Group</h5>
+                                    <h5 class="modal-title" id="createStudyGroupModalLabel">Create Study Group</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                        <span aria-hidden="true">&times;</span>
                                     </button>
                               </div>
                               <div class="modal-body">
                                     <!-- Form for study group information -->
-                                    <form id="studyGroupForm" action="/estudio" method="post">
+                                    <form id="studyGroupForm">
                                        <!-- Add a CSRF token for security -->
                                        <!--input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"-->
-                                       
+
                                        <div class="form-group">
-                                          <label for="titulo">Titulo:</label>
-                                          <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                          <label for="title">Titulo:</label>
+                                          <input type="text" class="form-control" id="title" 
+                                          placeholder="Ingrese un titulo para el grupo de estudio" name="title" required>
                                        </div>
+
                                        <div class="form-group">
-                                          <label for="asignatura">Asignatura:</label>
-                                          <input type="text" class="form-control" id="asignatura" name="asignatura" required>
+                                          <label for="subject">Asignatura:</label>
+                                          <input type="text" class="form-control" id="subjet" 
+                                          placeholder="Ingrese la asignatura" name="subject" required>
                                        </div>
+
                                        <div class="form-group">
-                                          <label for="descripcion">Descripcion:</label>
-                                          <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                                          <label for="description">Descripcion:</label>
+                                          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                                        </div>
+
                                        <div class="form-group">
-                                          <label for="ubicacion">Ubicacion:</label>
-                                          <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+                                          <label for="location">Ubicacion:</label>
+                                          <input type="text" class="form-control" id="location" name="location" required>
                                        </div>
+
                                        <div class="form-group">
-                                          <label for="dias">Dias:</label>
-                                          <input type="date" class="form-control" id="dias" name="dias" required>
+                                          <label for="days">Dias:</label>
+                                          <input type="date" class="form-control" id="days" name="days" required>
                                        </div>
+
                                        <div class="form-group">
-                                          <label for="hora">Hora:</label>
-                                          <input type="time" class="form-control" id="hora" name="hora" required>
+                                          <label for="time">Hora:</label>
+                                          <input type="time" class="form-control" id="time" name="time" required>
                                        </div>
-                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                                       <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button-->
                                        <button type="submit" class="btn btn-primary">Crear grupo de estudio</button>
                                     </form>
                               </div>
                            </div>
                         </div>
-                     </div>
-
-                     <!-- Display created study groups as containers -->
-                     <div id="studyGroupsContainer">
-                        {% for group in study_groups %}
-                           <div class="card">
-                              <div class="card-body">
-                                    <h5 class="card-title">{{ group.titulo }}</h5>
-                                    <p class="card-text">{{ group.asignatura }}</p>
-                                    <!-- Add more details as needed -->
-                              </div>
-                           </div>
-                        {% endfor %}
                      </div>
 
                   </div>
@@ -280,54 +310,7 @@
       
       
       <!--JavaScript to handle the creation of the study groups and storing in the table study_groups-->
-      <script>
-         // Update the event listener to form submission
-         studyGroupForm.onsubmit = function (event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Get the values from the form
-            var titulo = document.getElementById("titulo").value;
-            var asignatura = document.getElementById("asignatura").value;
-            var descripcion = document.getElementById("descripcion").value;
-            var ubicacion = document.getElementById("ubicacion").value;
-            var dias = document.getElementById("dias").value;
-            var hora = document.getElementById("hora").value;
-
-            // Create a new study group object
-            var studyGroup = {
-               titulo: titulo,
-               asignatura: asignatura,
-               descripcion: descripcion,
-               ubicacion: ubicacion,
-               dias: dias,
-               hora: hora
-            };
-
-            // Send the study group object to the server
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/estudio", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(JSON.stringify(studyGroup));
-
-            xhr.onload = function () {
-               if (xhr.status >= 200 && xhr.status < 300) {
-                  // Request was successful, handle accordingly
-                  console.log('Study group created successfully');
-               } else {
-                  // Request failed
-                  console.error('Error creating study group:', xhr.statusText);
-               }
-            };
-
-            xhr.onerror = function () {
-               // There was a network error
-               console.error('Network error while creating study group');
-            };
-
-            // Clear the form
-            studyGroupForm.reset();
-         }
-      </script>
+      <script src="./static/js/study_group.js"></script>
 
    </body>
 </html>
