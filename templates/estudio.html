@@ -109,26 +109,30 @@
                      </div>
 
                      <div class="col-md-4 mb-3">
-                        <!-- Button to trigger modal -->
                         <!-- Button to trigger the modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
-                           Create Study Group
+                        <button class="btn btn-success" data-toggle="modal" data-target="#createStudyGroupModal">
+                           Crear grupo de estudio
                         </button>                
                      </div>
+                  </div>
+               </div>
 
-                     <!-- Display created study groups as containers -->
+
+               <div class="container-fluid">
+
+                  <!-- Display created study groups as containers -->
                      <!-- Add this block to display the study groups data -->
                      <div>
-                        <h2>Study Groups</h2>
+                        <h2>Grupos</h2>
                         <table class="table">
                         <thead>
                            <tr>
-                              <th>Title</th>
-                              <th>Subject</th>
-                              <th>Description</th>
-                              <th>Location</th>
-                              <th>Days</th>
-                              <th>Time</th>
+                              <th>Titulo</th>
+                              <th>Asignatura</th>
+                              <th>Descripcion</th>
+                              <th>Dónde</th>
+                              <th>Día</th>
+                              <th>Hora</th>
                               <!-- Add any additional columns you may have -->
                            </tr>
                         </thead>
@@ -148,14 +152,13 @@
                         </table>
                      </div>
  
-
                      <!-- Modal de crear grupo -->
                      <div class="modal fade" id="createStudyGroupModal" tabindex="-1" role="dialog" 
                         aria-labelledby="createStudyGroupModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                    <h5 class="modal-title" id="createStudyGroupModalLabel">Create Study Group</h5>
+                                    <h5 class="modal-title" id="createStudyGroupModalLabel">Crear Grupo de Estudio</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                        <span aria-hidden="true">&times;</span>
                                     </button>
@@ -172,7 +175,7 @@
 
                                        <div class="form-group">
                                           <label for="subject">Asignatura:</label>
-                                          <input type="text" class="form-control" id="subjet" 
+                                          <input type="text" class="form-control" id="subject" 
                                           placeholder="Ingrese la asignatura" name="subject" required>
                                        </div>
 
@@ -204,22 +207,20 @@
                         </div>
                      </div>
 
-                  </div>
                </div>
-               <!-- end middle content -->
+
+                     
+
+                  
+               
             </div>
-            <!-- end content -->
          </div>
       </div>
 
       <!-- jQuery and Bootstrap scripts -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <!-- jQuery -->
-      <script src="./static/js/jquery.min.js"></script>
-      <script src="./static/js/popper.min.js"></script>
-      <script src="./static/js/bootstrap.min.js"></script>
       <!-- wow animation -->
       <script src="./static/js/animate.js"></script>
       <!-- select country -->
