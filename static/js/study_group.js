@@ -20,9 +20,22 @@ $(document).ready(function() {
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(formData),
         success: function(response) {
-          // Handle success, e.g., display a success message
-          console.log(response);
-          $('#createStudyGroupModal').modal('hide');
+            // Handle success, e.g., display a success message
+            console.log(response);
+
+            // Append the new study group to the table
+            $('#studyGroupTableBody').append(
+                `<tr>
+                    <td>${formData.title}</td>
+                    <td>${formData.subject}</td>
+                    <td>${formData.description}</td>
+                    <td>${formData.location}</td>
+                    <td>${formData.days}</td>
+                    <td>${formData.time}</td>
+                </tr>`
+                );
+
+            $('#createStudyGroupModal').modal('hide');
         },
         error: function(error) {
           // Handle error, e.g., display an error message

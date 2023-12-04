@@ -110,7 +110,7 @@
 
                      <div class="col-md-4 mb-3">
                         <!-- Button to trigger the modal -->
-                        <button class="btn btn-success" data-toggle="modal" data-target="#createStudyGroupModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
                            Crear grupo de estudio
                         </button>                
                      </div>
@@ -123,32 +123,35 @@
                   <!-- Display created study groups as containers -->
                      <!-- Add this block to display the study groups data -->
                      <div>
-                        <h2>Grupos</h2>
+                        <!--h2>Grupos</h2-->
                         <table class="table">
-                        <thead>
-                           <tr>
-                              <th>Titulo</th>
-                              <th>Asignatura</th>
-                              <th>Descripcion</th>
-                              <th>Dónde</th>
-                              <th>Día</th>
-                              <th>Hora</th>
-                              <!-- Add any additional columns you may have -->
-                           </tr>
-                        </thead>
-                        <tbody>
-                           {% for group in study_groups %}
+                           <thead>
                               <tr>
-                              <td>{{ group.title }}</td>
-                              <td>{{ group.subject }}</td>
-                              <td>{{ group.description }}</td>
-                              <td>{{ group.location }}</td>
-                              <td>{{ group.days }}</td>
-                              <td>{{ group.time }}</td>
-                              <!-- Add any additional columns you may have -->
+                                 <th>Titulo</th>
+                                 <th>Asignatura</th>
+                                 <th>Descripcion</th>
+                                 <th>Dónde</th>
+                                 <th>Día</th>
+                                 <th>Hora</th>
+                                 <!-- Add any additional columns you may have -->
                               </tr>
-                           {% endfor %}
-                        </tbody>
+                           </thead>
+                           <tbody>
+                              {% for group in study_groups %}
+                                 <tr>
+                                 <td>{{ group.title }}</td>
+                                 <td>{{ group.subject }}</td>
+                                 <td>{{ group.description }}</td>
+                                 <td>{{ group.location }}</td>
+                                 <td>{{ group.days }}</td>
+                                 <td>{{ group.time }}</td>
+                                 <!-- Add any additional columns you may have -->
+                                 </tr>
+                              {% endfor %}
+                           </tbody>
+                           <tbody id="studyGroupTableBody">
+                              <!-- Existing study groups will be added here -->
+                           </tbody>
                         </table>
                      </div>
  
@@ -209,10 +212,6 @@
 
                </div>
 
-                     
-
-                  
-               
             </div>
          </div>
       </div>
