@@ -179,7 +179,7 @@
                <div class="container-fluid">
 
                   <div class="row">
-                     {% for grupo in grupos %}
+                     {% for group in groups %}
                         <div class="col-md-4 mb-4" id="eventContaines">
                            <div class="card">
                                  <!--img class="card-img-top" src="${photoURL}" alt="Group Header"-->
@@ -210,7 +210,7 @@
                            </div>
                            <div class="modal-body">
                               <!-- Form for adding study group details -->
-                                 <form id="studyGroupForm" action="/estudio" method="POST">
+                                 <form id="studyGroupForm" action="/estudioTutor" method="post">
       
                                  <div class="form-group">
                                     <label for="headerPhoto">Foto o póster:</label>
@@ -219,31 +219,31 @@
                                  
                                  <div class="form-group">
                                     <label for="groupTitle">Titulo:</label>
-                                    <input type="text" class="form-control" id="groupTitle" placeholder="Ingrese el título" required>
+                                    <input type="text" class="form-control" id="title" placeholder="Ingrese el título" name="title" required>
                                  </div>
                                  <div class="form-group">
                                     <label for="subject">Asignatura:</label>
-                                    <input type="text" class="form-control" id="subject" placeholder="Ingrese la asignatura" required>
+                                    <input type="text" class="form-control" id="subject" placeholder="Ingrese la asignatura" name="subject" required>
                                  </div>
                                  <div class="form-group">
                                     <label for="description">Descripción:</label>
-                                    <textarea class="form-control" id="description" placeholder="Ingrese la descripción" rows="3" required></textarea>
+                                    <textarea class="form-control" id="description" placeholder="Ingrese la descripción" rows="3" name="description" required></textarea>
                                  </div>
                                  <div class="form-group">
                                     <label for="location">Ubicación:</label>
-                                    <input type="text" class="form-control" id="location" placeholder="Ingrese la ubicación" required>
+                                    <input type="text" class="form-control" id="location" placeholder="Ingrese la ubicación" name="location" required>
                                  </div>
                                  <div class="form-group">
                                     <label for="days">Días:</label>
-                                    <input type="datetime-local" class="form-control" id="days" required>
+                                    <input type="date" class="form-control" id="days" name="days" required>
                                  </div>
                                  <div class="form-group">
                                        <label for="time">Hora:</label>
-                                       <input type="time" class="form-control" id="time" required>
+                                       <input type="time" class="form-control" id="time" name="time" required>
                                  </div>
                                 
                                  <!-- Add the "Crear Grupo" button with the proper ID -->
-                                 <button type="button" class="btn btn-primary" id="createGroupBtn">Crear Grupo</button>
+                                 <button type="submit" class="btn btn-primary" id="createGroupBtn">Crear Grupo</button>
                               </form>
                            </div>
                            <div class="modal-footer">
