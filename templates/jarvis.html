@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Voice</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- site icon -->
+    <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png" />
+    <!-- Include flaticon CSS -->
+    <link rel="stylesheet" href="../static/fonts/flaticon.css">
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <!-- site css -->
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="../static/css/responsive.css" />
+    <!-- color css -->
+    <link rel="stylesheet" href="../static/css/color_2.css" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="../static/css/bootstrap-select.css" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="../static/css/custom.css" />
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="../static/js/semantic.min.css" />
+    <!-- fancy box js -->
+    <link rel="stylesheet" href="../static/css/jquery.fancybox.css" />
+    <!-- calendar file css -->
+    <link rel="stylesheet" href="../static/js/semantic.min.css" />
+    <!--Alerts-->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.6/sweetalert2.min.css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
+
+      <![endif]-->
+
+    <link rel="stylesheet" href="../static/css/styleJarvis.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+
+<body class="dashboard dashboard_1">
+    <div class="full_container">
+        <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar_blog_1">
+                    <div class="sidebar-header">
+                        <div class="logo_section">
+                            <a href="/dashboard"><img class="logo_icon img-responsive"
+                                    src="../static/images/logoUniConnect.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="sidebar_user_info">
+                        <div class="icon_setting"></div>
+                        <div class="user_profle_side">
+                            <div class="user_img"><img class="img-responsive" src="/cargar_imagen" alt="#" /></div>
+                            <div class="user_info">
+                                <h6>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h6>
+                                <p><span class="online_animation"></span> {{ user_profile['status'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar_blog_2">
+                    <h4>General</h4>
+                    <ul class="list-unstyled components">
+                        <li class="active">
+                            <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
+                        </li>
+                        <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                        <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
+                        <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i>
+                                <span>Perfil</span></a>
+                        </li>
+                        <li><a href="/estudio"><i class="fas fa-graduation-cap"
+                                    style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i>
+                                <span>Estudio</span></a></li>
+                        <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a>
+                        </li>
+                        <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i>
+                                <span>Chatbot</span></a></li>
+                        <li><a href="/jarvis"><i class="fas fa-robot" style="color: #2f73e9;"></i>
+                                <span>Voice</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+                <!-- topbar -->
+                <div class="topbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                                    class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="/dashboard"><img class="img-responsive"
+                                        src="../static/images/logoUniConnect.png" alt="#" /></a>
+                                <h4>Uniconnect</h4>
+                            </div>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    <ul>
+                                        <li><a class="boton_notificacion_bell" href="#"
+                                                onclick="toggleNotificationPopup(event)">
+                                                <i class="fas fa-bell"></i>
+                                                <span class="badge" id="notificacionesBadge"
+                                                    style="background-color: white; color: black;">{{ longitud }}
+                                                </span>
+                                            </a></li>
+                                    </ul>
+                                    <ul class="user_profile_dd">
+                                        <li>
+                                            <a class="dropdown-toggle"
+                                                data-toggle="dropdown"><!--img class="img-responsive rounded-circle" src="/cargar_imagen" alt="Imagen de perfil" /-->
+                                                <span class="name_user">{{ user_profile['name'] }} {{
+                                                    user_profile['last_name']
+                                                    }}</span></a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="/profile">Perfil</a>
+                                                <a class="dropdown-item" href="/salir"
+                                                    formaction="/salir"><span>Salir</span> <i
+                                                        class="fas fa-sign-out-alt"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="notification-popup" id="ventanaNotificaciones">
+                    <h3><br>Notificaciones</h3>
+                    {% for notificacion in notificaciones %}
+                    <div class="notification">{{ notificacion.mensaje }}</div>
+                    {% endfor %}
+                </div>
+                <!-- end topbar -->
+                <!-- dashboard inner -->
+                <div class="row justify-content-center jarvis">
+                    <div class="col-md-8 col-xl-5">
+
+                        <section class="main">
+                            <div class="image-container">
+                                <div class="image">
+                                    <img src="../static/images/ia.gif" alt="image">
+                                </div>
+                                <h1 class="shimmer-effect">J A R V I S</h1>
+                                <p id="listeningText" style="display: none;">Escuchando...</p>
+                                <p><span>Presiona el icono del <strong>MICRÓFONO</strong> si deaseas preguntar algo a JARVIS.</span>
+                                    <span>Presiona el icono del <strong>STOP</strong> cuando desees que JARVIS deje de hablar.</span></p>
+                            </div>
+                            <div class="input">
+                                <button class="talk" data-username="{{ user_profile['name'] }}"><i
+                                        class="fas fa-microphone-alt"></i></button>
+                                <button class="stop"><i class="fas fa-stop"></i></button>
+                                <!--h1 class="texto"> Haz el click en el microfono para hablar</h1-->
+
+                            </div>
+
+
+                        </section>
+                    </div>
+                </div>
+                <!-- end dashboard inner-->
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- wow animation -->
+    <script src="../static/js/animate.js"></script>
+    <!-- select country -->
+    <script src="../static/js/bootstrap-select.js"></script>
+    <!-- owl carousel -->
+    <script src="../static/js/owl.carousel.js"></script>
+    <!-- chart js -->
+    <script src="../static/js/Chart.min.js"></script>
+    <script src="../static/js/Chart.bundle.min.js"></script>
+    <script src="../static/js/utils.js"></script>
+    <script src="../static/js/analyser.js"></script>
+    <!-- nice scrollbar -->
+    <script src="../static/js/perfect-scrollbar.min.js"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="../static/js/custom.js"></script>
+    <!-- calendar file css -->
+    <script src="../static/js/semantic.min.js"></script>
+    <!--Alerts-->
+    <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
+    <!--voice-->
+    <script src="../static/js/jarvis.js"></script>
+
+</body>
+
+</html>

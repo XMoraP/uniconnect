@@ -15,7 +15,6 @@ load_dotenv()
 
 openai.api_key = os.getenv("API_KEY_IA") 
 
-
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key = os.getenv("APP_SECRET_KEY")
@@ -691,68 +690,6 @@ def download_file():
     )
 
 
-@app.route('/estudio', methods=['GET', 'POST'])
-def estudio():
-    user_profile = {
-        'name': session.get('name'),
-        'last_name': session['last_name'],
-        'email': session['email'],
-        'status': session['status'],
-        'nombre_grado': session['nombre_grado'],
-        'photo_url': 'static/images/userPhoto.png',
-        'role': 'Estudiante',
-    }
-
-    # Obtener los datos del formulario
-    titulo = request.form['groupTitle']
-    asignatura = request.form['subject']
-    descripcion = request.form['description']
-    ubicacion = request.form['location']
-    dias = request.form['days']
-    hora = request.form['time']
-
-    # Obtener el archivo de imagen
-    # photo = request.files['photo']
-    #photo_data = photo.read()
-
-    # Guardar la información del grupo en la base de datos
-    query = "INSERT INTO studio (titulo, asignatura, descripcion, ubicacion, dias, hora, photo_url) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    values = (titulo, asignatura, descripcion, ubicacion, dias, hora,)
-    cursor = mysql.connection.cursor()
-    cursor.execute(query, values)
-    mysql.connection.commit()
-
-    # Fetch events from the 'studio' table
-    cursor.execute('SELECT * FROM studio')
-    groups = cursor.fetchall()
-    cursor.close()
-
-    # Obtener los grupos de estudio de la base de datos
-    groups_list = []
-    for group in groups:
-        titulo = group['titulo']
-        asignatura = group['asignatura']
-        descripcion = group['descripcion']
-        ubicacion = group['ubicacion']
-        dias = group['dias']
-        hora = group['hora']
-        photo_url = group['photo_url']
-        id = group['id']
-
-        group_info = {
-            'titulo': titulo,
-            'asignatura': asignatura,
-            'descripcion': descripcion,
-            'ubicacion': ubicacion,
-            'dias': dias,
-            'hora': hora,
-            'id': id
-        }
-        groups_list.append(group_info)
-
-
-    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
-
 @app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
     user_profile = {
@@ -806,6 +743,98 @@ def estudioTutor():
         groups_list.append(group_info)
 
     return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
+@app.route('/estudio', methods=['GET', 'POST'])
+def estudio():
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
+    }
+
+    # Obtener los datos del formulario
+    titulo = request.form.get('title')
+    asignatura = request.form.get('subject')
+    descripcion = request.form.get('description')
+    ubicacion = request.form.get('location')
+
+    # Guardar la información del grupo en la base de datos
+    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s,  '2023-12-01', '12:00:00')"
+    values = (titulo, asignatura, descripcion, ubicacion)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, values)
+    mysql.connection.commit()
+
+    # Fetch events from the 'studio' table
+    cursor.execute('SELECT * FROM study_prueba')
+    groups = cursor.fetchall()
+    cursor.close()
+
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group['title']
+        asignatura = group['subject']
+        descripcion = group['description']
+        ubicacion = group['location']
+        dias = group['days']
+        hora = group['time']
+
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+        }
+        groups_list.append(group_info)
+
+    return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
+
+@app.route('/create_study_group', methods=['POST'])
+def create_study_group():
+    try:
+
+        required_fields = ['title', 'subject', 'description', 'location', 'days', 'time']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'Missing required field: {field}'})
+
+        # Additional validation if needed, e.g., ensuring 'days' and 'time' have the correct format.
+
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract data
+        title = data['title']
+        subject = data['subject']
+        description = data['description']
+        location = data['location']
+        days = data['days']
+        time = data['time']
+        name_user = session['name']
+
+        # Insert data into the database
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                    (title, subject, description, location, days, time, name_user))
+        mysql.connection.commit()
+        cur.close()
+
+        return jsonify({'message': 'Study group created successfully'})
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return jsonify({'error': 'ERROR PROCESANDO LOS DATOS DEL GRUPO DE ESTUDIO.'})
+
 
 # Podcast
 @app.route('/podcast')
@@ -1000,6 +1029,39 @@ def get_openai_response(messages):
     )
 
     return response['choices'][0]['message']['content']
+
+@app.route("/get_welcome_message", methods=["POST"])
+def get_welcome_message():
+    user_name = session.get('name', 'Usuario')
+    welcome_message = f"Bienvenido, {user_name} ¿En qué puedo ayudarte?"
+    return welcome_message
+
+
+#JARVIS
+@app.route("/jarvis")
+def jarvis():
+    user_profile = {
+            'name': session['name'],
+            'last_name': session['last_name'],
+            'status': session['status']
+           
+        }
+    return render_template('jarvis.html', user_profile=user_profile)
+
+@app.route('/ask', methods=['POST'])
+def ask_assistant():
+    data = request.json
+    user_input = data.get('input')
+
+
+    # Lógica para procesar 'user_input' y enviar la solicitud a la API de OpenAI
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=user_input,
+        max_tokens=100
+    )
+
+    return jsonify({'response': response['choices'][0]['text']})
 
 
 if __name__ == '__main__':
