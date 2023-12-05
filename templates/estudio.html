@@ -129,10 +129,11 @@
                               <tr>
                                  <th>Titulo</th>
                                  <th>Asignatura</th>
-                                 <th>Descripcion</th>
                                  <th>Dónde</th>
                                  <th>Día</th>
                                  <th>Hora</th>
+                                 <th>Creado por</th>
+                                 <th>Descripcion</th>
                                  <!-- Add any additional columns you may have -->
                               </tr>
                            </thead>
@@ -141,10 +142,11 @@
                                  <tr>
                                  <td>{{ group.titulo }}</td>
                                  <td>{{ group.asignatura }}</td>
-                                 <td>{{ group.descripcion }}</td>
                                  <td>{{ group.ubicacion }}</td>
                                  <td>{{ group.dias }}</td>
                                  <td>{{ group.hora }}</td>
+                                 <td>{{ group.creador }}</td>
+                                 <td>{{ group.descripcion }}</td>
                                  <!-- Add any additional columns you may have -->
                                  </tr>
                               {% endfor %}
@@ -183,11 +185,6 @@
                                        </div>
 
                                        <div class="form-group">
-                                          <label for="description">Descripcion:</label>
-                                          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                                       </div>
-
-                                       <div class="form-group">
                                           <label for="location">Ubicacion:</label>
                                           <input type="text" class="form-control" id="location" name="location" required>
                                        </div>
@@ -200,6 +197,11 @@
                                        <div class="form-group">
                                           <label for="time">Hora:</label>
                                           <input type="time" class="form-control" id="time" name="time" required>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label for="description">Descripcion:</label>
+                                          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                                        </div>
 
                                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button-->

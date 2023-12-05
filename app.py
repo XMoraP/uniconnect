@@ -707,16 +707,17 @@ def estudioTutor():
     asignatura = request.form.get('subject')
     descripcion = request.form.get('description')
     ubicacion = request.form.get('location')
-    #dias = '2023-12-01'
-    #hora = request.form.get('time')
+    creador = user_profile['name']
+    dias = request.form.get('days')
+    hora = request.form.get('time')
 
     # Obtener el archivo de imagen
     # photo = request.files['photo']
     #photo_data = photo.read()
 
     # Guardar la información del grupo en la base de datos
-    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s,  '2023-12-01', '12:00:00')"
-    values = (titulo, asignatura, descripcion, ubicacion)
+    query = "INSERT INTO study_prueba (title, subject, description, location, days, time, creador) VALUES (%s, %s, %s, %s, '2023-12-01', '12:00:00', %s)"
+    values = (titulo, asignatura, descripcion, ubicacion, creador)
     cursor = mysql.connection.cursor()
     cursor.execute(query, values)
     mysql.connection.commit()
@@ -735,6 +736,8 @@ def estudioTutor():
         ubicacion = group['location']
         dias = group['days']
         hora = group['time']
+        creador: user_profile['name']
+
 
         group_info = {
             'titulo': titulo,
@@ -743,6 +746,7 @@ def estudioTutor():
             'ubicacion': ubicacion,
             'dias': dias,
             'hora': hora,
+            'creador': creador
         }
         groups_list.append(group_info)
 
@@ -766,16 +770,16 @@ def estudio():
     asignatura = request.form.get('subject')
     descripcion = request.form.get('description')
     ubicacion = request.form.get('location')
-    #dias = '2023-12-01'
-    #hora = request.form.get('time')
+    dias = request.form.get('days')
+    hora = request.form.get('time')
 
     # Obtener el archivo de imagen
     # photo = request.files['photo']
     #photo_data = photo.read()
 
     # Guardar la información del grupo en la base de datos
-    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s,  '2023-12-01', '12:00:00')"
-    values = (titulo, asignatura, descripcion, ubicacion)
+    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s, %s, %s)"
+    values = (titulo, asignatura, descripcion, ubicacion, dias, hora)
     cursor = mysql.connection.cursor()
     cursor.execute(query, values)
     mysql.connection.commit()
@@ -794,6 +798,7 @@ def estudio():
         ubicacion = group['location']
         dias = group['days']
         hora = group['time']
+        # creador = user_profile['name']
 
         group_info = {
             'titulo': titulo,
@@ -802,48 +807,12 @@ def estudio():
             'ubicacion': ubicacion,
             'dias': dias,
             'hora': hora,
+            # 'creador': creador
         }
         groups_list.append(group_info)
 
     return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
-
-
-@app.route('/create_study_group', methods=['POST'])
-def create_study_group():
-    try:
-
-        required_fields = ['title', 'subject', 'description', 'location', 'days', 'time']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({'error': f'Missing required field: {field}'})
-
-        # Additional validation if needed, e.g., ensuring 'days' and 'time' have the correct format.
-
-        # Get data from the request
-        data = request.get_json()
-
-        # Extract data
-        title = data['title']
-        subject = data['subject']
-        description = data['description']
-        location = data['location']
-        days = data['days']
-        time = data['time']
-        name_user = session['name']
-
-        # Insert data into the database
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                    (title, subject, description, location, days, time, name_user))
-        mysql.connection.commit()
-        cur.close()
-
-        return jsonify({'message': 'Study group created successfully'})
-
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        return jsonify({'error': 'ERROR PROCESANDO LOS DATOS DEL GRUPO DE ESTUDIO.'})
 
 
 # Podcast
