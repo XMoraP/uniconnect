@@ -137,14 +137,14 @@
                               </tr>
                            </thead>
                            <tbody>
-                              {% for group in study_groups %}
+                              {% for group in groups %}
                                  <tr>
-                                 <td>{{ group.title }}</td>
-                                 <td>{{ group.subject }}</td>
-                                 <td>{{ group.description }}</td>
-                                 <td>{{ group.location }}</td>
-                                 <td>{{ group.days }}</td>
-                                 <td>{{ group.time }}</td>
+                                 <td>{{ group.titulo }}</td>
+                                 <td>{{ group.asignatura }}</td>
+                                 <td>{{ group.descripcion }}</td>
+                                 <td>{{ group.ubicacion }}</td>
+                                 <td>{{ group.dias }}</td>
+                                 <td>{{ group.hora }}</td>
                                  <!-- Add any additional columns you may have -->
                                  </tr>
                               {% endfor %}
@@ -159,7 +159,7 @@
                      <div class="modal fade" id="createStudyGroupModal" tabindex="-1" role="dialog" 
                         aria-labelledby="createStudyGroupModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                           <div class="modal-content">
+                           <div class="modal-content" style="margin-top: 200px;">
                               <div class="modal-header">
                                     <h5 class="modal-title" id="createStudyGroupModalLabel">Crear Grupo de Estudio</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -168,7 +168,7 @@
                               </div>
                               <div class="modal-body">
                                     <!-- Form for study group information -->
-                                    <form id="studyGroupForm">
+                                    <form action="/estudio" method="post" id="studyGroupForm">
 
                                        <div class="form-group">
                                           <label for="title">Titulo:</label>
@@ -203,7 +203,7 @@
                                        </div>
 
                                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button-->
-                                       <button type="submit" class="btn btn-primary">Crear grupo de estudio</button>
+                                       <button type="submit" class="btn btn-primary" id="createGroupBtn">Crear grupo de estudio</button>
                                     </form>
                               </div>
                            </div>
@@ -217,9 +217,11 @@
       </div>
 
       <!-- jQuery and Bootstrap scripts -->
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <!-- Include leanModal script after jQuery -->
+      <script type="text/javascript" src="path_to/jquery.leanModal.min.js"></script>
       <!-- wow animation -->
       <script src="./static/js/animate.js"></script>
       <!-- select country -->

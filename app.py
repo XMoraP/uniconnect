@@ -690,40 +690,136 @@ def download_file():
     )
 
 
-@app.route('/estudio')
-def estudio():
-
-    # Obtener el perfil del usuario
-    user_profile = loginfo(session)
-
-    # Retrieve all data from the 'study_groups' table
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM study_groups")
-    study_groups = cur.fetchall()
-    cur.close()
-
-    return render_template('estudio.html', user_profile=user_profile, study_groups=study_groups)
-
-
-@app.route('/estudioTutor')
+@app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
+    }
 
-    # Obtener el perfil del usuario
-    user_profile = loginfo(session)
+    # Obtener los datos del formulario
+    titulo = request.form.get('title')
+    asignatura = request.form.get('subject')
+    descripcion = request.form.get('description')
+    ubicacion = request.form.get('location')
+    #dias = '2023-12-01'
+    #hora = request.form.get('time')
 
-    # Retrieve all data from the 'study_groups' table
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM study_groups")
-    study_groups = cur.fetchall()
-    cur.close()
+    # Obtener el archivo de imagen
+    # photo = request.files['photo']
+    #photo_data = photo.read()
 
-    return render_template('estudioTutor.html', user_profile=user_profile, study_groups=study_groups)
+    # Guardar la información del grupo en la base de datos
+    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s,  '2023-12-01', '12:00:00')"
+    values = (titulo, asignatura, descripcion, ubicacion)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, values)
+    mysql.connection.commit()
+
+    # Fetch events from the 'studio' table
+    cursor.execute('SELECT * FROM study_prueba')
+    groups = cursor.fetchall()
+    cursor.close()
+
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group['title']
+        asignatura = group['subject']
+        descripcion = group['description']
+        ubicacion = group['location']
+        dias = group['days']
+        hora = group['time']
+
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+        }
+        groups_list.append(group_info)
+
+    return render_template('estudioTutor.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
+@app.route('/estudio', methods=['GET', 'POST'])
+def estudio():
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
+    }
+
+    # Obtener los datos del formulario
+    titulo = request.form.get('title')
+    asignatura = request.form.get('subject')
+    descripcion = request.form.get('description')
+    ubicacion = request.form.get('location')
+    #dias = '2023-12-01'
+    #hora = request.form.get('time')
+
+    # Obtener el archivo de imagen
+    # photo = request.files['photo']
+    #photo_data = photo.read()
+
+    # Guardar la información del grupo en la base de datos
+    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s,  '2023-12-01', '12:00:00')"
+    values = (titulo, asignatura, descripcion, ubicacion)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, values)
+    mysql.connection.commit()
+
+    # Fetch events from the 'studio' table
+    cursor.execute('SELECT * FROM study_prueba')
+    groups = cursor.fetchall()
+    cursor.close()
+
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group['title']
+        asignatura = group['subject']
+        descripcion = group['description']
+        ubicacion = group['location']
+        dias = group['days']
+        hora = group['time']
+
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+        }
+        groups_list.append(group_info)
+
+    return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
 
 @app.route('/create_study_group', methods=['POST'])
 def create_study_group():
     try:
+
+        required_fields = ['title', 'subject', 'description', 'location', 'days', 'time']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'Missing required field: {field}'})
+
+        # Additional validation if needed, e.g., ensuring 'days' and 'time' have the correct format.
+
         # Get data from the request
         data = request.get_json()
 
@@ -734,7 +830,6 @@ def create_study_group():
         location = data['location']
         days = data['days']
         time = data['time']
-
         name_user = session['name']
 
         # Insert data into the database
@@ -747,7 +842,8 @@ def create_study_group():
         return jsonify({'message': 'Study group created successfully'})
 
     except Exception as e:
-        return jsonify({'error': str(e)})
+        print(f"An error occurred: {str(e)}")
+        return jsonify({'error': 'ERROR PROCESANDO LOS DATOS DEL GRUPO DE ESTUDIO.'})
 
 
 # Podcast
