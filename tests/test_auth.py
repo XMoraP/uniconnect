@@ -21,11 +21,12 @@ def client():
     client = app.test_client()
     yield client
 
-def test_agregar_user(client):
-    # Crear un objeto Mock para representar la conexión a la base de datos
+@pytest.fixture
+def mock_db():
+    # Create a mock for the database connection
     mock_database = Mock()
 
-    # Crear una aplicación Flask para obtener un contexto de aplicación
+    # Create a Flask app for obtaining an application context
     app = Flask(__name__)
     app.config['MYSQL_HOST'] = os.getenv("DB_HOST")  
     app.config['MYSQL_USER'] = os.getenv("DB_USER")
@@ -34,20 +35,24 @@ def test_agregar_user(client):
     app.config['MYSQL_CURSORCLASS'] = os.getenv("CURSOSRCLASS")
     MySQL(app)
 
-    # Decorar la función de prueba para reemplazar la llamada real a la base de datos con el Mock
+    # Decorate the function with patch to replace the real database connection with the mock
     with patch('flask_mysqldb.MySQL.connection', mock_database):
-        # Configurar el comportamiento esperado del Mock (simular un resultado de la base de datos)
-        mock_cursor = mock_database.cursor.return_value
-        mock_cursor.fetchone.return_value = None  # Simula que no existe ningún usuario con el mismo email
+        yield mock_database
 
-        # Simular una solicitud POST con datos de registro
-        response = client.post('/agregar', data=dict(
-            name='John',
-            last_name='Doe',
-            email='john@example.com',
-            password='password123'
-        ), follow_redirects=True)
+def test_agregar_user(client, mock_db):
+    # Configure the expected behavior of the mock (simulate a database result)
+    mock_cursor = mock_db.cursor.return_value
+    mock_cursor.fetchone.return_value = None  # Simulate that there is no user with the same email
 
-        # Verificar que la respuesta sea exitosa (código 200)
-        assert response.status_code == 200
+    # Simulate a POST request with registration data
+    response = client.post('/agregar', data=dict(
+        name='John',
+        last_name='Doe',
+        email='john@example.com',
+        password='password123'
+    ), follow_redirects=True)
+
+    # Verify that the response is successful (status code 200)
+    assert response.status_code == 200
+    # Add more assertions based on your specific requirements
 
