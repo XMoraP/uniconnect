@@ -658,17 +658,18 @@ def download_file():
         as_attachment=True
     )
 
+
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
 
-    # Obtener los datos del usuario
     user_profile = {
         'name': session.get('name'),
         'last_name': session['last_name'],
         'email': session['email'],
         'status': session['status'],
         'nombre_grado': session['nombre_grado'],
-        'photo_url': 'static/images/userPhoto.png'
+        'photo_url': 'static/images/userPhoto.png',
+        'role': 'Estudiante',
     }
 
     if request.method == 'POST':
@@ -681,10 +682,6 @@ def estudio():
         hora = request.form.get('time')
 
         creador = user_profile['name'] + " " + user_profile['last_name']
-
-        # Obtener el archivo de imagen
-        # photo = request.files['photo']
-        #photo_data = photo.read()
 
         # Guardar la información del grupo en la base de datos
         query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
@@ -704,13 +701,13 @@ def estudio():
     # Obtener los grupos de estudio de la base de datos
     groups_list = []
     for group in groups:
-        titulo = group[0]
-        asignatura = group[1]
-        descripcion = group[2]
-        ubicacion = group[3]
-        dias = group[4]
-        hora = group[5]
-        creador = group[6]
+        titulo = group['title']
+        asignatura = group['subject']
+        descripcion = group['description']
+        ubicacion = group['location']
+        dias = group['days']
+        hora = group['time']
+        creador = group['name_user']
 
         group_info = {
             'titulo': titulo,
@@ -722,11 +719,14 @@ def estudio():
             'creador': creador
         }
         groups_list.append(group_info)
-
+    
     return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+
 
 @app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
+
     user_profile = {
         'name': session.get('name'),
         'last_name': session['last_name'],
@@ -737,26 +737,27 @@ def estudioTutor():
         'role': 'Estudiante',
     }
 
-    # Obtener los datos del formulario
-    titulo = request.form.get('title')
-    asignatura = request.form.get('subject')
-    descripcion = request.form.get('description')
-    ubicacion = request.form.get('location')
-    # creador = user_profile['name']
-    dias = request.form.get('days')
-    hora = request.form.get('time')
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        titulo = request.form.get('title')
+        asignatura = request.form.get('subject')
+        descripcion = request.form.get('description')
+        ubicacion = request.form.get('location')
+        dias = request.form.get('days')
+        hora = request.form.get('time')
 
-    # Obtener el archivo de imagen
-    # photo = request.files['photo']
-    #photo_data = photo.read()
+        creador = user_profile['name'] + " " + user_profile['last_name']
 
-    # Guardar la información del grupo en la base de datos
-    query = "INSERT INTO study_prueba (title, subject, description, location, days, time) VALUES (%s, %s, %s, %s, %s, %s)"
-    values = (titulo, asignatura, descripcion, ubicacion, dias, hora)
+        # Guardar la información del grupo en la base de datos
+        query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
+        values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, values)
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('estudioTutor'))
+
     cursor = mysql.connection.cursor()
-    cursor.execute(query, values)
-    mysql.connection.commit()
-
     # Fetch events from the 'studio' table
     cursor.execute('SELECT * FROM study_prueba')
     groups = cursor.fetchall()
@@ -771,8 +772,7 @@ def estudioTutor():
         ubicacion = group['location']
         dias = group['days']
         hora = group['time']
-        creador: user_profile['name']
-
+        creador = group['name_user']
 
         group_info = {
             'titulo': titulo,
@@ -784,8 +784,8 @@ def estudioTutor():
             'creador': creador
         }
         groups_list.append(group_info)
-
-    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    
+    return render_template('estudioTutor.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
 # Podcast
@@ -806,7 +806,6 @@ def podcast():
         description = podcast['description']
         id_podcast = podcast['id_podcast']
 
-        
         podcast_info = {
             'nombre_podcast': nombre_podcast,
             'nombre_usuario': nombre_usuario,
