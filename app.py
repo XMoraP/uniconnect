@@ -45,6 +45,7 @@ def index():
 def agregar():
     error = None
     mensaje = None
+    
     if request.method == 'POST':
         nombre = request.form['name']
         apellido = request.form['last_name']
