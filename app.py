@@ -154,38 +154,6 @@ def asignaturas():
     user_profile = loginfo(session)
     return render_template('asignaturas.html', user_profile=user_profile)
 
-#Elements
-@app.route('/general_elements')
-def general_elements():
-    return render_template('general_elements.html')
-
-
-
-@app.route('/media_gallery')
-def media_gallery():
-    return render_template('media_gallery.html')
-
-@app.route('/invoice')
-def invoice():
-    return render_template('invoice.html')
-
-@app.route('/icons')
-def icons():
-    return render_template('icons.html')
-#Apps
-@app.route('/email')
-def email():
-    return render_template('email.html')
-
-@app.route('/calendar')
-def calendar():
-    return render_template('calendar.html')
-
-#Pricing_Tables
-@app.route('/price')
-def price():
-    return render_template('price.html')
-
 #Contact
 @app.route('/contact')
 def contact():
@@ -689,6 +657,72 @@ def download_file():
         as_attachment=True
     )
 
+@app.route('/estudio', methods=['GET', 'POST'])
+def estudio():
+
+    # Obtener los datos del usuario
+    user_profile = {
+        'name': session.get('name'),
+        'last_name': session['last_name'],
+        'email': session['email'],
+        'status': session['status'],
+        'nombre_grado': session['nombre_grado'],
+        'photo_url': 'static/images/userPhoto.png'
+    }
+
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        titulo = request.form.get('title')
+        asignatura = request.form.get('subject')
+        descripcion = request.form.get('description')
+        ubicacion = request.form.get('location')
+        dias = request.form.get('days')
+        hora = request.form.get('time')
+
+        creador = user_profile['name'] + " " + user_profile['last_name']
+
+        # Obtener el archivo de imagen
+        # photo = request.files['photo']
+        #photo_data = photo.read()
+
+        # Guardar la información del grupo en la base de datos
+        query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
+        values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, values)
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('estudio'))
+
+    cursor = mysql.connection.cursor()
+    # Fetch events from the 'studio' table
+    cursor.execute('SELECT * FROM study_prueba')
+    groups = cursor.fetchall()
+    cursor.close()
+
+    # Obtener los grupos de estudio de la base de datos
+    groups_list = []
+    for group in groups:
+        titulo = group[0]
+        asignatura = group[1]
+        descripcion = group[2]
+        ubicacion = group[3]
+        dias = group[4]
+        hora = group[5]
+        creador = group[6]
+
+        group_info = {
+            'titulo': titulo,
+            'asignatura': asignatura,
+            'descripcion': descripcion,
+            'ubicacion': ubicacion,
+            'dias': dias,
+            'hora': hora,
+            'creador': creador
+        }
+        groups_list.append(group_info)
+
+    return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 @app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
@@ -751,76 +785,6 @@ def estudioTutor():
         groups_list.append(group_info)
 
     return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
-
-
-@app.route('/estudio', methods=['GET', 'POST'])
-def estudio():
-
-    # Obtener los datos del usuario
-    user_profile = {
-        'name': session.get('name'),
-        'last_name': session['last_name'],
-        'email': session['email'],
-        'status': session['status'],
-        'nombre_grado': session['nombre_grado'],
-        'photo_url': 'static/images/userPhoto.png',
-        'role': 'Estudiante',
-    }
-
-    if request.method == 'POST':
-        # Obtener los datos del formulario
-        titulo = request.form.get('title')
-        asignatura = request.form.get('subject')
-        descripcion = request.form.get('description')
-        ubicacion = request.form.get('location')
-        dias = request.form.get('days')
-        hora = request.form.get('time')
-
-        creador = user_profile['name'] + " " + user_profile['last_name']
-
-        # Obtener el archivo de imagen
-        # photo = request.files['photo']
-        #photo_data = photo.read()
-
-        # Guardar la información del grupo en la base de datos
-        query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
-        values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
-        cursor = mysql.connection.cursor()
-        cursor.execute(query, values)
-        mysql.connection.commit()
-        cursor.close()
-        return redirect(url_for('estudio'))
-
-    cursor = mysql.connection.cursor()
-    # Fetch events from the 'studio' table
-    cursor.execute('SELECT * FROM study_prueba')
-    groups = cursor.fetchall()
-    cursor.close()
-
-    # Obtener los grupos de estudio de la base de datos
-    groups_list = []
-    for group in groups:
-        titulo = group['title']
-        asignatura = group['subject']
-        descripcion = group['description']
-        ubicacion = group['location']
-        dias = group['days']
-        hora = group['time']
-        creador = group['name_user']
-
-        group_info = {
-            'titulo': titulo,
-            'asignatura': asignatura,
-            'descripcion': descripcion,
-            'ubicacion': ubicacion,
-            'dias': dias,
-            'hora': hora,
-            'creador': creador
-        }
-        groups_list.append(group_info)
-
-    return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
-
 
 
 # Podcast
@@ -974,11 +938,23 @@ def num_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT count(mensaje) AS conteo FROM Tutoria WHERE id_tutor = %s", (tu_id,))
-    num = cursor.fetchone()['conteo']
+
+    result = cursor.fetchone()
+    # num = cursor.fetchone()['conteo']
+
+    if result is not None:
+        num = result['conteo']
+        return num
+    else:
+        # Handle the case where result is None, e.g., set a default value or raise an exception.
+        return 0  # Default value, adjust as needed
+
+    """
     if(num > 9):
         return "+9"
     else:
         return num
+    """
 
 #CHATBOT
 @app.route("/chatbot")
