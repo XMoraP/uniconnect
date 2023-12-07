@@ -26,3 +26,17 @@ def test_agregar_user(client, mock_db):
     assert response.status_code == 200
     # Add more assertions based on your specific requirements
 
+def test_login(client, mock_db):
+    # Configure the expected behavior of the mock (simulate a database result)
+    mock_cursor = mock_db.cursor.return_value
+    mock_cursor.fetchone.return_value = {'id_user': 1, 'contrasenna': 'password123', 'nombre': 'John', 'apellido': 'Doe', 'status': 'SomeStatus', 'nombre_grado': 'SomeGrado'}
+
+    # Simulate a POST request with login data
+    response = client.post('/login', data=dict(
+        email='john@example.com',
+        password='password123'
+    ))
+
+    # Verify that the response is successful (status code 200)
+    assert response.status_code == 302
+    # Add more assertions based on your specific requirements
