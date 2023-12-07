@@ -167,7 +167,7 @@
                      <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
                      <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                      <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
-                     <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
+                     <li><a href="/estudio"><i class="fas`raduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
                      <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
                      <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
                      <li><a href="/jarvis"><i class="fas fa-robot" style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
@@ -281,12 +281,28 @@
                                         <button type="submit" class="btn btn-primary">Subir Podcast</button>
                                     </form>
                                 </div>
+                                <div class="modal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">Descripción</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Modal body text goes here.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
                     <!-- Modal para grabar un podcast -->
-                    <div class="modal fade" id="recordPodcastModal" tabindex="-1" role="dialog"
-                        aria-labelledby="addPodcastModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="recordPodcastModal" tabindex="-1" role="dialog" aria-labelledby="addPodcastModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

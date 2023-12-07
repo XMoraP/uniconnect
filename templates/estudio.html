@@ -9,10 +9,10 @@
 
     <!-- Title and favicon -->
     <title>Grupos de estudio</title>
-    <link rel="icon" href="../static/images/logoUniConnect.png" type="image/png">
+    <link rel="icon" href="./static/images/logoUniConnect.png" type="image/png">
 
     <!-- CSS files -->
-    <link rel="stylesheet" href="../static/fonts/flaticon.css">
+    <link rel="stylesheet" href="./static/fonts/flaticon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/css/style.css">
@@ -25,59 +25,6 @@
     <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- Custom styles -->
-    <style>
-        .btn-warning {
-            background-color: #ffc107;
-            color: #212529;
-            border: 1px solid #ffc107;
-            padding: auto;
-            margin: 20px;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            border: 1px solid #e0a800;
-            color: #212529;
-        }
-
-        #exampleModalCenter {
-            background-color: whitesmoke;
-            padding: auto;
-            margin: auto;
-        }
-
-        #exampleModalCenter .modal-header {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        #exampleModalCenter .modal-body {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        #studyGroupForm {
-            margin-bottom: 0;
-        }
-
-        #studyGroupForm input,
-        #studyGroupForm textarea {
-            margin-bottom: 10px;
-        }
-
-        #createGroupBtn {
-            background-color: #28a745;
-            color: #fff;
-            border: 1px solid #28a745;
-        }
-
-        #createGroupBtn:hover {
-            background-color: #218838;
-            border: 1px solid #218838;
-        }
-    </style>
 
 </head>
    
@@ -152,124 +99,129 @@
                   </nav>
                </div>
                <!-- end topbar -->
-               <!-- Notification -->
-               <div class="notification-popup" id="ventanaNotificaciones">
-                  <h3><br>Notificaciones</h3>
-                  {% for notificacion in notificaciones %}
-                     <div class="notification">{{ notificacion.mensaje }}</div>
-                  {% endfor %}
-               </div>
                   
                <!-- Dashboard inner -->
                <div class="midde_cont">
                   <div class="container-fluid">
-
                      <div class="page_title">
                         <h2>Grupos de Estudio</h2>
                      </div>
-
+                  </div>
+                  <div class="container-fluid">
                      <div class="col-md-4 mb-3">
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">Formar Grupo</button>
+                        <!-- Button to trigger the modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
+                           Crear grupo de estudio
+                        </button>                
                      </div>
-
                   </div>
                </div>
 
-               <!-- middle content -->
+
                <div class="container-fluid">
 
-                  <div class="row">
-                     {% for grupo in grupos %}
-                        <div class="col-md-4 mb-4" id="eventContaines">
-                           <div class="card">
-                                 <!--img class="card-img-top" src="${photoURL}" alt="Group Header"-->
-                                 <div class="card-body">
-                                    <h5 class="card-title">{{ group.titulo }}</h5>
-                                    <p class="card-text">Asignatura: {{ group.asignatura }}</p>
-                                    <p class="card-text">Resumen: {{ group.descripcion }}</p>
-                                    <p class="card-text">Dónde: {{ group.ubicacion }}</p>
-                                    <p class="card-text">Qué día: {{ group.dias }}</p>
-                                    <p class="card-text">A qué hora: {{ group.hora }}</p>
-                                    <button type="button" class="btn btn-success">¡Me uno!</button>
-                                 </div>
-                           </div>
-                        </div>
-                     {% endfor %}
+                  <!-- Display created study groups as containers -->
+                     <!-- Add this block to display the study groups data -->
+                     <div>
+                        <!--h2>Grupos</h2-->
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th>Titulo</th>
+                                 <th>Asignatura</th>
+                                 <th>Dónde</th>
+                                 <th>Día</th>
+                                 <th>Hora</th>
+                                 <th>Descripcion</th>
+                                 <th>Creado por</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for group in groups %}
+                                 <tr>
+                                 <td>{{ group.titulo }}</td>
+                                 <td>{{ group.asignatura }}</td>
+                                 <td>{{ group.ubicacion }}</td>
+                                 <td>{{ group.dias }}</td>
+                                 <td>{{ group.hora }}</td>
+                                 <td>{{ group.descripcion }}</td>
+                                 <td>{{ group.creador }}</td>
+                                 </tr>
+                              {% endfor %}
+                           </tbody>
+                           <tbody id="studyGroupTableBody">
+                              <!-- Existing study groups will be added here -->
+                           </tbody>
+                        </table>
+                     </div>
+ 
+                     <!-- Modal de crear grupo -->
+                     <div class="modal fade" id="createStudyGroupModal" tabindex="-1" role="dialog" 
+                        aria-labelledby="createStudyGroupModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                           <div class="modal-content" style="margin-top: 200px;">
+                              <div class="modal-header">
+                                    <h5 class="modal-title" id="createStudyGroupModalLabel">Crear Grupo de Estudio</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </button>
+                              </div>
+                              <div class="modal-body">
+                                    <!-- Form for study group information -->
+                                    <form action="/estudio" method="post" id="studyGroupForm">
 
-                  </div>
+                                       <div class="form-group">
+                                          <label for="title">Titulo:</label>
+                                          <input type="text" class="form-control" id="title" 
+                                          placeholder="Ingrese un titulo para el grupo de estudio" name="title" required>
+                                       </div>
 
-                  <!-- Modal para crear grupos de estudio -->
-                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                     <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalCenterTitle">Nuevo grupo de estudio</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                              </button>
-                           </div>
-                           <div class="modal-body">
-                              <!-- Form for adding study group details -->
-                                 <form id="studyGroupForm" action="/estudio" method="POST">
-      
-                                 <div class="form-group">
-                                    <label for="headerPhoto">Foto o póster:</label>
-                                    <input type="file" class="form-control-file" id="headerPhoto" accept="image/*" capture="environment">
-                                 </div>
-                                 
-                                 <div class="form-group">
-                                    <label for="groupTitle">Titulo:</label>
-                                    <input type="text" class="form-control" id="groupTitle" placeholder="Ingrese el título" required>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="subject">Asignatura:</label>
-                                    <input type="text" class="form-control" id="subject" placeholder="Ingrese la asignatura" required>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="description">Descripción:</label>
-                                    <textarea class="form-control" id="description" placeholder="Ingrese la descripción" rows="3" required></textarea>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="location">Ubicación:</label>
-                                    <input type="text" class="form-control" id="location" placeholder="Ingrese la ubicación" required>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="days">Días:</label>
-                                    <input type="datetime-local" class="form-control" id="days" required>
-                                 </div>
-                                 <div class="form-group">
-                                       <label for="time">Hora:</label>
-                                       <input type="time" class="form-control" id="time" required>
-                                 </div>
-                                
-                                 <!-- Add the "Crear Grupo" button with the proper ID -->
-                                 <button type="button" class="btn btn-primary" id="createGroupBtn">Crear Grupo</button>
-                              </form>
-                           </div>
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                              <!-- Remove the button from here -->
+                                       <div class="form-group">
+                                          <label for="subject">Asignatura:</label>
+                                          <input type="text" class="form-control" id="subject" 
+                                          placeholder="Ingrese la asignatura" name="subject" required>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label for="location">Ubicacion:</label>
+                                          <input type="text" class="form-control" id="location" name="location" required>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label for="days">Dias:</label>
+                                          <input type="date" class="form-control" id="days" name="days" required>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label for="time">Hora:</label>
+                                          <input type="time" class="form-control" id="time" name="time" required>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label for="description">Descripcion:</label>
+                                          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                       </div>
+
+                                       <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button-->
+                                       <button type="submit" class="btn btn-primary" id="createGroupBtn">Crear grupo de estudio</button>
+                                    </form>
+                              </div>
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <!-- end model popup -->
+
                </div>
 
-               <!-- end middle content -->
             </div>
-            <!-- end content -->
          </div>
       </div>
 
       <!-- jQuery and Bootstrap scripts -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <!-- jQuery -->
-      <script src="./static/js/jquery.min.js"></script>
-      <script src="./static/js/popper.min.js"></script>
-      <script src="./static/js/bootstrap.min.js"></script>
+      <!-- Include leanModal script after jQuery -->
+      <script type="text/javascript" src="path_to/jquery.leanModal.min.js"></script>
       <!-- wow animation -->
       <script src="./static/js/animate.js"></script>
       <!-- select country -->
@@ -301,7 +253,11 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>       
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>     
+      
+      
+      <!--JavaScript to handle the creation of the study groups and storing in the table study_groups-->
+      <script src="./static/js/study_group.js"></script>
 
    </body>
 </html>
