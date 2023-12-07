@@ -2,12 +2,26 @@
 
 import pytest
 import os
+import sys
 from unittest.mock import patch, Mock
 from flask import Flask
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 
 load_dotenv()
+
+# Obtener la ruta del directorio raíz del proyecto
+current_dir = os.path.dirname(os.path.realpath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, ".."))
+sys.path.append(root_dir)
+from app import app
+
+@pytest.fixture
+def client():
+    app.config['TESTING'] = True
+    client = app.test_client()
+    yield client
+
 @pytest.fixture
 def mock_db():
     # Create a mock for the database connection

@@ -9,18 +9,6 @@ from flask_mysqldb import MySQL
 
 load_dotenv()
 
-# Obtener la ruta del directorio raíz del proyecto
-current_dir = os.path.dirname(os.path.realpath(__file__))
-root_dir = os.path.abspath(os.path.join(current_dir, ".."))
-sys.path.append(root_dir)
-from app import app
-
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    client = app.test_client()
-    yield client
-
 def test_agregar_user(client, mock_db):
     # Configure the expected behavior of the mock (simulate a database result)
     mock_cursor = mock_db.cursor.return_value
