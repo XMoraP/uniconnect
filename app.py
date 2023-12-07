@@ -969,6 +969,7 @@ def obtener_notificaciones():
     print("estoy en obtener_Notificaciones")
     return notificaciones
 
+
 def num_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
