@@ -1000,10 +1000,12 @@ def chatbotTutor():
         }
     return render_template('chatbotTutor.html', user_profile=user_profile)
 
-
 @app.route("/get", methods=["GET", "POST"])
 def chat():
     msg = request.form["msg"]
+    if not msg:
+        return jsonify({"error": "El mensaje está vacío"}), 400  # Retorna un error 400 si el mensaje está vacío
+    
     input = msg
     chat_messages = [{'role': 'system', 'content': 'You are a helpful assistant.'}, {'role': 'user', 'content': input}]
     return get_openai_response(chat_messages)
