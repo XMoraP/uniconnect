@@ -965,8 +965,10 @@ a[data-toggle="collapse"] {
 }
 
 .user_img img {
-    border-radius: 100% 100%;
-    float: left
+    float: left;
+    object-fit: cover; /* Mantiene la relación de aspecto y cubre el contenedor */
+    border-radius: 50%; /* Opcional: aplica bordes redondeados */
+
 }
 
 .user_info {

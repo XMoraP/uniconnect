@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let speaking = false;
     let utterance;
     let firstTime = true;
+    let questionsAndAnswers = {};
+
 
     function welcomeMessage() {
         const userName = talkButton.getAttribute('data-username');
@@ -18,8 +20,20 @@ document.addEventListener('DOMContentLoaded', function() {
         firstTime = false;
     }
 
+    fetch('./static/js/questions.json')
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            questionsAndAnswers = data;
+        })
+        .catch(error => {
+            console.error('Error al cargar el archivo JSON:', error);
+        });
+
+
     talkButton.addEventListener('click', function() {
-        
+        console.log(questionsAndAnswers);
         if (!speaking) {
             if (firstTime) {
                 welcomeMessage();
@@ -32,15 +46,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         recognition.onresult = function(event) {
-            const userInput = event.results[0][0].transcript;
+            const userInput = event.results[0][0].transcript.toLowerCase();
 
-            fetch('/ask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ input: userInput })
-            })
+            let response = '';
+
+            Object.keys(questionsAndAnswers).forEach(question => {
+                if (userInput.includes(question)) {
+                    response = questionsAndAnswers[question];
+                }
+            });
+
+            if (!response) {
+                fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ input: userInput })
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (speaking) {
@@ -50,6 +73,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => {
                     console.error('Error:', error);
                 });
+            }
+
+            if (response) {
+                speak(response);
+            }
         };
     });
 
@@ -64,4 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         utterance = new SpeechSynthesisUtterance(text);
         speechSynthesis.speak(utterance);
     }
+
+    
+
 });

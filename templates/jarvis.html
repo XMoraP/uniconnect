@@ -97,9 +97,8 @@
                         </li>
                         <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i>
                                 <span>Chatbot</span></a></li>
-                        <li><a href="/jarvis"><i class="fas fa-robot" style="color: #2f73e9;"></i>
-                                <span>Voice</span></a>
-                        </li>
+                        <li><a href="/jarvis"><i class="fas fa-robot"
+                                    style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -166,8 +165,11 @@
                                 </div>
                                 <h1 class="shimmer-effect">J A R V I S</h1>
                                 <p id="listeningText" style="display: none;">Escuchando...</p>
-                                <p><span>Presiona el icono del <strong>MICRÓFONO</strong> si deaseas preguntar algo a JARVIS.</span>
-                                    <span>Presiona el icono del <strong>STOP</strong> cuando desees que JARVIS deje de hablar.</span></p>
+                                <p><span>Presiona el icono del <strong>MICRÓFONO</strong> si deaseas preguntar algo a
+                                        JARVIS.</span>
+                                    <span>Presiona el icono del <strong>STOP</strong> cuando desees que JARVIS deje de
+                                        hablar.</span>
+                                </p>
                             </div>
                             <div class="input">
                                 <button class="talk" data-username="{{ user_profile['name'] }}"><i
@@ -213,6 +215,7 @@
     <script src="{{ url_for('static', filename='js/sweetalert2.all.js') }}"></script>
     <!--voice-->
     <script src="../static/js/jarvis.js"></script>
+    <script src="../static/js/questions.js"></script>
 
 </body>
 
