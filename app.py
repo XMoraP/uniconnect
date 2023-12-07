@@ -949,7 +949,7 @@ def num_notificaciones():
         # Handle the case where result is None, e.g., set a default value or raise an exception.
         return 0  # Default value, adjust as needed
 
-    """
+    """ esto nos estaba fastidiando el codigo juan 
     if(num > 9):
         return "+9"
     else:
