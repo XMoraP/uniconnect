@@ -78,6 +78,7 @@
     margin: 0;
     padding: 0;
     outline: none !important;
+    font-family: 'Poppins', sans-serif;
 }
 
 html,
@@ -1263,7 +1264,7 @@ a[data-toggle="collapse"] {
     font-weight: 600;
     position: relative;
     color: #15283c;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .time_form {
@@ -2863,12 +2864,12 @@ ul.inbox-pagination li {
 }
 
 .modal-header h4.modal-title {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
 }
 
 .modal-body label {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
 
@@ -3749,12 +3750,13 @@ table.projects tr td:first-child {
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     height: 50px; /* Asegura que el contenedor ocupe toda la altura de la ventana */
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .mi-titulo {
     font-weight: bold; /* Hace que el título sea negrita */
     color: #202073; /* Cambia el color del título a rojo (puedes usar otros valores de color) */
+    font-family: 'Poppins', sans-serif;
   }
   
 /*------------------------------------------------------------------
