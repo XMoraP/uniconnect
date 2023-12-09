@@ -684,7 +684,7 @@ def estudio():
         creador = user_profile['name'] + " " + user_profile['last_name']
 
         # Guardar la información del grupo en la base de datos
-        query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
+        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
         values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
         cursor = mysql.connection.cursor()
         cursor.execute(query, values)
@@ -694,7 +694,7 @@ def estudio():
 
     cursor = mysql.connection.cursor()
     # Fetch events from the 'studio' table
-    cursor.execute('SELECT * FROM study_prueba')
+    cursor.execute('SELECT * FROM study_groups')
     groups = cursor.fetchall()
     cursor.close()
 
@@ -749,7 +749,7 @@ def estudioTutor():
         creador = user_profile['name'] + " " + user_profile['last_name']
 
         # Guardar la información del grupo en la base de datos
-        query = "INSERT INTO study_prueba (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
+        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
         values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
         cursor = mysql.connection.cursor()
         cursor.execute(query, values)
@@ -759,7 +759,7 @@ def estudioTutor():
 
     cursor = mysql.connection.cursor()
     # Fetch events from the 'studio' table
-    cursor.execute('SELECT * FROM study_prueba')
+    cursor.execute('SELECT * FROM study_groups')
     groups = cursor.fetchall()
     cursor.close()
 

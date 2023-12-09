@@ -102,38 +102,35 @@
                   
                <!-- Dashboard inner -->
                <div class="midde_cont">
+
                   <div class="container-fluid">
                      <div class="page_title">
                         <h2>Grupos de Estudio</h2>
                      </div>
                   </div>
-                  <div class="container-fluid">
-                     <div class="col-md-4 mb-3">
-                        <!-- Button to trigger the modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
-                           Crear grupo de estudio
-                        </button>                
-                     </div>
-                  </div>
+                  
                </div>
-
-
+               
                <div class="container-fluid">
 
-                  <!-- Display created study groups as containers -->
-                     <!-- Add this block to display the study groups data -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
+                     Crear grupo de estudio
+                  </button>   
+
+                  <br><br>
                      <div>
                         <!--h2>Grupos</h2-->
-                        <table class="table">
-                           <thead>
+                        <table class="table table-striped table-hover">
+                           <caption>Lista de grupos de estudio</caption>
+                           <thead class="thead-light">
                               <tr>
-                                 <th>Titulo</th>
-                                 <th>Asignatura</th>
-                                 <th>Dónde</th>
-                                 <th>Día</th>
-                                 <th>Hora</th>
-                                 <th>Descripcion</th>
-                                 <th>Creado por</th>
+                                 <th scope="col">Titulo</th>
+                                 <th scope="col">Asignatura</th>
+                                 <th scope="col">Dónde</th>
+                                 <th scope="col">Día</th>
+                                 <th scope="col">Hora</th>
+                                 <th scope="col">Descripcion</th>
+                                 <th scope="col">Creado por</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -153,6 +150,13 @@
                               <!-- Existing study groups will be added here -->
                            </tbody>
                         </table>
+                     </div>
+
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="footer">
+                           <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
+                        </div>
                      </div>
  
                      <!-- Modal de crear grupo -->
@@ -183,17 +187,17 @@
                                        </div>
 
                                        <div class="form-group">
-                                          <label for="location">Ubicacion:</label>
+                                          <label for="location">Dónde:</label>
                                           <input type="text" class="form-control" id="location" name="location" required>
                                        </div>
 
                                        <div class="form-group">
-                                          <label for="days">Dias:</label>
+                                          <label for="days">Qué día:</label>
                                           <input type="date" class="form-control" id="days" name="days" required>
                                        </div>
 
                                        <div class="form-group">
-                                          <label for="time">Hora:</label>
+                                          <label for="time">A la hora:</label>
                                           <input type="time" class="form-control" id="time" name="time" required>
                                        </div>
 

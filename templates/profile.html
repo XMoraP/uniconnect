@@ -164,19 +164,20 @@
                                              <br />
                                              <!--input type ="text" name="nombre" placeholder="Nombre de la Imagen"-->
                                              <input type="file" name="imagen">
+                                             
                                              <input type="file" id="profileImage" accept="image/*"
                                                 style="display:none;">
                                           </label>
 
                                     </div>
                                     <!-- Botón para añadir imagen -->
-                                    <input type="submit" value="Subir Imagen">
+                                    <input type="submit" value="(2) Subir Imagen">
                                     <br />
                                     <div class="profile_contant">
                                        <div class="contact_inner">
                                           <br />
                                           <h3>{{ user_profile['name'] }} {{ user_profile['last_name'] }}</h3>
-                                          <p><strong>Status: </strong>{{ user_profile['status'] }}</p>
+                                          <p><strong>Perfil: </strong>{{ user_profile['status'] }}</p>
                                           <p><strong>Email: </strong>{{ user_profile['email'] }}</p>
                                           <p style="margin-left: 200px; margin-top: -65px;"><strong>Grado: </strong>{{
                                              user_profile['nombre_grado'] }}</p>
@@ -199,7 +200,7 @@
                                                    href="#password_change" role="tab" aria-selected="false">Cambiar
                                                    Contraseña</a>
                                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
-                                                   href="#project_worked" role="tab" aria-selected="false">Ser tutor</a>
+                                                   href="#project_worked" role="tab" aria-selected="false">¡Quiero ser tutor!</a>
 
                                              </div>
                                           </nav>
@@ -209,31 +210,31 @@
                                                 <!-- Formulario de edición de perfil -->
                                                 <form method="POST" action="/guardar_perfil">
                                                    <div class="form-group">
-                                                      <label for="email">Email:</label>
+                                                      <label for="email">Email: </label>
                                                       <input type="email" class="form-control" id="email"
                                                          placeholder="Ingrese su email" name="email" required
                                                          value="{{ user_profile['email'] }}">
                                                    </div>
                                                    <div class="form-group">
-                                                      <label for="name">Nombre:</label>
+                                                      <label for="name">Nombre: </label>
                                                       <input type="text" class="form-control" id="name"
                                                          placeholder="Ingrese su nombre" name="name" required
                                                          value="{{ user_profile['name'] }}">
                                                    </div>
                                                    <div class="form-group">
-                                                      <label for="last_name">Apellido:</label>
+                                                      <label for="last_name">Apellido: </label>
                                                       <input type="text" class="form-control" id="last_name"
                                                          placeholder="Ingrese su apellido" name="last_name" required
                                                          value="{{ user_profile['last_name'] }}">
                                                    </div>
                                                    <div class="form-group">
-                                                      <label for="grado">Grado:</label>
+                                                      <label for="grado">Grado: </label>
                                                       <input type="text" class="form-control" id="grado"
                                                          placeholder="Ingrese su grado" name="grado" required
                                                          value="{{ user_profile['nombre_grado'] }}">
                                                    </div>
                                                    <div class="form-group">
-                                                      <label for="password">Contraseña:</label>
+                                                      <label for="password">Contraseña: </label>
                                                       <input type="password" class="form-control" id="password"
                                                          placeholder="Ingrese su contraseña" name="password" required>
                                                    </div>
@@ -300,9 +301,7 @@
                <!-- footer -->
                <div class="container-fluid">
                   <div class="footer">
-                     <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                        Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                     </p>
+                     <p>Copyright © 2023 Designed by CEU San Pablo University. All rights reserved.</p>
                   </div>
                </div>
             </div>
