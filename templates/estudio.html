@@ -124,48 +124,60 @@
                </div>
                
                <div class="container-fluid">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-12">
 
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
-                     Crear grupo de estudio
-                  </button>   
+                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudyGroupModal">
+                              Crear grupo de estudio
+                           </button>   
+                           <br><br>
 
-                  <br><br>
-                     <div>
-                        <!--h2>Grupos</h2-->
-                        <table class="table table-striped table-hover">
-                           <caption>Lista de grupos de estudio</caption>
-                           <thead class="thead-light">
-                              <tr>
-                                 <th scope="col">Titulo</th>
-                                 <th scope="col">Asignatura</th>
-                                 <th scope="col">Dónde</th>
-                                 <th scope="col">Día</th>
-                                 <th scope="col">Hora</th>
-                                 <th scope="col">Descripcion</th>
-                                 <th scope="col">Creado por</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              {% for group in groups %}
-                                 <tr>
-                                 <td>{{ group.title }}</td>
-                                 <td>{{ group.subject }}</td>
-                                 <td>{{ group.location }}</td>
-                                 <td>{{ group.days }}</td>
-                                 <td>{{ group.time }}</td>
-                                 <td>{{ group.get('description', '') }}</td>
-                                 <td>{{ group.creator }}</td>
-                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteConfirmationModal({{ group.id_group }})">Delete</button>
-                                 </td>
-                                 </tr>
-                              {% endfor %}
-                           </tbody>
-                           <tbody id="studyGroupTableBody">
-                              <!-- Existing study groups will be added here -->
-                           </tbody>
-                        </table>
+                           <div class="table-responsive">
+                              <!--h2>Grupos</h2-->
+                              <table class="table table-collapse table-hover">
+                                 <caption>Lista de grupos de estudio</caption>
+                                 <thead class="thead-light">
+                                    <tr>
+                                       <th scope="col">Titulo</th>
+                                       <th scope="col">Asignatura</th>
+                                       <th scope="col">Dónde</th>
+                                       <th scope="col">Día</th>
+                                       <th scope="col">Hora</th>
+                                       <th scope="col">Creado por</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody id="studyGroupsTable">
+                                    {% for group in groups %}
+                                    <tr>
+                                       <td>{{ group.title }}</td>
+                                       <td>{{ group.subject }}</td>
+                                       <td>{{ group.location }}</td>
+                                       <td>{{ group.days }}</td>
+                                       <td>{{ group.time }}</td>
+                                       <td>{{ group.creator }}</td>
+
+                                       <td>
+                                          <button class="btn btn-default showFire" data-groupid="{{ group.id_group }}">
+                                              <span class="glyphicon glyphicon-fire"></span> Me quiero unir
+                                          </button>
+                                       </td>
+                           
+                                       <td>
+                                             <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteConfirmationModal({{ group.id_group }})">x</button>
+                                       </td>
+                                    </tr>
+                                    {% endfor %}
+                                 </tbody>
+                                 <tbody id="studyGroupTableBody">
+                                    <!-- Existing study groups will be added here -->
+                                 </tbody>
+                              </table>
+
+                           </div>
+                        </div>
                      </div>
+                  </div>
 
                      <!-- footer -->
                      <div class="container-fluid">
@@ -216,19 +228,18 @@
                                           <input type="time" class="form-control" id="time" name="time" required>
                                        </div>
 
-                                       <div class="form-group">
+                                       <!--div class="form-group">
                                           <label for="description">Descripcion:</label>
                                           <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                                       </div>
+                                       </div-->
 
-                                       <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button-->
+                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                        <button type="submit" class="btn btn-primary" id="createGroupBtn">Crear grupo de estudio</button>
                                     </form>
                               </div>
                            </div>
                         </div>
                      </div>
-
 
                      <!-- Confirmation Modal for Deleting Study Group -->
                      <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -288,28 +299,39 @@
       <!-- SweetAlert Script -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+      <script src="./static/js/estudio.js"></script>
+
       <script>
-         // Function to show SweetAlert for success message
-         function showSuccessAlert(message) {
-            Swal.fire({
-               icon: 'success',
-               title: '¡Se ha creado el grupo con éxito!',
-               text: message,
-               timer: 3000, // 3 seconds
-               timerProgressBar: true,
-               showConfirmButton: false
-            });
-         }
-      
+         // Function to swap the fire and ok icons and update the text
+         $(document).ready(function () {
+             $('.showFire').on('click', function () {
+                 var $button = $(this);
+                 var $icon = $button.find('span');
+     
+                 // Toggle the class for the next state
+                 $button.toggleClass('active');
+     
+                 if ($button.hasClass('active')) {
+                     // If the button now has the class, change to ok icon and text
+                     $icon.removeClass('glyphicon-fire').addClass('glyphicon-ok');
+                     $button.text('¡Me uní!');
+                 } else {
+                     // Otherwise, change to fire icon and text
+                     $icon.removeClass('glyphicon-ok').addClass('glyphicon-fire');
+                     $button.text('Me quiero unir');
+                 }
+             });
+         });
+     
          // Function to show confirmation modal for deleting a study group
-         function showDeleteConfirmationModal(groupId) {
-            $('#confirmDeleteModal').modal('show');
-      
-            // Handle the click on the Delete button in the confirmation modal
-            $('#confirmDeleteBtn').on('click', function () {
-               deleteStudyGroup(groupId);
-               $('#confirmDeleteModal').modal('hide');
-            });
+         function showDeleteConfirmationModal(id_group) {
+             $('#confirmDeleteModal').modal('show');
+     
+             // Handle the click on the Delete button in the confirmation modal
+             $('#confirmDeleteBtn').on('click', function () {
+                 deleteStudyGroup(id_group);
+                 $('#confirmDeleteModal').modal('hide');
+             });
          }
       </script>
 
