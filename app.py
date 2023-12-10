@@ -135,21 +135,21 @@ def dashboard():
 
     user_profile = loginfo(session)
 
-    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 
 #Archivos
 @app.route('/archivos')
 def archivos():
     user_profile = loginfo(session)
-    return render_template('archivos.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(),  tutor = session['status'])
+    return render_template('archivos.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(),  tutor = isTutor())
 
 #ArchivosTutor
 @app.route('/archivosTutor')
 def archivosTutor():
     user_profile = loginfo(session)
 
-    return render_template('archivosTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('archivosTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -228,7 +228,7 @@ def contact():
         if contact['nombre_apellido'] != isUser:
             contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 
 @app.route('/pedir_tutoria', methods=['POST'])
@@ -291,7 +291,7 @@ def profile():
     mensaje = session.pop('mensaje', None)
     
 
-    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # Perfil Tutor
 @app.route('/profileTutor', methods=['GET'] )
@@ -308,7 +308,7 @@ def profileTutor():
     }
     mensaje = session.pop('mensaje', None)
 
-    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # Dashboard Tutor
 @app.route('/dashboardTutor')
@@ -331,7 +331,7 @@ def dashboardTutor():
         }
     mensaje1 = session.pop('mensaje1', None)
  
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
@@ -390,7 +390,7 @@ def guardar_perfil():
                 session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
                 return redirect(url_for('profile'))
 
-    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # Codigos para subir imagenes de perfil.
 @app.route('/subir_imagen', methods=['POST'])
@@ -508,7 +508,7 @@ def cambiarContrasenna():
             session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
             return redirect(url_for('profile')) 
         
-    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje , longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('profile.html', user_profile=user_profile, mensaje=mensaje , longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 #Darse de alta de tutor
 @app.route('/altaTutor',  methods=['GET', 'POST'])
@@ -547,7 +547,7 @@ def altaTutor():
             session['mensaje1'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
             return redirect(url_for('profile')) 
         
-     return render_template('profile.html', user_profile=user_profile, mensaje1=mensaje1, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+     return render_template('profile.html', user_profile=user_profile, mensaje1=mensaje1, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 #Cambiar campos de tutor
 @app.route('/camposTutor', methods=['GET', 'POST'])
@@ -596,7 +596,7 @@ def campos_tutor():
         session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
         return redirect(url_for('profileTutor'))
     
-    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # MANEJO DE EVENTOS PARA FULLCALENDAR
 @app.route("/insert",methods=["POST","GET"])
@@ -718,7 +718,7 @@ def estudio():
 
     groups_list = fetch_study_groups()
     
-    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = session['status'])
+    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
 
 @app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
@@ -729,7 +729,7 @@ def estudioTutor():
 
     groups_list = fetch_study_groups()
 
-    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = session['status'])
+    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
 
 # Funcion auxiliar para obtener el perfil del usuario
 def get_user_profile():
@@ -822,7 +822,7 @@ def podcast():
         }
         podcasts_list.append(podcast_info)
 
-    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('podcast.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 # PodcastTutor
 @app.route('/podcastTutor')
@@ -852,7 +852,7 @@ def podcastTutor():
         }
         podcasts_list.append(podcast_info)
 
-    return render_template('podcastTutor.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('podcastTutor.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 
 
@@ -930,7 +930,7 @@ def mostrar_archivos():
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT name FROM file")
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
-        return render_template('archivos.html', archivos=archivos, user_profile=user_profile,longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+        return render_template('archivos.html', archivos=archivos, user_profile=user_profile,longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
     
 def obtener_notificaciones():
@@ -972,7 +972,7 @@ def chatbot():
             'status': session['status']
            
         }
-    return render_template('chatbot.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('chatbot.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 @app.route("/chatbotTutor")
 def chatbotTutor():
@@ -982,7 +982,7 @@ def chatbotTutor():
             'status': session['status']
            
         }
-    return render_template('chatbotTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('chatbotTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 
 @app.route("/get", methods=["GET", "POST"])
@@ -1020,7 +1020,7 @@ def jarvis():
             'status': session['status']
            
         }
-    return render_template('jarvis.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('jarvis.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 @app.route('/ask', methods=['POST'])
 def ask_assistant():
