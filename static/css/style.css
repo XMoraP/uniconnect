@@ -3467,6 +3467,9 @@ table.projects tr td:first-child {
     cursor: pointer;
     margin-top: 10px;
     margin-left: 225px;
+    @media (min-width: 576px) {
+        margin-left: 225px; /* Restaura el margen izquierdo en tamaños de pantalla más grandes */
+    }
   }
   
   .button-style:hover {
@@ -3759,8 +3762,9 @@ table.projects tr td:first-child {
 }
 
 .register-button-container {
-    position:relative;
-    width: 362px; 
+    position: relative;
+    width: 100%;
+    max-width: 362px;
     height: 70px;
 }
 
@@ -3777,6 +3781,21 @@ table.projects tr td:first-child {
     cursor: pointer;
     height: 45px;
     transition: ease all 0.5s;
+}
+@media (max-width: 767px) {
+    .register-button-container {
+        width: 100%;
+        max-width: none; /* Anula el ancho máximo */
+    }
+
+    .register-button {
+        width: 50%;
+        max-width: none; /* Anula el ancho máximo */
+        position: relative;
+        right: auto; /* Anula la posición absoluta */
+        bottom: auto; /* Anula la posición absoluta */
+        margin-top: 10px; /* Ajusta el margen superior para separarlo del contenido */
+    }
 }
 
 .register-button:hover {
