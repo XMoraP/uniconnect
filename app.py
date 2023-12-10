@@ -135,7 +135,7 @@ def dashboard():
 
     user_profile = loginfo(session)
 
-    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
 
 
 #Tables
