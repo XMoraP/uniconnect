@@ -680,76 +680,58 @@ def download_file():
         as_attachment=True
     )
 
+# Funcion auxiliar para crear un nuevo grupo de estudio para /estudio y /estudioTutor
+def create_study_group(request, user_profile):
+    try:
+        title = request.form.get('title')
+        subject = request.form.get('subject')
+        description = request.form.get('description')
+        location = request.form.get('location')
+        days = request.form.get('days')
+        time = request.form.get('time')
+
+        creator = f"{user_profile['name']} {user_profile['last_name']}"
+
+        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
+        values = (title, subject, description, location, days, time, creator)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, values)
+        mysql.connection.commit()
+        cursor.close()
+
+        flash('Group created successfully', 'success')
+        return redirect(url_for('estudio'))
+
+    except Exception as e:
+        flash(f'Error creating group: {str(e)}', 'error')
+        return redirect(url_for('estudio'))
+
 
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
-
-    user_profile = {
-        'name': session.get('name'),
-        'last_name': session['last_name'],
-        'email': session['email'],
-        'status': session['status'],
-        'nombre_grado': session['nombre_grado'],
-        'photo_url': 'static/images/userPhoto.png',
-        'role': 'Estudiante',
-    }
-
-    if request.method == 'POST':
-        # Obtener los datos del formulario
-        titulo = request.form.get('title')
-        asignatura = request.form.get('subject')
-        descripcion = request.form.get('description')
-        ubicacion = request.form.get('location')
-        dias = request.form.get('days')
-        hora = request.form.get('time')
-
-        creador = user_profile['name'] + " " + user_profile['last_name']
-
-        # Guardar la información del grupo en la base de datos
-        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
-        values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
-        cursor = mysql.connection.cursor()
-        cursor.execute(query, values)
-        mysql.connection.commit()
-        cursor.close()
-        return redirect(url_for('estudio'))
-
-    cursor = mysql.connection.cursor()
-    # Fetch events from the 'studio' table
-    cursor.execute('SELECT * FROM study_groups')
-    groups = cursor.fetchall()
-    cursor.close()
-
-    # Obtener los grupos de estudio de la base de datos
-    groups_list = []
-    for group in groups:
-        titulo = group['title']
-        asignatura = group['subject']
-        descripcion = group['description']
-        ubicacion = group['location']
-        dias = group['days']
-        hora = group['time']
-        creador = group['name_user']
-
-        group_info = {
-            'titulo': titulo,
-            'asignatura': asignatura,
-            'descripcion': descripcion,
-            'ubicacion': ubicacion,
-            'dias': dias,
-            'hora': hora,
-            'creador': creador
-        }
-        groups_list.append(group_info)
+    user_profile = get_user_profile()
     
-    return render_template('estudio.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    if request.method == 'POST':
+        return create_study_group(request, user_profile)
 
-
+    groups_list = fetch_study_groups()
+    
+    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones())
 
 @app.route('/estudioTutor', methods=['GET', 'POST'])
 def estudioTutor():
+    user_profile = get_user_profile()
 
-    user_profile = {
+    if request.method == 'POST':
+        return create_study_group(request, user_profile)
+
+    groups_list = fetch_study_groups()
+
+    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones())
+
+# Funcion auxiliar para obtener el perfil del usuario
+def get_user_profile():
+    return {
         'name': session.get('name'),
         'last_name': session['last_name'],
         'email': session['email'],
@@ -759,55 +741,35 @@ def estudioTutor():
         'role': 'Estudiante',
     }
 
-    if request.method == 'POST':
-        # Obtener los datos del formulario
-        titulo = request.form.get('title')
-        asignatura = request.form.get('subject')
-        descripcion = request.form.get('description')
-        ubicacion = request.form.get('location')
-        dias = request.form.get('days')
-        hora = request.form.get('time')
-
-        creador = user_profile['name'] + " " + user_profile['last_name']
-
-        # Guardar la información del grupo en la base de datos
-        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
-        values = (titulo, asignatura, descripcion, ubicacion, dias, hora, creador)
-        cursor = mysql.connection.cursor()
-        cursor.execute(query, values)
-        mysql.connection.commit()
-        cursor.close()
-        return redirect(url_for('estudioTutor'))
-
+# Funcion auxiliar para obtener los grupos de estudio
+def fetch_study_groups():
     cursor = mysql.connection.cursor()
-    # Fetch events from the 'studio' table
     cursor.execute('SELECT * FROM study_groups')
     groups = cursor.fetchall()
     cursor.close()
 
-    # Obtener los grupos de estudio de la base de datos
     groups_list = []
     for group in groups:
-        titulo = group['title']
-        asignatura = group['subject']
-        descripcion = group['description']
-        ubicacion = group['location']
-        dias = group['days']
-        hora = group['time']
-        creador = group['name_user']
+        title = group['title']
+        subject = group['subject']
+        description = group.get('description', '')  # Use get() to handle missing key
+        location = group['location']
+        days = group['days']
+        time = group['time']
+        creator = group['name_user']
 
         group_info = {
-            'titulo': titulo,
-            'asignatura': asignatura,
-            'descripcion': descripcion,
-            'ubicacion': ubicacion,
-            'dias': dias,
-            'hora': hora,
-            'creador': creador
+            'title': title,
+            'subject': subject,
+            'description': description,
+            'location': location,
+            'days': days,
+            'time': time,
+            'creator': creator
         }
         groups_list.append(group_info)
-    
-    return render_template('estudioTutor.html', user_profile=user_profile, groups  = groups_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+
+    return groups_list
 
 
 # Podcast

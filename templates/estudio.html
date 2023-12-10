@@ -136,13 +136,13 @@
                            <tbody>
                               {% for group in groups %}
                                  <tr>
-                                 <td>{{ group.titulo }}</td>
-                                 <td>{{ group.asignatura }}</td>
-                                 <td>{{ group.ubicacion }}</td>
-                                 <td>{{ group.dias }}</td>
-                                 <td>{{ group.hora }}</td>
-                                 <td>{{ group.descripcion }}</td>
-                                 <td>{{ group.creador }}</td>
+                                 <td>{{ group.title }}</td>
+                                 <td>{{ group.subject }}</td>
+                                 <td>{{ group.location }}</td>
+                                 <td>{{ group.days }}</td>
+                                 <td>{{ group.time }}</td>
+                                 <td>{{ group.get('description', '') }}</td>
+                                 <td>{{ group.creator }}</td>
                                  </tr>
                               {% endfor %}
                            </tbody>
@@ -197,7 +197,7 @@
                                        </div>
 
                                        <div class="form-group">
-                                          <label for="time">A la hora:</label>
+                                          <label for="time">Hora:</label>
                                           <input type="time" class="form-control" id="time" name="time" required>
                                        </div>
 
@@ -220,48 +220,34 @@
          </div>
       </div>
 
-      <!-- jQuery and Bootstrap scripts -->
-      <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+      <!-- jQuery, Popper.js, and Bootstrap -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <!-- Include leanModal script after jQuery -->
+
+      <!-- Other libraries and plugins -->
       <script type="text/javascript" src="path_to/jquery.leanModal.min.js"></script>
-      <!-- wow animation -->
       <script src="./static/js/animate.js"></script>
-      <!-- select country -->
       <script src="./static/js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
       <script src="./static/js/owl.carousel.js"></script> 
-      <!-- chart js -->
       <script src="./static/js/Chart.min.js"></script>
       <script src="./static/js/Chart.bundle.min.js"></script>
       <script src="./static/js/utils.js"></script>
       <script src="./static/js/analyser.js"></script>
-      <!-- nice scrollbar -->
       <script src="./static/js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- fancy box js -->
       <script src="./static/js/jquery.fancybox.min.js"></script>
-      <!-- custom js -->
       <script src="./static/js/custom.js"></script>
       <script src="./static/js/custom2.js"></script>
-      <!-- calendar file css -->    
       <script src="./static/js/semantic.min.js"></script>
-      <!--js de crear eventos-->
-      <script src="./static/js/events.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+      <!-- FullCalendar -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>     
-      
-      
+
       <!--JavaScript to handle the creation of the study groups and storing in the table study_groups-->
       <script src="./static/js/study_group.js"></script>
+
 
    </body>
 </html>
