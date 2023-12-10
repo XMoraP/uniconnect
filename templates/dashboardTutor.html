@@ -226,9 +226,8 @@
             var calendar = $('#calendar').fullCalendar({
             editable:true,
             header:{
-            left:'prev,next today',
+            left:'prev,next',
             center:'title',
-            right:'month,agendaWeek,agendaDay'
             },
             events: [{% for row in calendar %}{ id : '{{row.id}}', title : '{{row.title}}', start : '{{row.start}}', end : '{{row.end}}', }, {% endfor %}],
             selectable:true,
@@ -248,7 +247,7 @@
                {
                   //alert(data)
                alert("Added Successfully");
-               window.location.replace("/dashboardTutor");
+               window.location.replace("/dashboard");
                }
                })
             }
@@ -310,38 +309,6 @@
             });
          });
          
-      </script>
-      <div id="flash-message" data-tipo="{{ mensaje1['tipo'] }}" data-contenido="{{ mensaje1['contenido'] }}"></div>
-
-      <script>
-         document.addEventListener('DOMContentLoaded', function () {
-             const flashMessage = document.getElementById('flash-message');
-             const tipo = flashMessage.dataset.tipo;
-             const contenido = flashMessage.dataset.contenido;
-      
-             if (tipo === 'successUpdate') {
-                 Swal.fire({
-                     title: 'Éxito',
-                     text: contenido,
-                     icon: 'success',
-                     confirmButtonText: 'Aceptar'
-                 });
-             } else if (tipo === 'errorPassword') {
-                 Swal.fire({
-                     title: 'Error de Contraseña',
-                     text: contenido,
-                     icon: 'error',
-                     confirmButtonText: 'Aceptar'
-                 });
-             } else if (tipo === 'errorEmail') {
-                 Swal.fire({
-                     title: 'Error de Email',
-                     text: contenido,
-                     icon: 'error',
-                     confirmButtonText: 'Aceptar'
-                 });
-             }
-         });
       </script>
             
 

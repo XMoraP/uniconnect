@@ -140,9 +140,9 @@
                            <div class="page_title">
                               <h2>Inicio</h2>
                            </div>
-                           <div class="calendar-container">
-                              <div id="calendar"></div>
-                           </div>
+                              <div class="calendar-container">
+                                 <div id="calendar"></div>
+                              </div>
                         </div>
                      </div>
                   </div>
@@ -223,9 +223,8 @@
             var calendar = $('#calendar').fullCalendar({
             editable:true,
             header:{
-            left:'prev,next today',
+            left:'prev,next',
             center:'title',
-            right:'month,agendaWeek,agendaDay'
             },
             events: [{% for row in calendar %}{ id : '{{row.id}}', title : '{{row.title}}', start : '{{row.start}}', end : '{{row.end}}', }, {% endfor %}],
             selectable:true,
