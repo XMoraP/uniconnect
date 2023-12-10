@@ -61,6 +61,9 @@
                      <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
                      <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
                      <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
+                     {% if tutor %}
+                        <li><a href="/tutelados"><i class="fa fa-paper-plane red_color" style="color: #2f73e9;"></i> <span>Tutelados</span></a></li>
+                     {% endif %}
                   </ul>
                </div>
             </nav>
@@ -79,9 +82,10 @@
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fas fa-bell"></i><span class="badge"></span></a></li>
-                                 <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fas fa-envelope"></i><span class="badge"></span></a></li>
+                                 <li><a class = "boton_notificacion_bell" href="#" onclick="toggleNotificationPopup(event)">
+                                      <i class="fas fa-bell"></i>
+                                      <span class="badge" id="notificacionesBadge" style="background-color: white; color: black;">{{ longitud }} </span>
+                                 </a></li>
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
@@ -97,6 +101,14 @@
                         </div>
                      </div>
                   </nav>
+               </div>
+               <div class="notification-popup" id="ventanaNotificaciones">
+                    <h3><br>Notificaciones</h3>
+                    {% for notificacion in notificaciones %}
+                        <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
+                            {{ notificacion.mensaje }}
+                        </a>
+                    {% endfor %}
                </div>
                <!-- end topbar -->
                   
