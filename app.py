@@ -10,6 +10,7 @@ from Contact import loginfo, crearDirectorio
 import openai
 from dotenv import load_dotenv
 import os
+import shutil
 
 load_dotenv()
 
@@ -160,6 +161,15 @@ def asignaturas():
 def contact():
     ruta = "static/Fotos_Tutor"
     cont = 0
+
+    # Parte del codigo que destruye las imagenes
+    try:
+        # Borra el directorio y su contenido de forma recursiva
+        shutil.rmtree(ruta)
+        print(f"Directorio {directorio} borrado exitosamente.")
+    except OSError as e:
+        print(f"Error al borrar el directorio {ruta}: {e}")
+
     #Obtenemos la informacion del usuario
     user_profile = loginfo(session)
     #Creamos el directorio de imagenes
@@ -167,17 +177,6 @@ def contact():
 
     #Creamos la conexion a la base de datos
     cur = mysql.connection.cursor()
-
-    #Parte del codigo que destruye las imagenes
-    archivos = os.listdir(ruta)
-    archivos = [archivo for archivo in archivos if os.path.isfile(os.path.join(ruta, archivo))]
-    cont_fotos = len(archivos)
-
-    if(cont_fotos > 0):
-        for i in range(0,cont_fotos-1):
-            temp_image_path = f'static/Fotos_Tutor/temp_image{i}.jpg'
-            if os.path.exists(temp_image_path):
-                os.remove(temp_image_path)
 
 
     #Codigo para obetener los datos de cada tutor
