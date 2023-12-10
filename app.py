@@ -307,29 +307,6 @@ def profileTutor():
 
     return render_template('profileTutor.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
-# Dashboard Tutor
-@app.route('/dashboardTutor')
-def dashboardTutor():
-
-    id_user = session['id_user']
-    
-    cursor = mysql.connection.cursor()
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute("SELECT * FROM events WHERE id_user = %s ORDER BY id", (id_user,))
-    calendar = cur.fetchall()  
-
-    user_profile = None
-    if 'logged_in' in session:
-        user_profile = {
-            'name': session['name'],
-            'last_name': session['last_name'],
-            'email': session['email'],
-            'status': session['status']
-        }
-    mensaje1 = session.pop('mensaje1', None)
- 
-    return render_template('dashboardTutor.html', user_profile=user_profile, mensaje1=mensaje1, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
-
 # Guardar cambios del Perfil
 @app.route('/guardar_perfil', methods=['POST'])
 def guardar_perfil():
@@ -519,7 +496,7 @@ def altaTutor():
                 session['status'] = resultado['status']
 
                 session['mensaje1'] = {'tipo':'successUpdate','contenido':'Te has dado de alta como Tutor'}
-                return redirect(url_for('dashboardTutor'))     
+                return redirect(url_for('profileTutor'))     
         else:
             session['mensaje1'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
             return redirect(url_for('profile')) 
