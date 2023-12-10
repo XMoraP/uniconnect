@@ -178,7 +178,6 @@ def contact():
             temp_image_path = f'static/Fotos_Tutor/temp_image{i}.jpg'
             if os.path.exists(temp_image_path):
                 os.remove(temp_image_path)
-        print("Imagenes borradas")
 
 
     #Codigo para obetener los datos de cada tutor
@@ -229,7 +228,7 @@ def contact():
         if contact['nombre_apellido'] != isUser:
             contacts_list.append(contact)
 
-    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    return render_template('contact.html', contacts=contacts_list, user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
 
 
 @app.route('/pedir_tutoria', methods=['POST'])
@@ -244,6 +243,17 @@ def pedir_tutoria():
         cur.close()
     return redirect(url_for('contact'))
 
+@app.route('/hacer_tutorando', methods=['POST', 'GET'])
+def hacer_tutorando():
+    id_user = request.args.get('id_user')
+    if id_user:
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO tutorando(id_tutor, id_user) VALUES(%s, %s)", (session['id_user'], id_user))
+        mysql.connection.commit()
+        cur.execute("DELETE FROM tutoria WHERE id_user = %s AND id_tutor = %s", (id_user, session['id_user']))
+        mysql.connection.commit()
+        cur.close()
+    return redirect(url_for('contact'))
 
 #Tutelados
 @app.route('/tutelados')
@@ -928,9 +938,8 @@ def mostrar_archivos():
 def obtener_notificaciones():
     tu_id = session['id_user']
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))
+    cursor.execute("SELECT id_user,mensaje FROM Tutoria WHERE id_tutor = %s", (tu_id, ))
     notificaciones = cursor.fetchall()
-    print("estoy en obtener_Notificaciones")
     return notificaciones
 
 
