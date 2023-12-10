@@ -268,11 +268,12 @@ def denegar_tutorando():
 #Tutelados
 @app.route('/tutelados')
 def tutelados():
+    id = session['id_user']
     cur = mysql.connection.cursor()
-    cur.execute("SELECT concat(user.nombre, user.apellido) AS nombre_completo, user.eMail AS email, user.nombre_grado AS grado FROM user, tutorando WHERE user.id_user = tutorando.id_user")
+    cur.execute("SELECT concat(user.nombre, user.apellido) AS nombre_completo, user.eMail AS email, user.nombre_grado AS grado FROM user, tutorando WHERE user.id_user = tutorando.id_user AND tutorando.id_tutor = %s", (id))
     tutelados = cur.fetchall()
     user_profile = loginfo(session)
-    return render_template('tutelados.html', user_profile=user_profile, tutelados = tutelados, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
+    return render_template('tutelados.html', user_profile=user_profile, tutelados = tutelados, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
 @app.route('/profile')
 def profile():
@@ -1035,6 +1036,12 @@ def ask_assistant():
     )
 
     return jsonify({'response': response['choices'][0]['text']})
+
+def isTutor():
+    if(session['status'] == 'Tutor'):
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
