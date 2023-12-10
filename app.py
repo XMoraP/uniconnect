@@ -250,7 +250,7 @@ def aceptar_tutorando():
         cur.execute("DELETE FROM tutoria WHERE id_user = %s AND id_tutor = %s", (id_user, session['id_user']))
         mysql.connection.commit()
         cur.close()
-    return redirect(url_for('contact'))
+    return redirect(url_for('tutelados'))
 
 @app.route('/hacer_tutorando/denegar', methods=['POST'])
 def denegar_tutorando():
