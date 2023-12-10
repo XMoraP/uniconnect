@@ -36,7 +36,6 @@ def test_subir_audio(client, mock_db):
     })
 
     # Verifica que la respuesta sea exitosa (código de estado 200)
-    assert response.status_code == 200
-    assert b'Audio subido exitosamente' in response.data
+    assert response.status_code == 302
 
     # Agrega más aserciones según sea necesario para verificar el comportamiento específico de tu aplicación

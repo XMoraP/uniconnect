@@ -3,7 +3,6 @@ from flask_mysqldb import MySQL, MySQLdb
 from datetime import datetime
 import io
 import base64
-import json
 import binascii
 from datetime import datetime
 from Contact import loginfo, crearDirectorio
