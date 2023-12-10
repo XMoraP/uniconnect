@@ -127,36 +127,47 @@
                <!-- dashboard inner -->
                <div class="midde_cont">
                   <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Pagina de Tutelados</h2>
+                           </div>
+                        </div>
+                     </div>
                      <!-- row -->
                      <div class="row column1">
                         <div class="col-md-12">
                            <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <p>Lista de Tutelados aceptados</p>
+                                 </div>
+                              </div>
                               <div class="full price_table padding_infor_info">
+                                 <h3>Lista de Tutelados mia mor</h3>
                                  <div class="row">
                                     <!-- column contact -->
                                     {% block content %}
-                                       <h3>Tutorandos Aceptados</h3>
-                                       <div class="row">
-                                          {% for tutelado in tutelados %}
-                                             <div class="contact_blog">
-                                                   <div class="contact_inner">
-                                                      <div class="left">
-                                                         <h4>{{ tutelado.nombre_apellido }}</h4>
-                                                         <p><strong>Contact: </strong>{{ tutelado.email }}</p>
-                                                         <p>{{ tutelado.grado }}</p>
-                                                         <button class="boton_pedir_tutoria">Abrir Chat</button>
-                                                      </div>
-                                                      <div class="right">
-                                                         <div class="rounded-container">
-                                                            <img src="static/images/userPhoto.png" alt="Imagen de usuario" class="rounded-image">
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                             </div>
-                                          {% endfor %}
-                                       </div>
+                                            {% for tutelado in tutelados %}
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30 contact_form" id ="tut_div">
+                                                    <div class="contact_blog">
+                                                        <div class="contact_inner">
+                                                            <div class="left">
+                                                                <h4>{{ tutelado.nombre_completo }}</h4>
+                                                                <p><strong>Email: </strong>{{ tutelado.email }}</p>
+                                                                <p>{{ tutelado.grado }}</p>
+                                                                <button class="boton_pedir_tutoria">Abrir Chat</button>
+                                                            </div>
+                                                            <div class="right">
+                                                                <div class="rounded-container">
+                                                                    <img src="static/images/userPhoto.png" alt="Imagen de usuario" class="rounded-image">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
                                     {% endblock %}
-
                                     <!-- end column contact blog -->
                                  </div>
                               </div>

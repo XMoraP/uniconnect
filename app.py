@@ -272,7 +272,7 @@ def tutelados():
     cur.execute("SELECT concat(user.nombre, user.apellido) AS nombre_completo, user.eMail AS email, user.nombre_grado AS grado FROM user, tutorando WHERE user.id_user = tutorando.id_user")
     tutelados = cur.fetchall()
     user_profile = loginfo(session)
-    return render_template('tutelados.html', user_profile=user_profile, tutelados = tutelados)
+    return render_template('tutelados.html', user_profile=user_profile, tutelados = tutelados, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
 
 @app.route('/profile')
 def profile():
