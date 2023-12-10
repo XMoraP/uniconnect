@@ -142,21 +142,14 @@ def dashboard():
 @app.route('/archivos')
 def archivos():
     user_profile = loginfo(session)
-<<<<<<< HEAD
-    return render_template('archivos.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
-=======
-    return render_template('tables.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
->>>>>>> refs/remotes/origin/main
+    return render_template('archivos.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(),  tutor = session['status'])
 
 #ArchivosTutor
 @app.route('/archivosTutor')
 def archivosTutor():
     user_profile = loginfo(session)
-<<<<<<< HEAD
-    return render_template('archivosTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
-=======
-    return render_template('tablesTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
->>>>>>> refs/remotes/origin/main
+
+    return render_template('archivosTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -937,7 +930,7 @@ def mostrar_archivos():
         cursor.execute("SELECT name FROM file")
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
         return render_template('archivos.html', archivos=archivos, user_profile=user_profile,longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = session['status'])
-        
+
     
 def obtener_notificaciones():
     tu_id = session['id_user']
