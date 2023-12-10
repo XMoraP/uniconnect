@@ -435,7 +435,7 @@ def cargar_imagen():
         image_bytes = base64.b64decode(image_data['image'])
         return send_file(io.BytesIO(image_bytes), mimetype='image/*')
     else:
-        return "Imagen no encontrada", 404 
+        return send_file('static/images/userPhoto.png', mimetype='image/*')
 
 
 @app.route('/project')
