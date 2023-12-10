@@ -55,7 +55,7 @@
                      <li class="active">
                         <a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a>
                      </li>
-                     <li><a href="/tables"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                     <li><a href="/archivos"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
                      <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
                      <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
                      <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
@@ -143,6 +143,9 @@
                                  <td>{{ group.time }}</td>
                                  <td>{{ group.get('description', '') }}</td>
                                  <td>{{ group.creator }}</td>
+                                 <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteConfirmationModal({{ group.id_group }})">Delete</button>
+                                 </td>
                                  </tr>
                               {% endfor %}
                            </tbody>
@@ -214,6 +217,28 @@
                         </div>
                      </div>
 
+
+                     <!-- Confirmation Modal for Deleting Study Group -->
+                     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar grupo</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                              <div class="modal-body">
+                                 ¿Quieres borrar este grupo de estudio?
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Borrar</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
                </div>
 
             </div>
@@ -247,6 +272,34 @@
 
       <!--JavaScript to handle the creation of the study groups and storing in the table study_groups-->
       <script src="./static/js/study_group.js"></script>
+
+      <!-- SweetAlert Script -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <script>
+         // Function to show SweetAlert for success message
+         function showSuccessAlert(message) {
+            Swal.fire({
+               icon: 'success',
+               title: '¡Se ha creado el grupo con éxito!',
+               text: message,
+               timer: 3000, // 3 seconds
+               timerProgressBar: true,
+               showConfirmButton: false
+            });
+         }
+      
+         // Function to show confirmation modal for deleting a study group
+         function showDeleteConfirmationModal(groupId) {
+            $('#confirmDeleteModal').modal('show');
+      
+            // Handle the click on the Delete button in the confirmation modal
+            $('#confirmDeleteBtn').on('click', function () {
+               deleteStudyGroup(groupId);
+               $('#confirmDeleteModal').modal('hide');
+            });
+         }
+      </script>
 
 
    </body>

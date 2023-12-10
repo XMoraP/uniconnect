@@ -138,17 +138,17 @@ def dashboard():
     return render_template('dashboard.html', user_profile=user_profile, calendar=calendar, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
 
-#Tables
-@app.route('/tables')
-def tables():
+#Archivos
+@app.route('/archivos')
+def archivos():
     user_profile = loginfo(session)
-    return render_template('tables.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    return render_template('archivos.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
 
-#TablesTutor
-@app.route('/tablesTutor')
-def tablesTutor():
+#ArchivosTutor
+@app.route('/archivosTutor')
+def archivosTutor():
     user_profile = loginfo(session)
-    return render_template('tablesTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
+    return render_template('archivosTutor.html', user_profile=user_profile, longitud = num_notificaciones(), notificaciones = obtener_notificaciones())
  
 #Asignaturas
 @app.route('/asignaturas')
@@ -659,7 +659,7 @@ def upload_file():
     cursor.execute(query, (name, file_data,))
     mysql.connection.commit()
 
-    return redirect(url_for('tables'))
+    return redirect(url_for('archivos'))
 
 # Ruta para descargar un archivo
 @app.route('/download', methods=['POST'])
@@ -750,6 +750,7 @@ def fetch_study_groups():
 
     groups_list = []
     for group in groups:
+        id_group = group['id_group']
         title = group['title']
         subject = group['subject']
         description = group.get('description', '')  # Use get() to handle missing key
@@ -759,6 +760,7 @@ def fetch_study_groups():
         creator = group['name_user']
 
         group_info = {
+            'id_group': id_group,
             'title': title,
             'subject': subject,
             'description': description,
@@ -770,6 +772,25 @@ def fetch_study_groups():
         groups_list.append(group_info)
 
     return groups_list
+
+@app.route('/delete_study_group/<int:group_id>', methods=['POST'])
+def delete_study_group(group_id):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM study_groups WHERE id_group = %s', (group_id,))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash('Group deleted successfully', 'success')
+
+        # Return a JSON response for success
+        return jsonify({'message': 'Group deleted successfully'})
+
+    except Exception as e:
+        flash(f'Error deleting group: {str(e)}', 'error')
+
+        # Return a JSON response for error
+        return jsonify({'error': str(e)}), 500  # Use an appropriate status code for errors
 
 
 # Podcast
@@ -907,7 +928,7 @@ def mostrar_archivos():
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT name FROM file")
         archivos = [archivo['name'] for archivo in cursor.fetchall()]
-        return render_template('tables.html', archivos=archivos, user_profile=user_profile)
+        return render_template('archivos.html', archivos=archivos, user_profile=user_profile)
     
 def obtener_notificaciones():
     tu_id = session['id_user']
