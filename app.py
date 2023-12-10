@@ -110,11 +110,8 @@ def login():
             session['last_name'] = result['apellido']
             session['status'] = result['status']
             session['nombre_grado'] = result['nombre_grado']
-        
-            if session['status'] == 'Tutor':
-                return redirect(url_for('dashboardTutor'))
-            else:
-                return redirect(url_for('dashboard'))
+
+            return redirect(url_for('dashboard'))
             
         else:
         # Contraseña incorrecta
@@ -437,26 +434,6 @@ def cargar_imagen():
     else:
         return send_file('static/images/userPhoto.png', mimetype='image/*')
 
-
-@app.route('/project')
-def project():
-    return render_template('project.html')
-
-#Maps
-@app.route('/map')
-def map():
-    return render_template('map.html')
-
-#Charts
-@app.route('/charts')
-def charts():
-    return render_template('charts.html')
-
-#Settings
-@app.route('/settings')
-def settings():
-    return render_template('settings.html')
-
 #Boton Salir
 @app.route('/salir', methods=['GET'])
 def salir():
@@ -693,9 +670,10 @@ def create_study_group(request, user_profile):
         time = request.form.get('time')
 
         creator = f"{user_profile['name']} {user_profile['last_name']}"
+        creator_mail = user_profile['email']
 
-        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user) VALUES (%s, %s, %s, %s, %s, %s,  %s)"
-        values = (title, subject, description, location, days, time, creator)
+        query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user, creator_mail) VALUES (%s, %s, %s, %s, %s, %s,  %s,  %s)"
+        values = (title, subject, description, location, days, time, creator, creator_mail)
         cursor = mysql.connection.cursor()
         cursor.execute(query, values)
         mysql.connection.commit()
@@ -708,7 +686,6 @@ def create_study_group(request, user_profile):
         flash(f'Error creating group: {str(e)}', 'error')
         return redirect(url_for('estudio'))
 
-
 @app.route('/estudio', methods=['GET', 'POST'])
 def estudio():
     user_profile = get_user_profile()
@@ -719,17 +696,6 @@ def estudio():
     groups_list = fetch_study_groups()
     
     return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
-
-@app.route('/estudioTutor', methods=['GET', 'POST'])
-def estudioTutor():
-    user_profile = get_user_profile()
-
-    if request.method == 'POST':
-        return create_study_group(request, user_profile)
-
-    groups_list = fetch_study_groups()
-
-    return render_template('estudioTutor.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
 
 # Funcion auxiliar para obtener el perfil del usuario
 def get_user_profile():
@@ -745,6 +711,7 @@ def get_user_profile():
 
 # Funcion auxiliar para obtener los grupos de estudio
 def fetch_study_groups():
+    
     cursor = mysql.connection.cursor()
     cursor.execute('SELECT * FROM study_groups')
     groups = cursor.fetchall()
@@ -760,6 +727,7 @@ def fetch_study_groups():
         days = group['days']
         time = group['time']
         creator = group['name_user']
+        creator_mail = group['creator_mail']
 
         group_info = {
             'id_group': id_group,
@@ -769,31 +737,26 @@ def fetch_study_groups():
             'location': location,
             'days': days,
             'time': time,
-            'creator': creator
+            'creator': creator,
+            'creator_mail': creator_mail
         }
         groups_list.append(group_info)
 
     return groups_list
 
-@app.route('/delete_study_group/<int:group_id>', methods=['POST'])
+@app.route('/delete_study_group/<int:group_id>', methods=['DELETE'])
 def delete_study_group(group_id):
     try:
+        # Perform the deletion in the database
         cursor = mysql.connection.cursor()
         cursor.execute('DELETE FROM study_groups WHERE id_group = %s', (group_id,))
         mysql.connection.commit()
         cursor.close()
 
-        flash('Group deleted successfully', 'success')
-
-        # Return a JSON response for success
-        return jsonify({'message': 'Group deleted successfully'})
-
+        return jsonify(success=True)
     except Exception as e:
-        flash(f'Error deleting group: {str(e)}', 'error')
-
-        # Return a JSON response for error
-        return jsonify({'error': str(e)}), 500  # Use an appropriate status code for errors
-
+        print(str(e))
+        return jsonify(success=False, error=str(e))
 
 # Podcast
 @app.route('/podcast')
@@ -853,7 +816,6 @@ def podcastTutor():
         podcasts_list.append(podcast_info)
 
     return render_template('podcastTutor.html', user_profile=user_profile, podcasts=podcasts_list, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
-
 
 
 # Ruta para subir un archivos mp3

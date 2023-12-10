@@ -162,10 +162,13 @@
                                               <span class="glyphicon glyphicon-fire"></span> Me quiero unir
                                           </button>
                                        </td>
-                           
+
                                        <td>
-                                             <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteConfirmationModal({{ group.id_group }})">x</button>
+                                          {% if user_profile['email'] == group.creator_mail %}
+                                             <button class="btn btn-danger" onclick="deleteStudyGroup('{{ group.id_group }}', {{ loop.index0 }})">Eliminar</button>
+                                          {% endif %}
                                        </td>
+                        
                                     </tr>
                                     {% endfor %}
                                  </tbody>
@@ -241,27 +244,6 @@
                         </div>
                      </div>
 
-                     <!-- Confirmation Modal for Deleting Study Group -->
-                     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar grupo</h5>
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                 </button>
-                              </div>
-                              <div class="modal-body">
-                                 ¿Quieres borrar este grupo de estudio?
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Borrar</button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
                </div>
 
             </div>
@@ -322,16 +304,59 @@
                  }
              });
          });
-     
-         // Function to show confirmation modal for deleting a study group
-         function showDeleteConfirmationModal(id_group) {
-             $('#confirmDeleteModal').modal('show');
-     
-             // Handle the click on the Delete button in the confirmation modal
-             $('#confirmDeleteBtn').on('click', function () {
-                 deleteStudyGroup(id_group);
-                 $('#confirmDeleteModal').modal('hide');
-             });
+      </script>
+
+      <script>
+         function deleteStudyGroup(id_group, rowIndex) {
+            Swal.fire({
+               title: '¿Seguro?',
+               text: "¡El grupo de estudio se eliminará permanentemente!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#d33',
+               cancelButtonColor: '#3085d6',
+               confirmButtonText: 'Sí, eliminar grupo'
+            }).then((result) => {
+               if (result.isConfirmed) {
+                     // You can use AJAX to send a request to the server for deletion
+                     // Example using fetch API
+                     fetch('/delete_study_group/' + id_group, {
+                        method: 'DELETE',
+                        headers: {
+                           'Content-Type': 'application/json'
+                        },
+                     })
+                     .then(response => response.json())
+                     .then(data => {
+                        if (data.success) {
+                           // Optionally update the UI or show a success message
+                           Swal.fire(
+                                 '¡Hecho!',
+                                 'Tu grupo de estudio se ha borrado.',
+                                 'success'
+                           );
+                           
+                           // Remove the row from the table on the page
+                           var table = document.getElementById('studyGroupsTable');
+                           table.deleteRow(rowIndex);
+                        } else {
+                           Swal.fire(
+                                 '¡Error!',
+                                 'No se ha podido eliminar el grupo.',
+                                 'error'
+                           );
+                        }
+                     })
+                     .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire(
+                           '¡Error!',
+                           'Ha ocurrido un error mientras procesábamos tu petición, inténtalo de nuevo más tarde.',
+                           'error'
+                        );
+                     });
+               }
+            });
          }
       </script>
 
