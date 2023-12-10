@@ -99,6 +99,9 @@
                                 <span>Chatbot</span></a></li>
                         <li><a href="/jarvis"><i class="fas fa-robot"
                                     style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
+                        {% if tutor %}
+                        <li><a href="/tutelados"><i class="fa fa-paper-plane red_color" style="color: #2f73e9;"></i> <span>Tutelados</span></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
@@ -150,9 +153,11 @@
                 <div class="notification-popup" id="ventanaNotificaciones">
                     <h3><br>Notificaciones</h3>
                     {% for notificacion in notificaciones %}
-                    <div class="notification">{{ notificacion.mensaje }}</div>
+                        <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
+                            {{ notificacion.mensaje }}
+                        </a>
                     {% endfor %}
-                </div>
+               </div>
                 <!-- end topbar -->
                 <!-- dashboard inner -->
                 <div class="row justify-content-center jarvis">
