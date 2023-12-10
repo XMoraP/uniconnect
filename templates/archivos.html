@@ -8,7 +8,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Archivo</title>
+      <title>Asignaturas</title>
+      
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -42,6 +43,7 @@
       <![endif]-->
    </head>
    <body class=" archivos">
+  
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
@@ -68,11 +70,11 @@
                   <ul class="list-unstyled components">
                      <li class="active"><a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a></li>
                      <li><a href="/archivos"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
-                     <li><a href="/contact"><i class="fa fa-users red_color"></i> <span>Tutores</span></a></li>
+                     <li><a href="/contact"><i class="fa fa-paper-plane red_color"></i> <span>Tutores</span></a></li>
+                     <li><a href="/profile"><i class="fas fa-user" style="color: #1de2de;"></i> <span>Perfil</span></a></li>
                      <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
                      <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
-                     <li><a href="/chatbot"><i class="fas fa-comment" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
-                     <li><a href="/jarvis"><i class="fas fa-robot" style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
+                     <li><a href="/chatbot"><i class="fas fa-robot" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
                      {% if tutor %}
                         <li><a href="/tutelados"><i class="fa fa-paper-plane red_color" style="color: #2f73e9;"></i> <span>Tutelados</span></a></li>
                      {% endif %}
@@ -107,11 +109,7 @@
                                        <span class="name_user">{{ user_profile['name'] }} {{ user_profile['last_name']
                                           }}</span></a>
                                     <div class="dropdown-menu">
-                                       {% if tutor %}
-                                           <a class="dropdown-item" href="/profileTutor">Perfil</a>
-                                       {% else %}
-                                           <a class="dropdown-item" href="/profile">Perfil</a>
-                                       {% endif %}
+                                       <a class="dropdown-item" href="/profile">Perfil</a>
                                        <a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i
                                              class="fas fa-sign-out-alt"></i></a>
                                     </div>
@@ -172,44 +170,70 @@
                                     </div>
                               </div>
                            {% endfor %}
-                           <div>
-                              <form action="/archivos_disponibles" method="GET">
-                                 <h1><strong>Archivos Disponibles para Descargar</strong></h1>
-                                       <div>
-                                          <ol>
-                                          {% for archivo in archivos %}
-                                          <li>{{ archivo }}</li>
-                                          {% endfor %}
-                                          </ol>
-                                       </div>
+                          
+                           
+                              <!-- Sección: Subir Archivo -->
+                         
+                              <div class="container mt-4">
+                                 <div class="row">
+                                     <!-- Sección: Subir Archivo -->
+                                     <div class="col-md-4">
+                                         <div class="upload-section p-3" style="background-color: #d3d3d3; margin-bottom: 20px;">
+                                             <h1 class="display-6"><strong>Subir Archivo</strong></h1>
+                                             <form action="/upload" method="post" enctype="multipart/form-data">
+                                                 <div class="form-group">
+                                                     <label for="name">Nombre del archivo: </label>
+                                                     <input type="text" class="form-control" name="name" placeholder="Nombre del archivo" required>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="file">Seleccionar archivo: </label>
+                                                     <input type="file" class="form-control-file" name="file">
+                                                 </div>
+                                                 <button type="submit" class="btn btn-primary">Subir archivo</button>
+                                             </form>
+                                         </div>
+                                     </div>
+                             
+                                     <!-- Sección: Descargar Archivo -->
+                                     <div class="col-md-4">
+                                         <div class="download-section p-3" style="background-color: #d3d3d3; margin-bottom: 20px;">
+                                             <h1 class="display-6"><strong>Descargar Archivo</strong></h1>
+                                             <form action="/download" method="post">
+                                                 <div class="form-group">
+                                                     <label for="name">Escriba el nombre del archivo que desea descargar: </label>
+                                                     <input type="text" class="form-control" name="name" placeholder="Nombre del archivo" required>
+                                                 </div>
+                                                 <button type="submit" class="btn btn-primary">Descargar archivo</button>
+                                             </form>
+                                         </div>
+                                     </div>
+                             
+                                     <!-- Sección: Archivos Disponibles para Descargar -->
+                                     <div class="col-md-4">
+                                         <div class="file-section p-3" style="background-color: #d3d3d3; margin-bottom: 20px;">
+                                             <form action="/archivos_disponibles" method="GET">
+                                                 <h1 class="display-6"><strong>Archivos Disponibles para Descargar</strong></h1>
+                                                 <div>
+                                                     <ol>
+                                                         {% for archivo in archivos %}
+                                                         <li>{{ archivo }}</li>
+                                                         {% endfor %}
+                                                     </ol>
+                                                 </div>
+                                                 <button type="submit" class="btn btn-primary">Mostrar archivos</button>
+                                             </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             
+                             
+                           
+                             
+                             
+     
 
-                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Mostrar archivos</button>
-                              </form>
-                           </div>
-                           <br/>
-                           <br/>
-                           <div>
-                           <h1><strong>Subir Archivo</strong></h1>
-                              <form action="/upload" method="post" enctype="multipart/form-data">
-                                 <label for="name">Nombre del archivo: </label>
-                                 <input type="text" name="name" placeholder="Nombre del archivo" style="border: 1px solid black;" required>
-
-                                 <input type="file" name="file"><br/>
-                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Subir archivo</button><br/>
-                              </form>
-                              </form>
-                              <br/>
-
-                           <h1><strong>Descargar Archivo</strong></h1>
-                              <form action="/download" method="post">
-                                 <label for="name">Escriba el nombre del archivo que desea descargar: </label>
-                                 <input type="text" name="name" placeholder="Nombre del archivo" required><br/>
-                                 <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">Descargar archivo</button>
-                              <br/>
-                              <br/>
-                              </form>
-                              <br/>
-                              <br/>
+                          
                            </div>
                         </div>
                   </div>

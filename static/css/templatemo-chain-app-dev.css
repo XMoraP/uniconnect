@@ -104,6 +104,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0px;
   margin-bottom: 0px;
   font-family: 'Poppins', sans-serif;
+  color: #1b1376;;
+
 }
 
 .strong {
@@ -119,7 +121,7 @@ p {
   font-size: 15px;
   line-height: 30px;
   font-weight: 300;
-  color: #afafaf;
+  color: #1b1376;;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -894,7 +896,8 @@ Banner Style
 
 .main-banner:after {
   content: '';
-  background-image: url(../images/slider-left-dec.png);
+  background-image: url(../images/cityscapes.png);
+  /* background-image: url(../images/slider-left-dec.png); */
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -1927,6 +1930,32 @@ a.btn_red {
   margin-bottom: 10px;
   clear: both;
   overflow: hidden;
+}
+
+/* ----------------------------------------------------
+FOOTER
+------------------------------------------------------*/
+/* Add this to your CSS stylesheet */
+#newsletter {
+  background-color: #1b1376; /* Set the background color of the footer */
+  padding: 20px 0; /* Add padding to the top and bottom of the footer content */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo img {
+  display: block;
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.footer-name p {
+  color: white; /* Set the color of the text */
+  font-size: 18px; /* Adjust the font size as needed */
+  margin: 0; /* Remove default margin */
 }
 
 
