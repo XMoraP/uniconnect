@@ -818,18 +818,17 @@ def get_audio(id_podcast):
 @app.route('/uploadMp3', methods=['POST'])
 def upload_mp3():
     name_user = session['name']
+    if request.method == 'POST':
+        podcast = request.files['podcastFile']
+        podcast_data = podcast.read()
 
-    podcast = request.files['podcastFile']
-    podcast_data = podcast.read()
+        name = request.form['podcastName']
+        description = request.form['description']
 
-    name = request.form['podcastName']
-    description = request.form['description']
-
-    query = "INSERT INTO podcast (name, name_user, description, podcast) VALUES (%s,%s,%s,%s)"
-    cursor = mysql.connection.cursor()
-    cursor.execute(query, (name, name_user, description, podcast_data,))
-    mysql.connection.commit()
-
+        query = "INSERT INTO podcast (name, name_user, description, podcast) VALUES (%s,%s,%s,%s)"
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, (name, name_user, description, podcast_data,))
+        mysql.connection.commit()
     return redirect(url_for('podcast'))
 
 @app.route('/subir_audio', methods=['POST'])
@@ -838,26 +837,25 @@ def subir_audio():
 
     if 'audio' not in request.files:
         return "No se encontró el archivo de audio."
+    if request.method == 'POST':
+            audio = request.files['audio']
 
-    audio = request.files['audio']
+            # Lee el contenido del archivo como bytes
+            audio_content = audio.read()
 
-    # Lee el contenido del archivo como bytes
-    audio_content = audio.read()
+            # Genera un nombre único para el archivo de audio
+            audio_filename = f"{name_user}_{datetime.now().strftime('%Y%m%d%H%M%S')}.wav"
 
-    # Genera un nombre único para el archivo de audio
-    audio_filename = f"{name_user}_{datetime.now().strftime('%Y%m%d%H%M%S')}.wav"
+            # Obtén la descripción del formulario
+            description = request.form.get('description')
 
-    # Obtén la descripción del formulario
-    description = request.form.get('description')
-
-    # Guarda la información del audio en la base de datos
-    insert_query = "INSERT INTO podcast (name_user, name, description, podcast) VALUES (%s, %s, %s, %s)"
-    values = (name_user, audio_filename, description, audio_content,)
-    cursor = mysql.connection.cursor()
-    cursor.execute(insert_query, values)
-    mysql.connection.commit()
-
-    return "Audio subido exitosamente."
+            # Guarda la información del audio en la base de datos
+            insert_query = "INSERT INTO podcast (name_user, name, description, podcast) VALUES (%s, %s, %s, %s)"
+            values = (name_user, audio_filename, description, audio_content,)
+            cursor = mysql.connection.cursor()
+            cursor.execute(insert_query, values)
+            mysql.connection.commit()
+    return redirect(url_for('estudio'))
 
 # Archivos disponibles
 @app.route('/archivos_disponibles', methods=['GET'])
