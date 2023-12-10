@@ -205,6 +205,9 @@
                                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
                                                    href="#project_worked" role="tab" aria-selected="false">Información
                                                    Tutor</a>
+                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+                                                   href="#project_baja" role="tab" aria-selected="false">Baja TUTOR
+                                                </a>
 
                                              </div>
                                           </nav>
@@ -255,22 +258,32 @@
                                                       <label for="asignaturas">Asignaturas (separadas por coma):</label>
                                                       <input type="text" class="form-control" id="asignaturas"
                                                          placeholder="Ingrese las asignaturas" name="asignaturas"
-                                                         required>
-                                                   </div>
-                                                   <div class="form-group">
-                                                      <label for="tarifa">Tarifa:</label>
-                                                      <input type="number" class="form-control" id="tarifa"
-                                                         placeholder="Ingrese la tarifa" name="tarifa" required>
+                                                         >
                                                    </div>
                                                    <div class="form-group">
                                                       <label for="password">Contraseña:</label>
                                                       <input type="password" class="form-control" id="password"
                                                          placeholder="Ingrese su contraseña " name="password" required>
                                                    </div>
-                                                   <button type="submit" class="btn btn-primary">Guardar
-                                                      cambios</button>
+                                                   
+                                                      <button type="submit" class="btn btn-primary">Guardar cambios</button>                                            
+                                                  
                                                 </form>
-
+                                                   
+                                             </div>
+                                             <div class="tab-pane fade" id="project_baja" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">                                   
+                                                <form method="POST" action="/bajaTutor">
+                                                   <div class="form-group">
+                                                      <label>Introduzca su contraseña para darse de baja de
+                                                         Tutor</label>
+                                                         <br>
+                                                      <label for="password">Contraseña:</label>
+                                                      <input type="password" class="form-control" id="password"
+                                                         placeholder="Ingrese su contraseña " name="password" required>
+                                                         </div>
+                                                         <button id="bajaTutorBtn" type="submit" class="btn btn-danger" >Baja tutor</button>                                                                                          
+                                                </form>    
                                              </div>
                                              <div class="tab-pane fade" id="password_change" role="tabpanel"
                                                 aria-labelledby="nav-profile-tab">
@@ -354,30 +367,11 @@
 
 
    <!-- Lógica Boton añadir imagen-->
-   <!--script>
-      
-       document.getElementById('addImage').addEventListener('click', function() {
-           document.getElementById('profileImage').click();
-         });
+   
 
-      document.getElementById('profileImage').addEventListener('change', function() {
-        var file = this.files[0]; // Obtener el archivo seleccionado
-
-        if (file) {
-            var reader = new FileReader(); // Inicializar un lector de archivos
-
-            reader.onload = function(e) {
-                // Cuando la lectura del archivo se complete, actualizamos la fuente de la imagen
-                document.querySelector('.profile_img img').src = e.target.result;
-            }
-
-            reader.readAsDataURL(file); // Leer el archivo como URL de datos
-        }
-    });
-   </script-->
 
    <div id="flash-message" data-tipo="{{ mensaje['tipo'] }}" data-contenido="{{ mensaje['contenido'] }}"></div>
-
+   
    <script>
       document.addEventListener('DOMContentLoaded', function () {
          const flashMessage = document.getElementById('flash-message');
