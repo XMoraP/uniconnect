@@ -277,9 +277,8 @@
                                             <label for="podcastName">Nombre del Podcast</label>
                                             <input type="text" class="form-control" id="podcastName"
                                                 placeholder="Ingrese el nombre del podcast" name="podcastName">
-                                            <!---label for="description"> Descripción</label>
-                                            <input type="text" class="form-control" id="description"
-                                                    placeholder="Ingrese la descripción del podcast" name="description" required--->
+                                            <label for="description"> Descripción</label>
+                                            <input type="text" class="form-control" id="description" placeholder="Ingrese la descripción del podcast" name="description" required>
                                         </div>
         
                                         <div class="form-group">
@@ -320,28 +319,20 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col mb-3">
+                                    <form id="audioForm" method="post" action="/subir_audio">
+                                        <div class="row">
+                                        <div class="col">
                                         <button id="startRecord" class="btn btn-primary">Iniciar Grabación</button>
                                         <button id="stopRecord" disabled class="btn btn-primary">Detener Grabación</button>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                        <audio id="audioPlayer" controls></audio>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                        <button id="saveRecord" class="btn btn-primary">Guardar</button>
+                                        <br><audio id="audioPlayer" controls></audio>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Añade una descripción" name="description" style="height: 100px" required></textarea>
+                                            <label for="floatingTextarea2">Descripción</label>
                                         </div>
-                                    </div>
-                                    <!---form action="/subir_audio" method="post">
-                                        <label for="description"> Descripción</label>
-                                        <input type="text" class="form-control" id="description"
-                                                placeholder="Ingrese la descripción del podcast" name="description" required>
-                                        <button type="submit" class="btn btn-primary">Guardar Descripción</button>
-                                    </form--->
+                                        <br><button type="submit" id="saveP" class="btn btn-success">Guardar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
