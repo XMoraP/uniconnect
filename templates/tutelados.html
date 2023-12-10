@@ -115,39 +115,46 @@
                   </nav>
                </div>
                <div class="notification-popup" id="ventanaNotificaciones">
-                   <h3><br>Notificaciones</h3>
-                   {% for notificacion in notificaciones %}
-                       <a href="/hacer_tutorando?id_user={{ notificacion.id_user }}" class="notification">
-                           {{ notificacion.mensaje }} {{notificacion.id_user}}
-                       </a>
-                   {% endfor %}
+                    <h3><br>Notificaciones</h3>
+                    {% for notificacion in notificaciones %}
+                        <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
+                            {{ notificacion.mensaje }}
+                        </a>
+                    {% endfor %}
                </div>
 
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">
                   <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Tutelados</h2>
-                           </div>
-                        </div>
-                     </div>
                      <!-- row -->
                      <div class="row column1">
                         <div class="col-md-12">
                            <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <p>Tus Tutelados</p>
-                                 </div>
-                              </div>
                               <div class="full price_table padding_infor_info">
                                  <div class="row">
                                     <!-- column contact -->
                                     {% block content %}
-
+                                       <h3>Tutorandos Aceptados</h3>
+                                       <div class="row">
+                                          {% for tutelado in tutelados %}
+                                             <div class="contact_blog">
+                                                   <div class="contact_inner">
+                                                      <div class="left">
+                                                         <h4>{{ tutelado.nombre_apellido }}</h4>
+                                                         <p><strong>Contact: </strong>{{ tutelado.email }}</p>
+                                                         <p>{{ tutelado.grado }}</p>
+                                                         <button class="boton_pedir_tutoria">Abrir Chat</button>
+                                                      </div>
+                                                      <div class="right">
+                                                         <div class="rounded-container">
+                                                            <img src="static/images/userPhoto.png" alt="Imagen de usuario" class="rounded-image">
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                             </div>
+                                          {% endfor %}
+                                       </div>
                                     {% endblock %}
 
                                     <!-- end column contact blog -->

@@ -145,3 +145,34 @@ window.chartColors = {
 	/* eslint-enable */
 
 }(this));
+
+function confirmarAccion(id_user, nombre_alumno) {
+        var respuesta = confirm("¿Quieres aceptar la solicitud?");
+        if (respuesta) {
+            // Si el usuario hace clic en "Aceptar", envía una solicitud POST a la ruta de aceptar
+            var form = document.createElement('form');
+            form.action = '/hacer_tutorando/aceptar';
+            form.method = 'post';
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id_user';
+            input.value = id_user;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            // Si el usuario hace clic en "Cancelar", envía una solicitud POST a la ruta de denegar
+            var form = document.createElement('form');
+            form.action = '/hacer_tutorando/denegar';
+            form.method = 'post';
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id_user';
+            input.value = id_user;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+}
+
+

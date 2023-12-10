@@ -243,9 +243,9 @@ def pedir_tutoria():
         cur.close()
     return redirect(url_for('contact'))
 
-@app.route('/hacer_tutorando', methods=['POST', 'GET'])
-def hacer_tutorando():
-    id_user = request.args.get('id_user')
+@app.route('/hacer_tutorando/aceptar', methods=['POST'])
+def aceptar_tutorando():
+    id_user = request.form.get('id_user')
     if id_user:
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO tutorando(id_tutor, id_user) VALUES(%s, %s)", (session['id_user'], id_user))
@@ -255,11 +255,24 @@ def hacer_tutorando():
         cur.close()
     return redirect(url_for('contact'))
 
+@app.route('/hacer_tutorando/denegar', methods=['POST'])
+def denegar_tutorando():
+    id_user = request.form.get('id_user')
+    if id_user:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM tutoria WHERE id_user = %s AND id_tutor = %s", (id_user, session['id_user']))
+        mysql.connection.commit()
+        cur.close()
+    return redirect(url_for('contact'))
+
 #Tutelados
 @app.route('/tutelados')
 def tutelados():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT concat(user.nombre, user.apellido) AS nombre_completo, user.eMail AS email, user.nombre_grado AS grado FROM user, tutorando WHERE user.id_user = tutorando.id_user")
+    tutelados = cur.fetchall()
     user_profile = loginfo(session)
-    return render_template('tutelados.html', user_profile=user_profile)
+    return render_template('tutelados.html', user_profile=user_profile, tutelados = tutelados)
 
 @app.route('/profile')
 def profile():

@@ -115,12 +115,12 @@
                   </nav>
                </div>
                <div class="notification-popup" id="ventanaNotificaciones">
-                   <h3><br>Notificaciones</h3>
-                   {% for notificacion in notificaciones %}
-                       <a href="/hacer_tutorando?id_user={{ notificacion.id_user }}" class="notification">
-                           {{ notificacion.mensaje }} {{notificacion.id_user}}
-                       </a>
-                   {% endfor %}
+                    <h3><br>Notificaciones</h3>
+                    {% for notificacion in notificaciones %}
+                        <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
+                            {{ notificacion.mensaje }}
+                        </a>
+                    {% endfor %}
                </div>
 
                <!-- end topbar -->
