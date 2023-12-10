@@ -352,16 +352,27 @@ def guardar_perfil():
                 session['last_name'] = apellido
                 session['email'] = email
                 session['nombre_grado'] = grado
+                
 
                 session['mensaje'] = {'tipo': 'successUpdate', 'contenido': 'Perfil actualizado exitosamente'}
-                return redirect(url_for('profile'))
+                
+                if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+                else:
+                    return redirect(url_for('profile'))
         if emails_existentes['eMail'] == email:
                 session['mensaje'] = {'tipo': 'errorEmail', 'contenido': 'Este correo electrónico ya esta en uso.'}
-                return redirect(url_for('profile'))
+                if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+                else:
+                    return redirect(url_for('profile'))
         else:
              if not (contrasenna == resultado['contrasenna']):
                 session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
-                return redirect(url_for('profile'))
+                if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+                else:
+                    return redirect(url_for('profile'))
 
     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
@@ -453,13 +464,22 @@ def cambiarContrasenna():
 
                 session['contrasenna']: newPassword
                 session['mensaje'] = {'tipo':'successUpdate','contenido':'Contraseña actualizada'}
-                return redirect(url_for('profile'))
+                if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+                else:
+                    return redirect(url_for('profile'))
             else:
                 session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'Los campos Nueva contraseña y Confirmar contraseña no coinciden. Por favor, inténtalo de nuevo.'}
-                return redirect(url_for('profile'))
+                if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+                else:
+                    return redirect(url_for('profile'))
         else:
             session['mensaje'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
-            return redirect(url_for('profile')) 
+            if(session['status'] == 'Tutor'):
+                    return redirect(url_for('profileTutor'))
+            else:
+                    return redirect(url_for('profile'))
         
     return render_template('profile.html', user_profile=user_profile, mensaje=mensaje , longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
@@ -502,6 +522,45 @@ def altaTutor():
         
      return render_template('profile.html', user_profile=user_profile, mensaje1=mensaje1, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
 
+#Darse de baja de tutor
+@app.route('/bajaTutor',  methods=['GET', 'POST'])
+def bajaTutor():
+     
+     user_profile = None
+     mensaje1 = None
+     
+     if request.method == 'POST':
+    
+        email_from_session = session["email"]
+        contrasenna = request.form['password']
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT contrasenna FROM user WHERE eMail = %s", [email_from_session])
+        result = cur.fetchone()
+
+        if result['contrasenna'] == contrasenna:
+                id_tutor = session["id_user"]
+                cursor = mysql.connection.cursor()
+                cursor.execute("UPDATE user SET status = 'Estudiante' WHERE contrasenna = %s", [contrasenna])
+                cursor.execute("DELETE FROM tutor WHERE id_tutor=%s", [id_tutor])
+                result = cursor.fetchone()
+                mysql.connection.commit()
+
+
+                cursor2 = mysql.connection.cursor()
+                cursor2.execute("SELECT status FROM user WHERE eMail = %s", [email_from_session])
+                resultado = cursor2.fetchone()
+                mysql.connection.commit()
+                session['status'] = resultado['status']
+
+                session['mensaje1'] = {'tipo':'successUpdate','contenido':'Te has dado de baja de Tutor'}
+                return redirect(url_for('profile'))     
+        else:
+            session['mensaje1'] = {'tipo': 'errorPassword', 'contenido': 'La contraseña proporcionada es incorrecta. Por favor, inténtalo de nuevo.'}
+            return redirect(url_for('profileTutor')) 
+        
+     return render_template('profileTutor.html', user_profile=user_profile, mensaje1=mensaje1, longitud = num_notificaciones(), notificaciones = obtener_notificaciones(), tutor = isTutor())
+
 #Cambiar campos de tutor
 @app.route('/camposTutor', methods=['GET', 'POST'])
 def campos_tutor():
@@ -512,7 +571,7 @@ def campos_tutor():
     if request.method == 'POST':
     
      contrasenna = request.form['password']
-     tarifa = request.form['tarifa']
+     #tarifa = request.form['tarifa']
      asignaturas = request.form['asignaturas']
      email_from_session = session["email"]
      id_user = session["id_user"]
@@ -530,7 +589,7 @@ def campos_tutor():
 
             if existing_data:
                 # Si ya existen datos, realizar una actualización
-                cursor.execute("UPDATE tutor SET tarifa = %s, asignaturas_tutor = %s WHERE id_tutor = %s", (tarifa, asignaturas, id_user))
+                cursor.execute("UPDATE tutor SET asignaturas_tutor = %s WHERE id_tutor = %s", (asignaturas, id_user))
                 mysql.connection.commit()
                 cursor.close()
 
@@ -539,7 +598,7 @@ def campos_tutor():
 
             else:
                 # Si no existen datos, realizar una inserción
-                cursor.execute("INSERT INTO tutor (id_tutor,tarifa, asignaturas_tutor) VALUES (%s,%s, %s)", (id_user,tarifa, asignaturas))
+                cursor.execute("INSERT INTO tutor (id_tutor, asignaturas_tutor) VALUES (%s, %s)", (id_user, asignaturas))
                 mysql.connection.commit()
                 cursor.close()
 
