@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="./static/css/semantic.min.css">
     <link rel="stylesheet" href="./static/css/jquery.fancybox.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
    
@@ -148,6 +147,7 @@
                                        <th scope="col">Día</th>
                                        <th scope="col">Hora</th>
                                        <th scope="col">Creado por</th>
+                                       <th scope="col">Participantes</th>
                                     </tr>
                                  </thead>
                                  <tbody id="studyGroupsTable">
@@ -161,9 +161,40 @@
                                        <td>{{ group.creator }}</td>
 
                                        <td>
-                                          <button class="btn btn-default showFire" data-groupid="{{ group.id_group }}">
-                                              <span class="glyphicon glyphicon-fire"></span> Me quiero unir
+                                          <button class="btn btn-default showFire" onclick="joinStudyGroup('{{ group.id_group }}', {{ loop.index }}, '{{ user_profile['name'] }} {{ user_profile['last_name'] }}')" data-groupid="{{ group.id_group }}">
+                                             <span class="glyphicon glyphicon-fire"></span> 
+                                             {% if user_profile['name'] ~ ' ' ~ user_profile['last_name'] in group.participants %}
+                                                 ¡Te has apuntado!
+                                             {% else %}
+                                                 Me quiero unir
+                                             {% endif %}
+                                         </button>
+                                       </td>
+                                      
+                                       <td>
+                                          <button class="btn btn-info" data-toggle="modal" data-target="#participantsModal{{ group.id_group }}">
+                                             Ver Participantes
                                           </button>
+                                          <div class="modal fade" id="participantsModal{{ group.id_group }}" tabindex="-1" role="dialog" aria-labelledby="participantsModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                   <div class="modal-header">
+                                                      <h5 class="modal-title" id="participantsModalLabel">Participantes</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                      {% for participant in group.participants %}
+                                                         <p>{{ participant }}</p>
+                                                      {% endfor %}
+                                                   </div>
+                                                   <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
                                        </td>
 
                                        <td>
@@ -254,8 +285,8 @@
       </div>
 
       <!-- jQuery, Popper.js, and Bootstrap -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
       <!-- Other libraries and plugins -->
@@ -287,33 +318,10 @@
       <script src="./static/js/estudio.js"></script>
 
       <script>
-         // Function to swap the fire and ok icons and update the text
-         $(document).ready(function () {
-             $('.showFire').on('click', function () {
-                 var $button = $(this);
-                 var $icon = $button.find('span');
-     
-                 // Toggle the class for the next state
-                 $button.toggleClass('active');
-     
-                 if ($button.hasClass('active')) {
-                     // If the button now has the class, change to ok icon and text
-                     $icon.removeClass('glyphicon-fire').addClass('glyphicon-ok');
-                     $button.text('¡Me uní!');
-                 } else {
-                     // Otherwise, change to fire icon and text
-                     $icon.removeClass('glyphicon-ok').addClass('glyphicon-fire');
-                     $button.text('Me quiero unir');
-                 }
-             });
-         });
-      </script>
-
-      <script>
          function deleteStudyGroup(id_group, rowIndex) {
             Swal.fire({
                title: '¿Seguro?',
-               text: "¡El grupo de estudio se eliminará permanentemente!",
+               text: '¡El grupo de estudio se eliminará permanentemente!',
                icon: 'warning',
                showCancelButton: true,
                confirmButtonColor: '#d33',
@@ -321,8 +329,6 @@
                confirmButtonText: 'Sí, eliminar grupo'
             }).then((result) => {
                if (result.isConfirmed) {
-                     // You can use AJAX to send a request to the server for deletion
-                     // Example using fetch API
                      fetch('/delete_study_group/' + id_group, {
                         method: 'DELETE',
                         headers: {
@@ -332,14 +338,12 @@
                      .then(response => response.json())
                      .then(data => {
                         if (data.success) {
-                           // Optionally update the UI or show a success message
                            Swal.fire(
                                  '¡Hecho!',
                                  'Tu grupo de estudio se ha borrado.',
                                  'success'
                            );
                            
-                           // Remove the row from the table on the page
                            var table = document.getElementById('studyGroupsTable');
                            table.deleteRow(rowIndex);
                         } else {
@@ -363,6 +367,58 @@
          }
       </script>
 
+      <script>
+         function joinStudyGroup(id_group, rowIndex, participantName) {
+            // Check if the participant has already joined
+            var isJoined = $('#participantsModal' + id_group + ' .modal-body:contains("' + participantName + '")').length > 0;
+
+            
+            if (!isJoined) {
+               $.ajax({
+                     url: '/join_study_group/' + id_group,
+                     type: 'POST',
+                     dataType: 'json',
+                     success: function (response) {
+                        if (response.success) {
+                           var $button = $('.showFire[data-groupid="' + id_group + '"]');
+                           var $icon = $button.find('span');
+
+                           $button.toggleClass('active');
+                           $icon.removeClass('glyphicon-fire').addClass('glyphicon-ok');
+                           $button.text('¡Te has apuntado!');
+
+                           Swal.fire({
+                                 icon: 'success',
+                                 title: '¡Hecho!',
+                                 text: 'Te has unido al grupo exitosamente.',
+                           });
+
+                           // Update the participants modal
+                           var modalBody = $('#participantsModal' + id_group + ' .modal-body');
+                           modalBody.append('<p>' + participantName + '</p>');
+                        } else {
+                           Swal.fire({
+                                 icon: 'error',
+                                 title: '¡Error!',
+                                 text: 'No se ha podido unir al grupo. Por favor, intenta de nuevo.',
+                           });
+                        }
+                     },
+                     error: function (error) {
+                        console.error('Error:', error);
+                     }
+               });
+            } else {
+               // User is already joined, show a message or handle it as needed
+               Swal.fire({
+                     icon: 'info',
+                     title: '¡Información!',
+                     text: 'Ya te has unido a este grupo.',
+               });
+            }
+         }
+
+      </script>
 
    </body>
 </html>
