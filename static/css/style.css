@@ -3288,6 +3288,8 @@ td ul.list-inline li {
     border-radius: 50%; /* Hace que la imagen sea redondeada */
     width: 50px; /* Ancho de la imagen */
     height: 50px; /* Altura de la imagen */
+    margin-top: -20px;
+    margin-lef: 20px;
 }
 .right {
     text-align: right; /* Alinea el contenido a la derecha */
@@ -3904,50 +3906,25 @@ input[type="file"] {
     Tutelados
 -------------------------------------------------------------------*/
 /* Estilos para el contenedor del perfil */
-.profile_details {
-    border: 1px solid #ddd; /* Borde del contenedor */
-    padding: 15px; /* Espaciado interno del contenedor */
-    background-color: #fff; /* Fondo del contenedor */
-    border-radius: 5px; /* Bordes redondeados del contenedor */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
-    margin-bottom: 30px; /* Márgenes inferiores */
-}
-
-/* Estilos para el título del perfil */
-.profile_details h4 {
-    font-size: 18px; /* Tamaño del título */
-    margin-bottom: 10px; /* Márgenes inferiores para el título */
-}
-
-/* Estilos para el párrafo del perfil */
-.profile_details p {
-    margin-bottom: 8px; /* Márgenes inferiores para los párrafos */
-}
-
-/* Estilos para el botón "Abrir Chat" */
-.profile_details .boton_pedir_tutoria {
-    background-color: #007bff; /* Color de fondo del botón */
-    color: #fff; /* Color del texto del botón */
-    padding: 8px 12px; /* Espaciado interno del botón */
-    border: none; /* Elimina el borde del botón */
-    border-radius: 3px; /* Bordes redondeados del botón */
-    cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
-    font-size: 14px; /* Tamaño del texto del botón */
-}
-
-/* Estilos para la imagen del perfil */
-.profile_details .rounded-container {
-    overflow: hidden; /* Oculta el exceso de la imagen */
-    border-radius: 50%; /* Bordes redondeados de la imagen */
-}
-
-/* Estilos para la imagen dentro del contenedor */
-.profile_details img {
-    width: 100%; /* Haz que la imagen ocupe todo el ancho del contenedor */
-    height: auto; /* Mantén la relación de aspecto original */
-    display: block; /* Elimina el espacio adicional debajo de la imagen */
-}
 
 #tut_div{
     margin-bottom: 20px;
 }
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+   .rounded-container {
+      text-align: center; /* Alinear al centro en pantallas pequeñas */
+   }
+
+   .rounded-image {
+       max-width: 100% !important;
+       height: auto !important;
+       display: block !important;
+       margin: 0 auto !important;
+   }
+}
+
+body {
+    margin: 0;
+}
+

@@ -174,5 +174,27 @@ function confirmarAccion(id_user, nombre_alumno) {
             form.submit();
         }
 }
+function borrarNotis(id_user) {
+    // Envía una solicitud al servidor Flask
+    fetch('/borras_Notis/' + id_user, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Puedes incluir un cuerpo JSON si es necesario
+        body: JSON.stringify({}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Manejar la respuesta del servidor si es necesario
+        console.log(data);
+
+        // Después de manejar la respuesta, redirige al usuario
+        window.location.href = data.redirect; // Asegúrate de que la respuesta del servidor incluya la clave "redirect"
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 

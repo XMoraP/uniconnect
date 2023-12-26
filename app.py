@@ -4,7 +4,6 @@ from datetime import datetime
 import io
 import base64
 import binascii
-from datetime import datetime
 from Contact import loginfo, crearDirectorio
 import openai
 from dotenv import load_dotenv
@@ -13,21 +12,21 @@ import shutil
 
 load_dotenv()
 
-openai.api_key = os.getenv("API_KEY_IA") 
+openai.api_key = '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' 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
-app.secret_key = os.getenv("APP_SECRET_KEY")
+app.secret_key = '12345UN$'
 
 app.config['UPLOAD_FOLDER'] = './files'
 ALLOWED_EXTENSIONS= {'pdf', 'txt'}
 
 # Configuración de la base de datos
-app.config['MYSQL_HOST'] = os.getenv("DB_HOST")  
-app.config['MYSQL_USER'] = os.getenv("DB_USER")
-app.config['MYSQL_PASSWORD'] = os.getenv("DB_PASSWORD")
-app.config['MYSQL_DB'] = os.getenv("DB")
-app.config['MYSQL_CURSORCLASS'] = os.getenv("CURSOSRCLASS")
+app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com' 
+app.config['MYSQL_USER'] = 'XMoraP'
+app.config['MYSQL_PASSWORD'] = '12345678u$'
+app.config['MYSQL_DB'] = 'uniconnect'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
@@ -243,8 +242,11 @@ def pedir_tutoria():
 def aceptar_tutorando():
     id_user = request.form.get('id_user')
     if id_user:
+        msg = "Tutoria aceptada!!!"
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO tutorando(id_tutor, id_user) VALUES(%s, %s)", (session['id_user'], id_user))
+        mysql.connection.commit()
+        cur.execute("INSERT INTO tutoria(id_user, id_tutor, mensaje) VALUES(%s, %s, %s)", (session['id_user'], id_user, msg))
         mysql.connection.commit()
         cur.execute("DELETE FROM tutoria WHERE id_user = %s AND id_tutor = %s", (id_user, session['id_user']))
         mysql.connection.commit()
@@ -260,6 +262,16 @@ def denegar_tutorando():
         mysql.connection.commit()
         cur.close()
     return redirect(url_for('contact'))
+
+@app.route('/borras_Notis/<int:id_user>', methods=['POST'])
+def borras_Notis(id_user):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM tutoria WHERE id_user = %s AND id_tutor = %s", (id_user, session['id_user']))
+    mysql.connection.commit()
+    cur.close()
+
+    # Envia una respuesta JSON con la URL de redirección
+    return jsonify({'redirect': request.referrer})
 
 #Tutelados
 @app.route('/tutelados')
@@ -694,9 +706,9 @@ def download_file():
         as_attachment=True
     )
 
-# Funcion auxiliar para crear un nuevo grupo de estudio para /estudio y /estudioTutor
 def create_study_group(request, user_profile):
     try:
+        cursor = mysql.connection.cursor()
         title = request.form.get('title')
         subject = request.form.get('subject')
         description = request.form.get('description')
@@ -709,9 +721,19 @@ def create_study_group(request, user_profile):
 
         query = "INSERT INTO study_groups (title, subject, description, location, days, time, name_user, creator_mail) VALUES (%s, %s, %s, %s, %s, %s,  %s,  %s)"
         values = (title, subject, description, location, days, time, creator, creator_mail)
-        cursor = mysql.connection.cursor()
         cursor.execute(query, values)
         mysql.connection.commit()
+
+        # Get the id_group of the newly created group
+        cursor.execute("SELECT LAST_INSERT_ID()")
+        group_id = cursor.fetchone()[0]
+
+        # Insert the creator's name into the group_participants table
+        query = "INSERT INTO group_participants (group_id, user_name) VALUES (%s, %s)"
+        values = (group_id, creator)
+        cursor.execute(query, values)
+        mysql.connection.commit()
+
         cursor.close()
 
         flash('Group created successfully', 'success')
@@ -720,19 +742,9 @@ def create_study_group(request, user_profile):
     except Exception as e:
         flash(f'Error creating group: {str(e)}', 'error')
         return redirect(url_for('estudio'))
-
-@app.route('/estudio', methods=['GET', 'POST'])
-def estudio():
-    user_profile = get_user_profile()
-    
-    if request.method == 'POST':
-        return create_study_group(request, user_profile)
-
-    groups_list = fetch_study_groups()
-    
-    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
-
 # Funcion auxiliar para obtener el perfil del usuario
+
+
 def get_user_profile():
     return {
         'name': session.get('name'),
@@ -743,7 +755,6 @@ def get_user_profile():
         'photo_url': 'static/images/userPhoto.png',
         'role': 'Estudiante',
     }
-
 # Funcion auxiliar para obtener los grupos de estudio
 def fetch_study_groups():
     
@@ -757,12 +768,14 @@ def fetch_study_groups():
         id_group = group['id_group']
         title = group['title']
         subject = group['subject']
-        description = group.get('description', '')  # Use get() to handle missing key
+        description = group.get('description', '')
         location = group['location']
         days = group['days']
         time = group['time']
         creator = group['name_user']
         creator_mail = group['creator_mail']
+        participants = fetch_group_participants(group['id_group'])
+        group['participants'] = participants
 
         group_info = {
             'id_group': id_group,
@@ -773,26 +786,60 @@ def fetch_study_groups():
             'days': days,
             'time': time,
             'creator': creator,
-            'creator_mail': creator_mail
+            'creator_mail': creator_mail,
+            'participants': participants
         }
         groups_list.append(group_info)
 
     return groups_list
 
-@app.route('/delete_study_group/<int:group_id>', methods=['DELETE'])
-def delete_study_group(group_id):
+def fetch_group_participants(group_id):
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT user_name FROM group_participants WHERE group_id = %s', (group_id,))
+    participants = [row['user_name'] for row in cursor.fetchall()]
+    cursor.close()
+    return participants
+
+@app.route('/join_study_group/<int:group_id>', methods=['POST'])
+def join_study_group(group_id):
+    user_profile = get_user_profile()
+    participant = f"{user_profile['name']} {user_profile['last_name']}"
     try:
-        # Perform the deletion in the database
         cursor = mysql.connection.cursor()
-        cursor.execute('DELETE FROM study_groups WHERE id_group = %s', (group_id,))
+        query = "INSERT INTO group_participants (group_id, user_name) VALUES (%s, %s)"
+        values = (group_id, participant)
+        cursor.execute(query, values)
         mysql.connection.commit()
-        cursor.close()
 
         return jsonify(success=True)
     except Exception as e:
         print(str(e))
         return jsonify(success=False, error=str(e))
 
+@app.route('/delete_study_group/<int:group_id>', methods=['DELETE'])
+def delete_study_group(group_id):
+    try:
+        if request.method == 'DELETE':
+            cursor = mysql.connection.cursor()
+            cursor.execute('DELETE FROM study_groups WHERE id_group = %s', (group_id,))
+            mysql.connection.commit()
+            cursor.close()
+
+            return jsonify(success=True)
+    except Exception as e:
+        print(str(e))
+        return jsonify(success=False, error=str(e))
+
+@app.route('/estudio', methods=['GET', 'POST'])
+def estudio():
+    user_profile = get_user_profile()
+    
+    if request.method == 'POST':
+        return create_study_group(request, user_profile)
+
+    groups_list = fetch_study_groups()
+    
+    return render_template('estudio.html', user_profile=user_profile, groups=groups_list, longitud=num_notificaciones(), notificaciones=obtener_notificaciones(), tutor = isTutor())
 # Podcast
 @app.route('/podcast')
 def podcast(): 

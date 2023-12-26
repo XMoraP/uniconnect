@@ -1,0 +1,13 @@
+.background_login {
+    background: linear-gradient(to right, #3498db, #7152d1);
+    height: 100vh;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+@media only screen and (max-width: 320px) {
+    .background_login {
+        background-attachment: scroll;
+    }
+}

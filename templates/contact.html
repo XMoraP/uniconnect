@@ -10,6 +10,7 @@
       <!-- site metas -->
       <title>Tutores</title>
       <meta name="keywords" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
@@ -34,6 +35,7 @@
       <link rel="stylesheet" href="../static/css/custom.css" />
       <!-- calendar file css -->
       <link rel="stylesheet" href="../static/js/semantic.min.css" />
+      <link rel="stylesheet" type="text/css" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.../static/js/1.4.2/respond.min.js"></script>
@@ -63,16 +65,23 @@
                <div class="sidebar_blog_2">
                   <h4>General</h4>
                   <ul class="list-unstyled components">
-                     <li class="active"><a href="/dashboard"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a></li>
-                     <li><a href="/archivos"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
-                     <li><a href="/contact"><i class="fa fa-users red_color"></i> <span>Tutores</span></a></li>
-                     <li><a href="/estudio"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
-                     <li><a href="/podcast"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
-                     <li><a href="/chatbot"><i class="fas fa-comment" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
-                     <li><a href="/jarvis"><i class="fas fa-robot" style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
-                     {% if tutor %}
-                        <li><a href="/tutelados"><i class="fa fa-paper-plane red_color" style="color: #2f73e9;"></i> <span>Tutelados</span></a></li>
-                     {% endif %}
+                     <li class="active"><a href="/dashboard" class="dropdown-item"><i class="fas fa-house-user blue1_color"></i> <span>Inicio</span></a></li>
+                        <li><a href="/archivos" class="dropdown-item"><i class="fas fa-book orange_color"></i> <span>Archivos</span></a></li>
+                        <li><a href="/contact" class="dropdown-item"><i class="fa fa-users red_color"></i> <span>Tutores</span></a></li>
+                        <li><a href="/estudio" class="dropdown-item"><i class="fas fa-graduation-cap" style="--fa-primary-color: #22511f; --fa-secondary-color: #2cca21;"></i> <span>Estudio</span></a></li>
+                        <li><a href="/podcast" class="dropdown-item"><i class="fas fa-microphone purple_color"></i> <span>Podcast</span></a></li>
+                        <li><a href="/chatbot" class="dropdown-item"><i class="fas fa-comment" style="color: #2f73e9;"></i> <span>Chatbot</span></a></li>
+                        <li><a href="/jarvis" class="dropdown-item"><i class="fas fa-robot" style="color: #3f2fe9;"></i><span>JARVIS</span></a></li>
+                        {% if tutor %}
+                            <li><a href="/tutelados" class="dropdown-item"><i class="fa fa-paper-plane red_color" style="color: #2f73e9;"></i> <span>Tutelados</span></a></li>
+                        {% endif %}
+                        {% if tutor %}
+                            <li><a class="dropdown-item" href="/profileTutor"><span>Perfil</span><i class="fas fa-user" style="color: rgb(58, 145, 239);"></i></a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="/profile"><span>Perfil</span><i class="fas fa-user"></i></a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="/salir" formaction="/salir"><span>Salir</span> <i
+                                                class="fas fa-sign-out-alt"></i></a></li>
                   </ul>
                </div>
             </nav>
@@ -122,10 +131,16 @@
                <div class="notification-popup" id="ventanaNotificaciones">
                     <h3><br>Notificaciones</h3>
                     {% for notificacion in notificaciones %}
-                        <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
-                            {{ notificacion.mensaje }}
-                        </a>
-                    {% endfor %}
+                       {% if notificacion.mensaje == "Tutoria aceptada!!!" %}
+                           <a href="#" class="notification" onclick="borrarNotis('{{ notificacion.id_user }}')">
+                               {{ notificacion.mensaje }}
+                           </a>
+                       {% else %}
+                           <a href="#" class="notification" onclick="confirmarAccion('{{ notificacion.id_user }}')">
+                               {{ notificacion.mensaje }}
+                           </a>
+                       {% endif %}
+                   {% endfor %}
                </div>
 
                <!-- end topbar -->
@@ -155,20 +170,16 @@
                                        <h3>Lista de Tutores Registrados</h3>
                                        <div class="row">
                                           {% for contact in contacts %}
-                                             <form action="/pedir_tutoria" method="POST" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30 contact_form">
-                                                <div class="contact_blog">
+                                             <form action="/pedir_tutoria" method="POST" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile_details margin_bottom_30 contact_form container-fluid">
+                                                <div class="contact_blog container-fluid">
                                                    <div class="contact_inner">
+                                                      <img src="{{ contact.imagen }}" alt="Imagen de usuario" class="rounded-image img-fluid">
                                                       <div class="left">
                                                          <h4>{{ contact.nombre_apellido }}</h4>
                                                          <p><strong>Contact: </strong>{{ contact.email }}</p>
                                                          <p>{{ contact.asignaturas_tutor }}</p>
                                                          <button type="submit" class="boton_pedir_tutoria">Pedir Tutoría</button>
                                                          <input type="hidden" name="tutor_id" value="{{ contact.id_tutor }}">
-                                                      </div>
-                                                      <div class="right">
-                                                         <div class="rounded-container">
-                                                            <img src="{{contact.imagen}}" alt="Imagen de usuario" class="rounded-image">
-                                                         </div>
                                                       </div>
                                                    </div>
                                                 </div>

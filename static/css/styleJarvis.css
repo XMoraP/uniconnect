@@ -47,16 +47,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12vw;
+  width: 10vw;
   height: 80px;
   border-radius: 20px;
-  background: #0971b8;
   position: relative;
 }
 
 .main .input .talk,
 .main .input .stop {
-  background: transparent;
+  background: blue;
   outline: none;
   border: none;
   width: 60px;
@@ -128,6 +127,24 @@
 
 .shimmer-effect {
   animation: shimmer 8s infinite; /* Aplica la animación de brillo */
+}
+
+/* Estilos para dispositivos pequeños */
+@media (max-width: 768px) {
+  /* Modifica el diseño para pantallas pequeñas */
+  .main {
+      text-align: center;
+  }
+  .image-container {
+      margin-top: 20px;
+  }
+  .shimmer-effect {
+      font-size: 28px;
+  }
+  .main .input{
+    width: 5vw;
+  }
+  /* Ajusta otros estilos según sea necesario */
 }
 
 
