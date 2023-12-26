@@ -19,17 +19,17 @@ openai.api_key = os.getenv("API_KEY_IA")
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
-app.secret_key = '12345UN$'
+app.secret_key = os.getenv("APP_SECRET_KEY")
 
 app.config['UPLOAD_FOLDER'] = './files'
 ALLOWED_EXTENSIONS= {'pdf', 'txt'}
 
 # Configuración de la base de datos
-app.config['MYSQL_HOST'] = 'uni-connect.mysql.database.azure.com' 
-app.config['MYSQL_USER'] = 'XMoraP'
-app.config['MYSQL_PASSWORD'] = '12345678u$'
-app.config['MYSQL_DB'] = 'uniconnect'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['MYSQL_HOST'] = os.getenv("DB_HOST")  
+app.config['MYSQL_USER'] = os.getenv("DB_USER")
+app.config['MYSQL_PASSWORD'] = os.getenv("DB_PASSWORD")
+app.config['MYSQL_DB'] = os.getenv("DB")
+app.config['MYSQL_CURSORCLASS'] = os.getenv("CURSOSRCLASS")
 
 mysql = MySQL(app)
 
