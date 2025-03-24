@@ -11,7 +11,7 @@
 **UniConnect** es una plataforma desarrollada por estudiantes, para estudiantes, con el propósito de **facilitar la colaboración académica**. Desde organización de tareas hasta compartir apuntes y coordinar tutorías, UniConnect ofrece un entorno completo para potenciar el aprendizaje conjunto.
 
 <div align="center">
-  <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" height="180" alt="students gif" />
+  ![Gif, Lavori,professioni miste ,utilensi vari_ - page 3](https://github.com/user-attachments/assets/3c89ea3b-179b-419c-803d-265de56d72e1)
 </div>
 
 ---
